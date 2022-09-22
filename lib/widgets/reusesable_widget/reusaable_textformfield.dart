@@ -4,20 +4,19 @@ import 'package:findate/constants/appColor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-
 class MyTextField extends StatefulWidget {
   final TextEditingController? controller;
   final String? hintText;
   final String? labelText;
   final IconData? prefixIcon;
-  final IconButton? sufixIcon;
+  final IconData? sufixIcon;
   final bool isPassword;
   final bool obcureText;
   final bool isReadOnly;
   final Color borderColor;
   final TextInputType keyBoardType;
   final String? Function(String?)? validator;
-   final bool enable;
+  final bool enable;
 
   const MyTextField({
     Key? key,
@@ -49,22 +48,28 @@ class _MyTextFieldState extends State<MyTextField> {
         readOnly: widget.isReadOnly,
         obscureText: widget.obcureText,
         decoration: InputDecoration(
-          contentPadding: EdgeInsets.symmetric(vertical: 10, horizontal: 10.w),
-          focusedBorder: widget.enable? OutlineInputBorder(
-            borderSide: BorderSide(color: AppColor.mainColor, width: 2.0.w),
-          ) : OutlineInputBorder(),
-          enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.black, width: 1.0.w),
-          ),
-          border: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.pink, width: 1.0.w),
-          ),
           hintText: widget.hintText,
-          hintStyle: TextStyle(color: Colors.black, fontSize: 16.sp),
+          hintStyle: TextStyle(color: AppColor.mainColor, fontSize: 16.sp),
           labelText: widget.labelText,
           labelStyle: TextStyle(color: Colors.black54, fontSize: 16.sp),
-          // prefixIcon: Icon(widget.prefixIcon),
-          suffixIcon: widget.sufixIcon,
+          prefixIcon: Icon(widget.prefixIcon),
+          suffixIcon: Icon(widget.sufixIcon),
+          contentPadding: EdgeInsets.symmetric(vertical: 22, horizontal: 22.w),
+          focusedBorder: widget.enable
+              ? OutlineInputBorder(
+                  borderSide:
+                      BorderSide(color: AppColor.mainColor, width: 1.0.w),
+                  borderRadius: BorderRadius.circular(55),
+                )
+              : OutlineInputBorder(),
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: AppColor.mainColor, width: 1.0.w),
+            borderRadius: BorderRadius.circular(55),
+          ),
+          border: OutlineInputBorder(
+            borderSide: BorderSide(color: AppColor.mainColor, width: 1.0.w),
+            borderRadius: BorderRadius.circular(55),
+          ),
         ),
         validator: widget.validator,
       ),

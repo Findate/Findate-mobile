@@ -19,7 +19,7 @@ class ReuseableButton extends StatelessWidget {
       {Key? key,
       required this.text,
       required this.onPressed,
-      this.height = 50,
+      this.height = 55,
       this.textSize = 16,
       this.width = 327,
       this.isActive = true,
@@ -38,7 +38,7 @@ class ReuseableButton extends StatelessWidget {
       child: TextButton(
           style: TextButton.styleFrom(
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(5.r),
+              borderRadius: BorderRadius.circular(55.r),
             ),
             backgroundColor: backGroundColor,
             minimumSize: Size.fromHeight(70.h),
@@ -48,7 +48,7 @@ class ReuseableButton extends StatelessWidget {
           child: NormalText(
             size: textSize,
             color: textColor,
-            fontWeight: FontWeight.normal,
+            fontWeight: FontWeight.bold,
             text: text,
           )),
     );

@@ -1,6 +1,7 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 
 
@@ -28,6 +29,11 @@ class NormalText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       text,
+        style:GoogleFonts.nunito(
+        color: color,
+        fontSize: size,
+        fontWeight: fontWeight
+      ),
     
     
     );

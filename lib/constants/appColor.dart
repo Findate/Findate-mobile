@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 
 class AppColor {
 
- static const Color mainColor = Colors.pink;
+ static const Color mainColor = Color(0xffFF6685);
 
 static const Color dullBlack = Colors.black;
 
