@@ -1,4 +1,5 @@
 import 'package:findate/constants/appColor.dart';
+import 'package:findate/view/auth/signup_screen.dart';
 import 'package:findate/widgets/reusesable_widget/normal_text.dart';
 import 'package:findate/widgets/reusesable_widget/reusaable_textformfield.dart';
 import 'package:findate/widgets/reusesable_widget/reuseable_button.dart';
@@ -24,7 +25,7 @@ class _LoginScreenState extends State<LoginScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const SizedBox(
-              height: 50,
+              height: 30,
             ),
             NormalText(
               text: 'Welcome Back',
@@ -42,7 +43,7 @@ class _LoginScreenState extends State<LoginScreen> {
               color: const Color(0xff808080),
             ),
             const SizedBox(
-              height: 30,
+              height: 60,
             ),
             const MyTextField(
                 prefixIcon: Icons.person,
@@ -90,7 +91,7 @@ class _LoginScreenState extends State<LoginScreen> {
               ],
             ),
             const SizedBox(
-              height: 70,
+              height: 50,
             ),
             ReuseableButton(text: 'Login', onPressed: () {}),
             SizedBox(
@@ -146,7 +147,13 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             Center(
               child: TextButton(
-                onPressed: () {},
+                onPressed: () {
+                     Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: ((context) => const SignUpScreen()),
+                    ),
+                  );
+                },
                 child: RichText(
                   text: TextSpan(
                     style: TextStyle(
