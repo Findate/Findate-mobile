@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
           title: 'Fin Date',
           theme: ThemeData(
             primaryColor: Colors.pink[50],
-            // primarySwatch: Colors.pink[50],
+            primarySwatch: Colors.pink,
             unselectedWidgetColor: AppColor.mainColor
           ),
            home: const SignUpScreen(),
