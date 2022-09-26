@@ -41,6 +41,9 @@ dependencies:
   #extra fonts
   google_fonts: 2.2.0
 
+  #pin pads
+  pinput: ^2.2.12
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
