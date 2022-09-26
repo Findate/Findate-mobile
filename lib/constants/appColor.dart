@@ -7,15 +7,18 @@ class AppColor {
 
  static const Color mainColor = Color(0xffFF6685);
 
+ static const Color secondaryMain = Color(0xff6D64FF);
+
+static const Color grey400 = Color(0xff808080);
+
+
 static const Color dullBlack = Colors.black;
 
-// static const Color dullerBlack = Color(0xffbfbfbf);
 
-static const Color dullerBlack = Colors.black;
 
-static const Color darkContainer = Color(0xffE5E5E5);
 
-static const Color iconBlack = Color(0xff000001);
+
+
 
 
 
