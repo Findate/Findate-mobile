@@ -1,4 +1,5 @@
 import 'package:findate/constants/appColor.dart';
+import 'package:findate/view/auth/login_screen.dart';
 import 'package:findate/widgets/reusesable_widget/normal_text.dart';
 import 'package:findate/widgets/reusesable_widget/reuseable_button.dart';
 import 'package:flutter/material.dart';
@@ -70,16 +71,28 @@ class _LandingPageState extends State<LandingPage> {
               ReuseableButton(
                 text: 'Continue',
                 onPressed: () {
-                  pageController.nextPage(
-                      duration: const Duration(milliseconds: 500),
-                      curve: Curves.easeOut);
+                  !isLastPage
+                      ? pageController.nextPage(
+                          duration: const Duration(milliseconds: 500),
+                          curve: Curves.easeOut)
+                      : Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: ((context) => const LoginScreen()),
+                          ),
+                        );
                 },
               ),
               SizedBox(
                 height: 20.h,
               ),
               TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: ((context) => const LoginScreen()),
+                    ),
+                  );
+                },
                 child: NormalText(
                   text: 'Skip',
                   color: AppColor.mainColor,
