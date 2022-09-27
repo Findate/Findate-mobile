@@ -7,13 +7,25 @@ class ReusesableAppbarButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height:52.h,
-      width: 52.w,
-      margin: const EdgeInsets.all(15.0),
-      padding: const EdgeInsets.all(3.0),
-      decoration: BoxDecoration(border: Border.all(color:const Color(0xffE8E6EA), ), borderRadius: BorderRadius.circular(15.r)),
-      child:const Icon(Icons.keyboard_arrow_left_outlined , color: AppColor.mainColor,),
+    return InkWell(
+      onTap: () {
+        Navigator.pop(context);
+      },
+      child: Container(
+        height: 52.h,
+        width: 52.w,
+        margin: const EdgeInsets.all(15.0),
+        padding: const EdgeInsets.all(3.0),
+        decoration: BoxDecoration(
+            border: Border.all(
+              color: const Color(0xffE8E6EA),
+            ),
+            borderRadius: BorderRadius.circular(15.r)),
+        child: const Icon(
+          Icons.keyboard_arrow_left_outlined,
+          color: AppColor.mainColor,
+        ),
+      ),
     );
   }
 }

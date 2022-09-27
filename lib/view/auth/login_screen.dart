@@ -46,7 +46,13 @@ class _LoginScreenState extends State<LoginScreen> {
               const SizedBox(
                 height: 30,
               ),
-              const MyTextField(
+              MyTextField(
+                  validator: (val) {
+                    if (val!.isEmpty) {
+                      return 'Field cannot be empty';
+                    }
+                    return null;
+                  },
                   prefixIcon: Icons.person,
                   isPassword: false,
                   obcureText: false,
@@ -56,7 +62,13 @@ class _LoginScreenState extends State<LoginScreen> {
               const SizedBox(
                 height: 20,
               ),
-              const MyTextField(
+              MyTextField(
+                validator: (val) {
+                    if (val!.isEmpty) {
+                      return 'Field cannot be empty';
+                    }
+                    return null;
+                  },
                   prefixIcon: Icons.lock,
                   isPassword: true,
                   obcureText: true,
@@ -127,9 +139,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: Image.asset('assets/facebook.png'),
                   ),
                   ElevatedButton(
-                    onPressed: () {
-                 
-                    },
+                    onPressed: () {},
                     style: ButtonStyle(
                       padding: MaterialStateProperty.all(
                           const EdgeInsets.symmetric(
@@ -151,7 +161,7 @@ class _LoginScreenState extends State<LoginScreen> {
               Center(
                 child: TextButton(
                   onPressed: () {
-                       Navigator.of(context).push(
+                    Navigator.of(context).push(
                       MaterialPageRoute(
                         builder: ((context) => const SignUpScreen()),
                       ),

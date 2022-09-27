@@ -15,6 +15,10 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
+  //sign up form key
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  //check of checked box is ticked or not
   bool check = false;
   @override
   Widget build(BuildContext context) {
@@ -63,50 +67,87 @@ class _SignUpScreenState extends State<SignUpScreen> {
               const SizedBox(
                 height: 20,
               ),
-              const MyTextField(
-                  isPassword: false,
-                  obcureText: false,
-                  isReadOnly: false,
-                  labelText: 'First Name',
-                  keyBoardType: TextInputType.text),
-              const SizedBox(
-                height: 20,
+              Form(
+                key: _formKey,
+                child: Column(
+                  children: [
+                    MyTextField(
+                        validator: (val) {
+                          if (val!.isEmpty) {
+                            return 'Field cannot be empty';
+                          }
+                          return null;
+                        },
+                        isPassword: false,
+                        obcureText: false,
+                        isReadOnly: false,
+                        labelText: 'First Name',
+                        keyBoardType: TextInputType.text),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    MyTextField(
+                        validator: (val) {
+                          if (val!.isEmpty) {
+                            return 'Field cannot be empty';
+                          }
+                          return null;
+                        },
+                        isPassword: false,
+                        obcureText: false,
+                        isReadOnly: false,
+                        labelText: 'Last Name',
+                        keyBoardType: TextInputType.text),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    MyTextField(
+                        validator: (val) {
+                          if (val!.isEmpty) {
+                            return 'Field cannot be empty';
+                          }
+                          return null;
+                        },
+                        isPassword: false,
+                        obcureText: false,
+                        isReadOnly: false,
+                        labelText: 'Email',
+                        keyBoardType: TextInputType.text),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    MyTextField(
+                        validator: (val) {
+                          if (val!.isEmpty) {
+                            return 'Field cannot be empty';
+                          }
+                          return null;
+                        },
+                        isPassword: false,
+                        obcureText: false,
+                        isReadOnly: false,
+                        labelText: 'Password',
+                        keyBoardType: TextInputType.text,
+                        sufixIcon: Icons.visibility_off),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    MyTextField(
+                        validator: (val) {
+                          if (val!.isEmpty) {
+                            return 'Field cannot be empty';
+                          }
+                          return null;
+                        },
+                        isPassword: false,
+                        obcureText: false,
+                        isReadOnly: false,
+                        labelText: 'Confirm Password',
+                        sufixIcon: Icons.visibility_off,
+                        keyBoardType: TextInputType.text),
+                  ],
+                ),
               ),
-              const MyTextField(
-                  isPassword: false,
-                  obcureText: false,
-                  isReadOnly: false,
-                  labelText: 'Last Name',
-                  keyBoardType: TextInputType.text),
-              const SizedBox(
-                height: 20,
-              ),
-              const MyTextField(
-                  isPassword: false,
-                  obcureText: false,
-                  isReadOnly: false,
-                  labelText: 'Email',
-                  keyBoardType: TextInputType.text),
-              const SizedBox(
-                height: 20,
-              ),
-              const MyTextField(
-                  isPassword: false,
-                  obcureText: false,
-                  isReadOnly: false,
-                  labelText: 'Password',
-                  keyBoardType: TextInputType.text,
-                  sufixIcon: Icons.visibility_off),
-              const SizedBox(
-                height: 20,
-              ),
-              const MyTextField(
-                  isPassword: false,
-                  obcureText: false,
-                  isReadOnly: false,
-                  labelText: 'Confirm Password',
-                  sufixIcon: Icons.visibility_off,
-                  keyBoardType: TextInputType.text),
               const SizedBox(
                 height: 10,
               ),
@@ -152,11 +193,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
               ReuseableButton(
                   text: 'SignUp',
                   onPressed: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: ((context) => const ConfirmEmailScreen()),
-                      ),
-                    );
+                    if (_formKey.currentState!.validate()) {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: ((context) => const ConfirmEmailScreen()),
+                        ),
+                      );
+                    }
                   }),
               const SizedBox(
                 height: 10,
