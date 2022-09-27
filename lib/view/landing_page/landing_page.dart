@@ -61,7 +61,7 @@ class _LandingPageState extends State<LandingPage> {
           ],
         ),
         bottomSheet: SizedBox(
-          height: 150.h,
+          height: 250.h,
           child: Column(
             children: [
               SizedBox(
@@ -139,9 +139,9 @@ class _LandingPageState extends State<LandingPage> {
             child: NormalText(
               textAlign: TextAlign.center,
               text: title,
-              size: 19.2.sp,
+              size: 20.sp,
               color: AppColor.secondaryMain,
-              fontWeight: FontWeight.w600,
+              fontWeight: FontWeight.bold,
             ),
           ),
           SizedBox(
