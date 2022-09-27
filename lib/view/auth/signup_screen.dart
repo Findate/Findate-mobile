@@ -1,4 +1,5 @@
 import 'package:findate/constants/appColor.dart';
+import 'package:findate/view/auth/confirm_email.dart';
 import 'package:findate/view/auth/login_screen.dart';
 import 'package:findate/widgets/reusesable_widget/normal_text.dart';
 import 'package:findate/widgets/reusesable_widget/reusaable_textformfield.dart';
@@ -138,8 +139,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         TextSpan(
                           text: 'Privacy Policy',
                           style: TextStyle(
-                              color: const Color(0xff6D64FF),
-                              fontSize: 20.sp),
+                              color: const Color(0xff6D64FF), fontSize: 20.sp),
                         ),
                       ],
                     ),
@@ -149,7 +149,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
               const SizedBox(
                 height: 30,
               ),
-              ReuseableButton(text: 'SignUp', onPressed: () {}),
+              ReuseableButton(
+                  text: 'SignUp',
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: ((context) => const ConfirmEmailScreen()),
+                      ),
+                    );
+                  }),
               const SizedBox(
                 height: 10,
               ),

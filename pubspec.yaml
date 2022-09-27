@@ -42,7 +42,7 @@ dependencies:
   google_fonts: 2.2.0
 
   #pin pads
-  pinput: ^2.2.12
+  pin_code_fields: ^7.4.0
 
 dev_dependencies:
   flutter_test:

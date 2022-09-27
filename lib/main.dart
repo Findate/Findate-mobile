@@ -1,7 +1,5 @@
 import 'package:findate/constants/appColor.dart';
-import 'package:findate/view/auth/confirm_email.dart';
 import 'package:findate/view/auth/login_screen.dart';
-import 'package:findate/view/auth/signup_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/services.dart';
@@ -38,7 +36,7 @@ class MyApp extends StatelessWidget {
             primarySwatch: Colors.pink,
             unselectedWidgetColor: AppColor.mainColor
           ),
-           home: const ConfirmEmailScreen(),
+           home: const LoginScreen(),
      
         ); 
       },
