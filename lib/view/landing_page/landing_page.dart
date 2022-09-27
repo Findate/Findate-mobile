@@ -35,178 +35,131 @@ class _LandingPageState extends State<LandingPage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: SizedBox(
-          child: PageView(
-            controller: pageController,
-            onPageChanged: (index) {
-              setState(() {
-                isLastPage = index == 2;
-              });
-            },
+        body: PageView(
+          controller: pageController,
+          onPageChanged: (index) {
+            setState(() {
+              isLastPage = index == 2;
+            });
+          },
+          children: [
+            buildPage(
+                urlImage: 'assets/landingImage1.png',
+                title: 'Turn Your Romantic Dreams into Live Experiences',
+                message:
+                    'At no Cost, Findate  simply grows your confidence, ignite your flame, and sucessfully   find you a date you will save in your love calendar for the rest of your life'),
+            buildPage(
+                urlImage: 'assets/landingImage2.png',
+                title: 'Meet and Connect with the Right parts You Desire',
+                message:
+                    'Findate connects you to prospective partners of similar interests, through our online community of several nearby users. '),
+            buildPage(
+                urlImage: 'assets/landingImage3.png',
+                title: 'Ready For An Everlasting Romantic Experience',
+                message:
+                    'Findate is that discreet place you need.  Findate is built with special app features to help you reach your match'),
+          ],
+        ),
+        bottomSheet: SizedBox(
+          height: 150.h,
+          child: Column(
             children: [
-              buildPage(
-                  color: Colors.white10,
-                  urlImage: 'lib/assets/landingImage1.png',
-                  title: 'Library Accessibility',
-                  subTitle1: 'Materials of all classes are made',
-                  subTitle2: ' available and note can be jot',
-                  subTitle3: ' down for personal uses'),
-              buildPage(
-                  color: Colors.white,
-                  urlImage: 'lib/assets/landingImage2.png',
-                  title: 'Activity Reminder',
-                  subTitle1: 'Reminders are used to reduce the ',
-                  subTitle2: 'rate of forgetfulnessof students'),
-              buildPage(
-                  color: Colors.white,
-                  urlImage: 'lib/assets/landingImage3.png',
-                  title: 'Latest Information',
-                  subTitle1: 'Latest new on campus and',
-                  subTitle2: 'scholarship aids can be accessed',
-                  subTitle3: 'easily'),
+              SizedBox(
+                height: 20.h,
+              ),
+              ReuseableButton(
+                text: 'Continue',
+                onPressed: () {
+                  pageController.nextPage(
+                      duration: const Duration(milliseconds: 500),
+                      curve: Curves.easeOut);
+                },
+              ),
+              SizedBox(
+                height: 20.h,
+              ),
+              TextButton(
+                onPressed: () {},
+                child: NormalText(
+                  text: 'Skip',
+                  color: AppColor.mainColor,
+                ),
+              ),
             ],
           ),
         ),
-        bottomSheet: !isLastPage
-            ? SizedBox(
-                height: 70.h,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    TextButton(
-                      onPressed: () {
-                        pageController.jumpToPage(2);
-                      },
-                      child: NormalText(
-                        text: 'Skip',
-                        size: 14.sp,
-                        color: AppColor.mainColor,
-                      ),
-                    ),
-                    Center(
-                      child: SmoothPageIndicator(
-                        controller: pageController,
-                        count: 3,
-                        effect: WormEffect(
-                            dotWidth: 10.w,
-                            dotHeight: 10.h,
-                            activeDotColor: AppColor.mainColor,
-                            dotColor: Colors.black12),
-                        onDotClicked: (index) => pageController.animateToPage(
-                            index,
-                            duration: const Duration(milliseconds: 500),
-                            curve: Curves.easeOut),
-                      ),
-                    ),
-                    ReuseableButton(
-                      height: 55.h,
-                      width: 55.w,
-                      text: '>',
-                      textSize: 30.sp,
-                      onPressed: () {
-                        pageController.nextPage(
-                            duration: const Duration(milliseconds: 500),
-                            curve: Curves.easeOut);
-                      },
-                    )
-                  ],
-                ),
-              )
-            : SizedBox(
-                height: 70.h,
-                child: Center(
-                  child: Column(
-                    children: [
-                      ReuseableButton(
-                        height: 45.h,
-                        text: 'Get Started',
-                        onPressed: () {
-                        
-                        },
-                      ),
-                      SizedBox(
-                        height: 10.h,
-                      ),
-                      SmoothPageIndicator(
-                        controller: pageController,
-                        count: 3,
-                        effect: WormEffect(
-                            dotWidth: 10.w,
-                            dotHeight: 10.h,
-                            activeDotColor: AppColor.mainColor,
-                            dotColor: Colors.black12),
-                        onDotClicked: (index) => pageController.animateToPage(
-                            index,
-                            duration: const Duration(milliseconds: 500),
-                            curve: Curves.easeOut),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
       ),
     );
   }
 
   Widget buildPage({
-    required Color color,
     required String urlImage,
     required String title,
-    required String subTitle1,
-    required String subTitle2,
-    String subTitle3 = '',
+    String message = '',
   }) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
-      child: Container(
-        color: color,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              height: 425.h,
-              width: 302.w,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(5.r),
-                image: DecorationImage(
-                    image: AssetImage(urlImage), fit: BoxFit.cover),
-              ),
+      padding: EdgeInsets.symmetric(horizontal: 10.w),
+      child: Column(
+        children: [
+          SizedBox(
+            height: 50.h,
+          ),
+          Container(
+            height: 248.h,
+            width: 327.w,
+            decoration: BoxDecoration(
+              // color: AppColor.secondaryMain,
+              borderRadius: BorderRadius.circular(5.r),
+              image: DecorationImage(
+                  image: AssetImage(urlImage), fit: BoxFit.cover),
             ),
-            SizedBox(
-              height: 25.h,
+          ),
+          SizedBox(
+            height: 24.h,
+          ),
+          Center(
+            child: SmoothPageIndicator(
+              controller: pageController,
+              count: 3,
+              effect: WormEffect(
+                  dotWidth: 10.w,
+                  dotHeight: 10.h,
+                  activeDotColor: AppColor.mainColor,
+                  dotColor: Colors.black12),
+              onDotClicked: (index) => pageController.animateToPage(index,
+                  duration: const Duration(milliseconds: 500),
+                  curve: Curves.easeOut),
             ),
-            NormalText(
+          ),
+          SizedBox(
+            height: 25.h,
+          ),
+          SizedBox(
+            width: 343.w,
+            child: NormalText(
+              textAlign: TextAlign.center,
               text: title,
               size: 19.2.sp,
-              color: AppColor.mainColor,
+              color: AppColor.secondaryMain,
               fontWeight: FontWeight.w600,
             ),
-            SizedBox(
-              height: 7.h,
-            ),
-            NormalText(
-              text: subTitle1,
+          ),
+          SizedBox(
+            height: 7.h,
+          ),
+          SizedBox(
+            height: 7.h,
+          ),
+          SizedBox(
+            width: 343.w,
+            child: NormalText(
+              textAlign: TextAlign.center,
+              text: message,
               size: 16.sp,
               color: Colors.black54,
             ),
-            SizedBox(
-              height: 7.h,
-            ),
-            NormalText(
-              text: subTitle2,
-              size: 16.sp,
-              color: Colors.black54,
-            ),
-            SizedBox(
-              height: 7.h,
-            ),
-            NormalText(
-              text: subTitle3,
-              size: 16.sp,
-              color: Colors.black54,
-            )
-          ],
-        ),
+          )
+        ],
       ),
     );
   }
