@@ -54,6 +54,10 @@ dependencies:
   #spalsh screen
   flutter_native_splash: 1.2.0
 
+  #step indicator
+  step_progress_indicator: ^1.0.2
+
+
 
 
 # flutter pub run flutter_native_splash:create
