@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class MyTextField extends StatefulWidget {
-  final TextEditingController? controller;
+  final  TextEditingController? controller;
   final String? hintText;
   final String? labelText;
   final IconData? prefixIcon;

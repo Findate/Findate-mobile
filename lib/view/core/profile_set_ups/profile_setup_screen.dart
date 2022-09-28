@@ -6,7 +6,6 @@ import 'package:findate/widgets/reusesable_widget/reuseable_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-import 'package:step_progress_indicator/step_progress_indicator.dart';
 
 class ProfileSetupScreen extends StatefulWidget {
   const ProfileSetupScreen({Key? key}) : super(key: key);
@@ -49,9 +48,15 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> {
               });
             },
             children: [
-              firstSetupSreen(_pageController),
-              secondSetupScreen(_pageController),
-              firstSetupSreen(_pageController),
+              FirstSetupScreen(
+                pageController: _pageController,
+              ),
+              SecondSetupScreen(
+                pageController: _pageController,
+              ),
+              FirstSetupScreen(
+                pageController: _pageController,
+              ),
             ],
           ),
         ),
@@ -79,4 +84,3 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> {
     );
   }
 }
-
