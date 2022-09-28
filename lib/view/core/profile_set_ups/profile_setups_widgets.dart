@@ -198,8 +198,7 @@ class _SecondSetupScreenState extends State<SecondSetupScreen> {
   Widget build(
     BuildContext context,
   ) {
-    return 
-    Column(
+    return Column(
       children: [
         SizedBox(
           height: 25.h,
