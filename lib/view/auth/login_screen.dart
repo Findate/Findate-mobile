@@ -59,7 +59,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     obcureText: false,
                     isReadOnly: false,
                     labelText: 'User Name',
-                    keyBoardType: TextInputType.text),
+                    keyBoardType: TextInputType.text,),
                 const SizedBox(
                   height: 20,
                 ),

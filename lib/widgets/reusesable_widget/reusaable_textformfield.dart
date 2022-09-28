@@ -13,7 +13,7 @@ class MyTextField extends StatefulWidget {
   final bool isPassword;
   final bool obcureText;
   final bool isReadOnly;
-  final Color borderColor;
+  final Color? borderColor;
   final TextInputType keyBoardType;
   final String? Function(String?)? validator;
   final bool enable;
