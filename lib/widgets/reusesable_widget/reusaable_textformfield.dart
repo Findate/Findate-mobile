@@ -9,7 +9,7 @@ class MyTextField extends StatefulWidget {
   final String? hintText;
   final String? labelText;
   final IconData? prefixIcon;
-  final IconData? sufixIcon;
+  final IconButton? sufixIcon;
   final bool isPassword;
   final bool obcureText;
   final bool isReadOnly;
@@ -53,7 +53,7 @@ class _MyTextFieldState extends State<MyTextField> {
           labelText: widget.labelText,
           labelStyle: TextStyle(color: Colors.black54, fontSize: 16.sp),
           prefixIcon: Icon(widget.prefixIcon),
-          suffixIcon: Icon(widget.sufixIcon),
+          suffixIcon: widget.sufixIcon,
           contentPadding: EdgeInsets.symmetric(vertical: 22, horizontal: 22.w),
           focusedBorder: widget.enable
               ? OutlineInputBorder(

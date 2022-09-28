@@ -21,7 +21,7 @@
 19        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
 19-->[androidx.core:core:1.6.0] C:\Users\4GUYS ACCOUNT\.gradle\caches\transforms-3\acbce933e4b464a5224ed377a62db1f5\transformed\core-1.6.0\AndroidManifest.xml:24:18-86
 20        android:debuggable="true"
-21        android:icon="@mipmap/ic_launcher"
+21        android:icon="@mipmap/launcher_icon"
 22        android:label="findate" >
 23        <activity
 24            android:name="com.example.findate.MainActivity"

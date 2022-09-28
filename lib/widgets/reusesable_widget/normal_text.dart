@@ -28,11 +28,13 @@ class NormalText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text(
+      textAlign: textAlign,
       text,
         style:GoogleFonts.nunito(
         color: color,
         fontSize: size,
         fontWeight: fontWeight
+        
       ),
     
     

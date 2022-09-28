@@ -165,7 +165,8 @@ class _LandingPageState extends State<LandingPage> {
           ),
           SizedBox(
             width: 343.w,
-            child: NormalText(
+            child: 
+            NormalText(
               textAlign: TextAlign.center,
               text: message,
               size: 16.sp,
