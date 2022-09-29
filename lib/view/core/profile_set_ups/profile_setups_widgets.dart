@@ -27,10 +27,10 @@ class FirstSetupScreen extends StatelessWidget {
               controller: pageController,
               count: 3,
               effect: ExpandingDotsEffect(
-                  spacing: 30,
+                  spacing: 70,
                   dotWidth: 10.w,
                   dotHeight: 10.h,
-                  activeDotColor: AppColor.mainColor,
+                  activeDotColor: AppColor.secondaryMain,
                   dotColor: Colors.black12),
               onDotClicked: (index) => pageController.animateToPage(index,
                   duration: const Duration(milliseconds: 500),
@@ -209,10 +209,10 @@ class _SecondSetupScreenState extends State<SecondSetupScreen> {
           controller: widget.pageController,
           count: 3,
           effect: ExpandingDotsEffect(
-              spacing: 30,
+              spacing: 70,
               dotWidth: 10.w,
               dotHeight: 10.h,
-              activeDotColor: AppColor.mainColor,
+              activeDotColor: AppColor.secondaryMain,
               dotColor: Colors.black12),
           onDotClicked: (index) => widget.pageController.animateToPage(index,
               duration: const Duration(milliseconds: 500),
@@ -306,15 +306,19 @@ class _SecondSetupScreenState extends State<SecondSetupScreen> {
 //Third SetupScreen
 class ThirdSetupScreen extends StatefulWidget {
   final PageController pageController;
-  const ThirdSetupScreen({Key? key, required this.pageController})
-      : super(key: key);
+
+  const ThirdSetupScreen({
+    Key? key,
+    required this.pageController,
+  }) : super(key: key);
 
   @override
   State<ThirdSetupScreen> createState() => _ThirdSetupScreenState();
 }
 
 class _ThirdSetupScreenState extends State<ThirdSetupScreen> {
-  CalendarFormat format = CalendarFormat.month;
+  String message = '';
+
   @override
   Widget build(
     BuildContext context,
@@ -324,39 +328,100 @@ class _ThirdSetupScreenState extends State<ThirdSetupScreen> {
         SizedBox(
           height: 25.h,
         ),
-        Row(
+        SmoothPageIndicator(
+          controller: widget.pageController,
+          count: 3,
+          effect: ExpandingDotsEffect(
+              spacing: 70,
+              dotWidth: 10.w,
+              dotHeight: 10.h,
+              activeDotColor: AppColor.secondaryMain,
+              dotColor: Colors.black12),
+          onDotClicked: (index) => widget.pageController.animateToPage(index,
+              duration: const Duration(milliseconds: 500),
+              curve: Curves.easeOut),
+        ),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
-              width: 154.w,
-              height: 62.h,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                border: Border.all(width: 1.0, color: AppColor.secondaryMain),
-                borderRadius: BorderRadius.circular(5.r),
-              ),
+            SizedBox(
+              height: 16.h,
+            ),
+            Padding(
+              padding: const EdgeInsets.all(7.5),
               child: NormalText(
-                text: 'cooking',
-                color: AppColor.secondaryMain,
-                size: 14.sp,
+                text: 'Select Interest',
+                size: 16.sp,
+                fontWeight: FontWeight.w600,
               ),
             ),
-               Container(
-              width: 154.w,
-              height: 62.h,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                border: Border.all(width: 1.0, color: AppColor.secondaryMain),
-                borderRadius: BorderRadius.circular(5.r),
-              ),
-              child: NormalText(
-                text: 'cooking',
-                color: AppColor.secondaryMain,
-                size: 14.sp,
-              ),
+            SizedBox(
+              height: 25.h,
+            ),
+            Row(
+              children: [cards('Cooking'), cards('Traveling')],
+            ),
+            Row(
+              children: [cards('Baking'), cards('Football')],
+            ),
+            Row(
+              children: [cards('Dancing'), cards('Eating')],
+            ),
+            Row(
+              children: [cards('Reading'), cards('Painting')],
+            ),
+            Row(
+              children: [cards('Reading'), cards('Painting')],
+            ),
+            Row(
+              children: [cards('Reading'), cards('Painting')],
+            ),
+            Row(
+              children: [cards('Reading'), cards('Painting')],
+            ),
+            Padding(
+              padding: const EdgeInsets.all(7.5),
+              child: TextFormField(
+                  cursorColor: AppColor.grey400,
+                  decoration: const InputDecoration(
+                    hintText: 'Type interst here',
+                    hintStyle: TextStyle(color: AppColor.grey400, fontSize: 12),
+                    enabledBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: AppColor.grey400),
+                    ),
+                    focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: AppColor.grey400),
+                    ),
+                    border: UnderlineInputBorder(
+                      borderSide: BorderSide(color: AppColor.grey400),
+                    ),
+                  )),
             ),
           ],
-        )
+        ),
       ],
+    );
+  }
+
+  Widget cards(String message) {
+    return Padding(
+      padding: const EdgeInsets.all(7.5),
+      child: Container(
+        width: 154.w,
+        height: 52.h,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          border: Border.all(width: 1.0, color: AppColor.secondaryMain),
+          borderRadius: BorderRadius.circular(5.r),
+        ),
+        child: Center(
+          child: NormalText(
+            text: message,
+            color: AppColor.secondaryMain,
+            size: 14.sp,
+          ),
+        ),
+      ),
     );
   }
 }
