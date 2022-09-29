@@ -1,11 +1,9 @@
-import 'package:findate/constants/appColor.dart';
+
 import 'package:findate/view/auth/login_screen.dart';
 import 'package:findate/view/core/profile_set_ups/profile_setups_widgets.dart';
-import 'package:findate/widgets/reusesable_widget/normal_text.dart';
 import 'package:findate/widgets/reusesable_widget/reuseable_button.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+
 
 class ProfileSetupScreen extends StatefulWidget {
   const ProfileSetupScreen({Key? key}) : super(key: key);
@@ -54,7 +52,7 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> {
               SecondSetupScreen(
                 pageController: _pageController,
               ),
-              FirstSetupScreen(
+              ThirdSetupScreen(
                 pageController: _pageController,
               ),
             ],

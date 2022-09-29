@@ -1,3 +1,5 @@
+// ignore_for_file: no_leading_underscores_for_local_identifiers
+
 import 'package:findate/constants/appColor.dart';
 import 'package:findate/widgets/reusesable_widget/normal_text.dart';
 import 'package:flutter/material.dart';
@@ -229,7 +231,9 @@ class _SecondSetupScreenState extends State<SecondSetupScreen> {
             ),
             SizedBox(
               height: 400.h,
-              child: TableCalendar(
+              child:
+                  // showDatePicker(context: context, initialDate: DateTime.now(), firstDate: DateTime(1990), lastDate: DateTime(2050))
+                  TableCalendar(
                 firstDay: DateTime(1990),
                 focusedDay: DateTime.now(),
                 lastDay: DateTime(2050),
@@ -299,4 +303,60 @@ class _SecondSetupScreenState extends State<SecondSetupScreen> {
   }
 }
 
+//Third SetupScreen
+class ThirdSetupScreen extends StatefulWidget {
+  final PageController pageController;
+  const ThirdSetupScreen({Key? key, required this.pageController})
+      : super(key: key);
 
+  @override
+  State<ThirdSetupScreen> createState() => _ThirdSetupScreenState();
+}
+
+class _ThirdSetupScreenState extends State<ThirdSetupScreen> {
+  CalendarFormat format = CalendarFormat.month;
+  @override
+  Widget build(
+    BuildContext context,
+  ) {
+    return Column(
+      children: [
+        SizedBox(
+          height: 25.h,
+        ),
+        Row(
+          children: [
+            Container(
+              width: 154.w,
+              height: 62.h,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                border: Border.all(width: 1.0, color: AppColor.secondaryMain),
+                borderRadius: BorderRadius.circular(5.r),
+              ),
+              child: NormalText(
+                text: 'cooking',
+                color: AppColor.secondaryMain,
+                size: 14.sp,
+              ),
+            ),
+               Container(
+              width: 154.w,
+              height: 62.h,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                border: Border.all(width: 1.0, color: AppColor.secondaryMain),
+                borderRadius: BorderRadius.circular(5.r),
+              ),
+              child: NormalText(
+                text: 'cooking',
+                color: AppColor.secondaryMain,
+                size: 14.sp,
+              ),
+            ),
+          ],
+        )
+      ],
+    );
+  }
+}
