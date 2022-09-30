@@ -1,8 +1,11 @@
 import 'package:findate/constants/appColor.dart';
 import 'package:findate/view/core/profile_set_ups/profile_setup_screen.dart';
+import 'package:findate/view/core/profile_set_ups/purpose_for_signup_screen.dart';
+import 'package:findate/view/landing_page/landing_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/services.dart';
+
 
 
 
@@ -36,7 +39,7 @@ class MyApp extends StatelessWidget {
             primarySwatch: Colors.pink,
             unselectedWidgetColor: AppColor.mainColor
           ),
-           home: const ProfileSetupScreen(),
+           home: const LandingPage()
      
         ); 
       },

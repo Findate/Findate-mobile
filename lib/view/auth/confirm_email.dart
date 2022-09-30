@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:findate/constants/appColor.dart';
+import 'package:findate/view/core/profile_set_ups/purpose_for_signup_screen.dart';
 import 'package:findate/widgets/reusesable_widget/normal_text.dart';
 import 'package:findate/widgets/reusesable_widget/reuseable_appbar_button.dart';
 import 'package:findate/widgets/reusesable_widget/reuseable_button.dart';
@@ -35,7 +36,9 @@ class _ConfirmEmailScreenState extends State<ConfirmEmailScreen> {
       child: Scaffold(
         body: Column(
           children: [
-            SizedBox(height: 10.h,),
+            SizedBox(
+              height: 10.h,
+            ),
             Row(
               children: [
                 const ReusesableAppbarButton(),
@@ -145,7 +148,15 @@ class _ConfirmEmailScreenState extends State<ConfirmEmailScreen> {
                 // },
               ),
             ),
-            ReuseableButton(text: 'Verify', onPressed: () {}),
+            ReuseableButton(
+                text: 'Verify',
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: ((context) => const PurposeForSignup()),
+                    ),
+                  );
+                }),
             const SizedBox(
               height: 40,
             ),
@@ -159,8 +170,8 @@ class _ConfirmEmailScreenState extends State<ConfirmEmailScreen> {
                 children: <TextSpan>[
                   TextSpan(
                       text: 'I did not receive any code, ',
-                      style:
-                          TextStyle(color: AppColor.dullBlack, fontSize: 14.sp)),
+                      style: TextStyle(
+                          color: AppColor.dullBlack, fontSize: 14.sp)),
                   TextSpan(
                     text: 'Resend Code',
                     style: TextStyle(

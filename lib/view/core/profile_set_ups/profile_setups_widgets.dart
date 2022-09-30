@@ -230,7 +230,7 @@ class _SecondSetupScreenState extends State<SecondSetupScreen> {
               fontWeight: FontWeight.w600,
             ),
             SizedBox(
-              height: 400.h,
+              height: 450.h,
               child:
                   // showDatePicker(context: context, initialDate: DateTime.now(), firstDate: DateTime(1990), lastDate: DateTime(2050))
                   TableCalendar(
@@ -376,9 +376,7 @@ class _ThirdSetupScreenState extends State<ThirdSetupScreen> {
             Row(
               children: [cards('Reading'), cards('Painting')],
             ),
-            Row(
-              children: [cards('Reading'), cards('Painting')],
-            ),
+          
             Padding(
               padding: const EdgeInsets.all(7.5),
               child: TextFormField(

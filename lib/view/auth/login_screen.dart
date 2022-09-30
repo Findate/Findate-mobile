@@ -1,4 +1,5 @@
 import 'package:findate/constants/appColor.dart';
+import 'package:findate/view/auth/confirm_email.dart';
 import 'package:findate/view/auth/signup_screen.dart';
 import 'package:findate/widgets/reusesable_widget/normal_text.dart';
 import 'package:findate/widgets/reusesable_widget/reusaable_textformfield.dart';
@@ -48,23 +49,24 @@ class _LoginScreenState extends State<LoginScreen> {
                   height: 30,
                 ),
                 MyTextField(
-                    validator: (val) {
-                      if (val!.isEmpty) {
-                        return 'Field cannot be empty';
-                      }
-                      return null;
-                    },
-                    prefixIcon: Icons.person,
-                    isPassword: false,
-                    obcureText: false,
-                    isReadOnly: false,
-                    labelText: 'User Name',
-                    keyBoardType: TextInputType.text,),
+                  validator: (val) {
+                    if (val!.isEmpty) {
+                      return 'Field cannot be empty';
+                    }
+                    return null;
+                  },
+                  prefixIcon: Icons.person,
+                  isPassword: false,
+                  obcureText: false,
+                  isReadOnly: false,
+                  labelText: 'User Name',
+                  keyBoardType: TextInputType.text,
+                ),
                 const SizedBox(
                   height: 20,
                 ),
                 MyTextField(
-                  validator: (val) {
+                    validator: (val) {
                       if (val!.isEmpty) {
                         return 'Field cannot be empty';
                       }
@@ -107,7 +109,15 @@ class _LoginScreenState extends State<LoginScreen> {
                 const SizedBox(
                   height: 20,
                 ),
-                ReuseableButton(text: 'Login', onPressed: () {}),
+                ReuseableButton(
+                    text: 'Login',
+                    onPressed: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: ((context) => const ConfirmEmailScreen()),
+                        ),
+                      );
+                    }),
                 SizedBox(
                   height: 26.h,
                 ),
@@ -130,8 +140,10 @@ class _LoginScreenState extends State<LoginScreen> {
                         padding: MaterialStateProperty.all(
                             const EdgeInsets.symmetric(
                                 horizontal: 65, vertical: 20)),
-                        backgroundColor: MaterialStateProperty.all(Colors.white),
-                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                        backgroundColor:
+                            MaterialStateProperty.all(Colors.white),
+                        shape:
+                            MaterialStateProperty.all<RoundedRectangleBorder>(
                           RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(45.0),
                           ),
@@ -145,8 +157,10 @@ class _LoginScreenState extends State<LoginScreen> {
                         padding: MaterialStateProperty.all(
                             const EdgeInsets.symmetric(
                                 horizontal: 65, vertical: 20)),
-                        backgroundColor: MaterialStateProperty.all(Colors.white),
-                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                        backgroundColor:
+                            MaterialStateProperty.all(Colors.white),
+                        shape:
+                            MaterialStateProperty.all<RoundedRectangleBorder>(
                           RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(45.0),
                           ),
