@@ -21,7 +21,7 @@ class ProfileSetupCompleteScreen extends StatelessWidget {
         children: [
             Container(
             height: 150.h,
-            width: 144.w,
+            width: 150.w,
             decoration: BoxDecoration(
               // color: AppColor.secondaryMain,
               borderRadius: BorderRadius.circular(5.r),

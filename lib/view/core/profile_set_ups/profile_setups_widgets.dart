@@ -400,7 +400,7 @@ class _ThirdSetupScreenState extends State<ThirdSetupScreen> {
       ],
     );
   }
-
+//individual cards for third set up screen
   Widget cards(String message) {
     return Padding(
       padding: const EdgeInsets.all(7.5),
