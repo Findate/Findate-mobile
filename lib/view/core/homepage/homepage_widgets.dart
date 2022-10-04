@@ -1,5 +1,6 @@
 import 'package:findate/constants/appColor.dart';
 import 'package:findate/widgets/reusesable_widget/normal_text.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -23,83 +24,86 @@ class _ReuseHomepageHorizontalImageCardState
     extends State<ReuseHomepageHorizontalImageCard> {
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        SizedBox(
-          height: 250.h,
-          width: 343.w,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                height: 179.h,
-                width: 343.w,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20.r),
-                  image: DecorationImage(
-                      image: AssetImage(widget.imageUrl), fit: BoxFit.cover),
-                ),
-              ),
-              SizedBox(
-                height: 12.h,
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 5.0),
-                child: NormalText(
-                  text: widget.name,
-                  size: 16.sp,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-              Row(
-                children: [
-                  const Icon(
-                    Icons.location_on,
-                    color: AppColor.mainColor,
-                    size: 18,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 5.0),
-                    child: NormalText(
-                      text: widget.location,
-                      size: 12.sp,
-                      color: AppColor.grey400,
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
-        Positioned(
-            bottom: 50.h,
-            right: 30.w,
-            child: Row(
+    return Padding(
+      padding: const EdgeInsets.all(15.0),
+      child: Stack(
+        children: [
+          SizedBox(
+            height: 235.h,
+            width: 343.w,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-                  height: 40.h,
-                  width: 40.w,
-                  decoration: const BoxDecoration(
-                    color: AppColor.secondaryMain,
-                    shape: BoxShape.circle,
+                  height: 179.h,
+                  width: 343.w,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20.r),
+                    image: DecorationImage(
+                        image: AssetImage(widget.imageUrl), fit: BoxFit.cover),
                   ),
-                  child: const Icon(Icons.close, color: Colors.white),
                 ),
                 SizedBox(
-                  width: 6.w,
+                  height: 12.h,
                 ),
-                Container(
-                  height: 40.h,
-                  width: 40.w,
-                  decoration: const BoxDecoration(
-                    color: AppColor.mainColor,
-                    shape: BoxShape.circle,
+                Padding(
+                  padding: const EdgeInsets.only(left: 5.0),
+                  child: NormalText(
+                    text: widget.name,
+                    size: 16.sp,
+                    fontWeight: FontWeight.w600,
                   ),
-                  child: const Icon(Icons.favorite, color: Colors.white),
+                ),
+                Row(
+                  children: [
+                    const Icon(
+                      Icons.location_on,
+                      color: AppColor.mainColor,
+                      size: 18,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 5.0),
+                      child: NormalText(
+                        text: widget.location,
+                        size: 12.sp,
+                        color: AppColor.grey400,
+                      ),
+                    ),
+                  ],
                 ),
               ],
-            ))
-      ],
+            ),
+          ),
+          Positioned(
+              bottom: 50.h,
+              right: 30.w,
+              child: Row(
+                children: [
+                  Container(
+                    height: 40.h,
+                    width: 40.w,
+                    decoration: const BoxDecoration(
+                      color: AppColor.secondaryMain,
+                      shape: BoxShape.circle,
+                    ),
+                    child: const Icon(Icons.close, color: Colors.white),
+                  ),
+                  SizedBox(
+                    width: 6.w,
+                  ),
+                  Container(
+                    height: 40.h,
+                    width: 40.w,
+                    decoration: const BoxDecoration(
+                      color: AppColor.mainColor,
+                      shape: BoxShape.circle,
+                    ),
+                    child: const Icon(Icons.favorite, color: Colors.white),
+                  ),
+                ],
+              ))
+        ],
+      ),
     );
   }
 }

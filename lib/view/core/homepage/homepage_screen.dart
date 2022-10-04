@@ -17,150 +17,149 @@ class _HomePageScreenState extends State<HomePageScreen> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-        child: Padding(
-      padding: const EdgeInsets.all(15.0),
-      child: Scaffold(
-        body: SizedBox(
-          height: 1512.h,
-          width: 375.w,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  NormalText(
-                    text: 'Explore',
-                    size: 22.sp,
-                    fontWeight: FontWeight.w600,
-                  ),
-                  ReusesableAppbarButton(
-                    iconButton: IconButton(
-                      onPressed: () {},
-                      icon: const Icon(
-                        Icons.notifications_on_outlined,
-                        color: AppColor.mainColor,
+        child: Scaffold(
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 12.0),
+        child: SingleChildScrollView(
+          child: SizedBox(
+            height: 812.h,
+            width: 400.w,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    NormalText(
+                      text: 'Explore',
+                      size: 22.sp,
+                      fontWeight: FontWeight.w600,
+                    ),
+                    ReusesableAppbarButton(
+                      iconButton: IconButton(
+                        onPressed: () {},
+                        icon: const Icon(
+                          Icons.notifications_on_outlined,
+                          color: AppColor.mainColor,
+                        ),
                       ),
                     ),
-                  ),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  NormalText(
-                    text: 'Hot or Not',
-                    size: 22.sp,
-                    fontWeight: FontWeight.w600,
-                  ),
-                  TextButton(
-                    onPressed: () {},
-                    child: NormalText(
-                      text: 'view all',
-                      size: 12.sp,
-                      fontWeight: FontWeight.w400,
-                      color: AppColor.grey400,
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    NormalText(
+                      text: 'Hot or Not',
+                      size: 22.sp,
+                      fontWeight: FontWeight.w600,
                     ),
-                  ),
-                ],
-              ),
-              const ReuseHomepageHorizontalImageCard(
-                imageUrl: 'homeImage1.png',
-                name: 'Joel Tiana',
-                location: 'Lagos',
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  SizedBox(
-                    height: 40.h,
-                    width: 262.w,
-                    child: TextFormField(
-                      decoration: InputDecoration(
-                        labelText: 'Search Dates and friends',
-                        labelStyle:
-                            TextStyle(color: Colors.black54, fontSize: 16.sp),
-                        prefixIcon: IconButton(
-                          icon: const Icon(
-                            Icons.search,
-                            size: 20,
+                    TextButton(
+                      onPressed: () {},
+                      child: NormalText(
+                        text: 'view all',
+                        size: 12.sp,
+                        fontWeight: FontWeight.w400,
+                        color: AppColor.grey400,
+                      ),
+                    ),
+                  ],
+                ),
+                const ReuseHomepageHorizontalImageCard(
+                  imageUrl: 'assets/homeImage1.png',
+                  name: 'Joel Tiana',
+                  location: 'Lagos',
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    SizedBox(
+                      height: 40.h,
+                      width: 262.w,
+                      child: TextFormField(
+                        decoration: InputDecoration(
+                          labelText: 'Search Dates and friends',
+                          labelStyle:
+                              TextStyle(color: Colors.black54, fontSize: 16.sp),
+                          prefixIcon: IconButton(
+                            icon: const Icon(
+                              Icons.search,
+                              size: 20,
+                            ),
+                            onPressed: () {},
                           ),
-                          onPressed: () {},
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                              color: AppColor.mainColor, width: 1.0.w),
-                          borderRadius: BorderRadius.circular(55),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                              color: AppColor.mainColor, width: 1.0.w),
-                          borderRadius: BorderRadius.circular(55),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                                color: AppColor.mainColor, width: 1.0.w),
+                            borderRadius: BorderRadius.circular(55),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                                color: AppColor.mainColor, width: 1.0.w),
+                            borderRadius: BorderRadius.circular(55),
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  ReusesableAppbarButton(
-                    iconButton: IconButton(
+                    ReusesableAppbarButton(
+                      iconButton: IconButton(
+                        onPressed: () {},
+                        icon: Icon(
+                          Icons.format_list_bulleted_rounded,
+                          color: AppColor.mainColor,
+                          size: 30.h,
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+
+                // scrolable image cards
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    NormalText(
+                      text: 'Popular Matches',
+                      size: 22.sp,
+                      fontWeight: FontWeight.w600,
+                    ),
+                    TextButton(
                       onPressed: () {},
-                      icon: Icon(
-                        Icons.format_list_bulleted_rounded,
-                        color: AppColor.mainColor,
-                        size: 30.h,
+                      child: NormalText(
+                        text: 'view all',
+                        size: 12.sp,
+                        fontWeight: FontWeight.w400,
+                        color: AppColor.grey400,
                       ),
                     ),
-                  )
-                ],
-              ),
-              SizedBox(
-                height: 10.h,
-              ),
+                  ],
+                ),
+                SizedBox(
+                  height: 10.h,
+                ),
 
-              // scrolable image cards
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  NormalText(
-                    text: 'Popular Matches',
-                    size: 22.sp,
-                    fontWeight: FontWeight.w600,
-                  ),
-                  TextButton(
-                    onPressed: () {},
-                    child: NormalText(
-                      text: 'view all',
-                      size: 12.sp,
-                      fontWeight: FontWeight.w400,
-                      color: AppColor.grey400,
+                SizedBox(
+                  height: 200.h,
+                  width: 375.w,
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 10.0),
+                    child: GridView.builder(
+                      itemCount: 10,
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2),
+                      itemBuilder: (BuildContext context, int index) {
+                        return const HomepageSquareImageCard(
+                          imageUrl: 'assets/homeImage3.png',
+                          name: 'Joel Tiana',
+                          location: 'Lagos',
+                        );
+                      },
                     ),
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 10.h,
-              ),
-
-              SizedBox(
-                height: 290.h,
-                width: 375.w,
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 10.0),
-                  child: GridView.builder(
-                    itemCount: 10,
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2),
-                    itemBuilder: (BuildContext context, int index) {
-                      return const HomepageSquareImageCard(
-                        imageUrl: 'homeImage3.png',
-                        name: 'Joel Tiana',
-                        location: 'Lagos',
-                      );
-                    },
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
