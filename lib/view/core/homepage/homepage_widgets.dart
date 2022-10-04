@@ -14,9 +14,7 @@ class ReuseHomepageHorizontalImageCard extends StatefulWidget {
     Key? key,
     required this.imageUrl,
     required this.name,
-     required this.location,
-    
-
+    required this.location,
   }) : super(key: key);
 
   @override
@@ -44,17 +42,19 @@ class _ReuseHomepageHorizontalImageCardState
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20.r),
                     image: DecorationImage(
-                        image: AssetImage(widget.imageUrl),
-                        fit: BoxFit.cover),
+                        image: AssetImage(widget.imageUrl), fit: BoxFit.cover),
                   ),
                 ),
                 SizedBox(
                   height: 12.h,
                 ),
-                NormalText(
-                  text: widget.name,
-                  size: 16.sp,
-                  fontWeight: FontWeight.w600,
+                Padding(
+                  padding: const EdgeInsets.only(left: 5.0),
+                  child: NormalText(
+                    text: widget.name,
+                    size: 16.sp,
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
                 Row(
                   children: [
@@ -106,6 +106,94 @@ class _ReuseHomepageHorizontalImageCardState
               ))
         ],
       ),
+    );
+  }
+}
+
+class HomepageSquareImageCard extends StatefulWidget {
+  final String imageUrl;
+  final String name;
+  final String location;
+  const HomepageSquareImageCard({
+    Key? key,
+    required this.imageUrl,
+    required this.name,
+    required this.location,
+  }) : super(key: key);
+
+  @override
+  State<HomepageSquareImageCard> createState() =>
+      _HomepageSquareImageCardState();
+}
+
+class _HomepageSquareImageCardState extends State<HomepageSquareImageCard> {
+  bool clicked = false;
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        Container(
+          height: 160.h,
+          width: 165.w,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10.r),
+            image: DecorationImage(
+                image: AssetImage(widget.imageUrl), fit: BoxFit.cover),
+          ),
+        ),
+        Positioned(
+          bottom: 10,
+          left: 10,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(left: 5.0),
+                child: NormalText(
+                  text: widget.name,
+                  size: 16.sp,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.white,
+                ),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  const Icon(
+                    Icons.location_on,
+                    color: Colors.white,
+                    size: 18,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 5.0),
+                    child: NormalText(
+                      text: widget.location,
+                      size: 12.sp,
+                      fontWeight: FontWeight.w400,
+                      color: Colors.white,
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+        Positioned(
+            right: 10,
+            top: 10,
+            child: IconButton(
+              icon: Icon(
+                !clicked ? Icons.favorite_outline_sharp : Icons.favorite,
+                color: Colors.white,
+                size: 30.h,
+              ),
+              onPressed: () {
+                setState(() {
+                  clicked = !clicked;
+                });
+              },
+            ))
+      ],
     );
   }
 }

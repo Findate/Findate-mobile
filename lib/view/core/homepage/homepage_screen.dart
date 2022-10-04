@@ -23,14 +23,18 @@ class _HomePageScreenState extends State<HomePageScreen> {
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: 
-          const [
+          children: const [
             ReusesableAppbarButton(),
             ReuseHomepageHorizontalImageCard(
               imageUrl: 'homeImage1.png',
               name: 'Joel Tiana',
               location: 'Lagos',
             ),
+              HomepageSquareImageCard(
+              imageUrl: 'homeImage3.png',
+              name: 'Joel Tiana',
+              location: 'Lagos',
+            ),
             ReuseHomepageHorizontalImageCard(
               imageUrl: 'homeImage2.png',
               name: 'Mark John',
@@ -41,11 +45,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
               name: 'Joel Tiana',
               location: 'Lagos',
             ),
-            ReuseHomepageHorizontalImageCard(
-              imageUrl: 'homeImage2.png',
-              name: 'Mark John',
-              location: 'Lagos',
-            ),
+          
           ],
         ),
       ),
