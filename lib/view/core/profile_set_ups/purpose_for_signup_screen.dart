@@ -24,7 +24,14 @@ class _PurposeForSignupState extends State<PurposeForSignup> {
           children: <Widget>[
             Row(
               children: [
-                const ReusesableAppbarButton(),
+                ReusesableAppbarButton(
+                  iconButton: IconButton(
+                      onPressed: () {},
+                      icon:const Icon(
+                        Icons.keyboard_arrow_left_outlined,
+                        color: AppColor.mainColor,
+                      )),
+                ),
                 SizedBox(width: 40.w),
                 NormalText(
                   text: 'Purpose For Sign Up',
