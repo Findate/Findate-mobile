@@ -20,32 +20,37 @@ class _HomePageScreenState extends State<HomePageScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-      body: SingleChildScrollView(
+      body: SizedBox(
+        height: 1512.h,
+        width: 375.w,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: const [
-            ReusesableAppbarButton(),
-            ReuseHomepageHorizontalImageCard(
+          children: [
+            const ReusesableAppbarButton(),
+            const ReuseHomepageHorizontalImageCard(
               imageUrl: 'homeImage1.png',
               name: 'Joel Tiana',
               location: 'Lagos',
             ),
-              HomepageSquareImageCard(
-              imageUrl: 'homeImage3.png',
-              name: 'Joel Tiana',
-              location: 'Lagos',
+            SizedBox(
+              height: 450.h,
+              width: 375.w,
+              child: Padding(
+                padding: const EdgeInsets.only(left:10.0),
+                child: GridView.builder(
+                  itemCount: 10,
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2),
+                  itemBuilder: (BuildContext context, int index) {
+                    return const HomepageSquareImageCard(
+                      imageUrl: 'homeImage3.png',
+                      name: 'Joel Tiana',
+                      location: 'Lagos',
+                    );
+                  },
+                ),
+              ),
             ),
-            ReuseHomepageHorizontalImageCard(
-              imageUrl: 'homeImage2.png',
-              name: 'Mark John',
-              location: 'Lagos',
-            ),
-            ReuseHomepageHorizontalImageCard(
-              imageUrl: 'homeImage1.png',
-              name: 'Joel Tiana',
-              location: 'Lagos',
-            ),
-          
           ],
         ),
       ),

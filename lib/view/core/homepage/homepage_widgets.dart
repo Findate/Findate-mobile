@@ -136,7 +136,7 @@ class _HomepageSquareImageCardState extends State<HomepageSquareImageCard> {
           height: 160.h,
           width: 165.w,
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10.r),
+            borderRadius: BorderRadius.circular(20.r),
             image: DecorationImage(
                 image: AssetImage(widget.imageUrl), fit: BoxFit.cover),
           ),
@@ -179,7 +179,7 @@ class _HomepageSquareImageCardState extends State<HomepageSquareImageCard> {
           ),
         ),
         Positioned(
-            right: 10,
+            right: 15,
             top: 10,
             child: IconButton(
               icon: Icon(
