@@ -22,8 +22,8 @@ class _HomePageScreenState extends State<HomePageScreen> {
         padding: const EdgeInsets.symmetric(horizontal: 12.0),
         child: SingleChildScrollView(
           child: SizedBox(
-            height: 812.h,
-            width: 400.w,
+            height: 900.h,
+            width: 375.w,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -114,7 +114,6 @@ class _HomePageScreenState extends State<HomePageScreen> {
                   ],
                 ),
 
-                // scrolable image cards
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -137,24 +136,25 @@ class _HomePageScreenState extends State<HomePageScreen> {
                 SizedBox(
                   height: 10.h,
                 ),
-
-                SizedBox(
-                  height: 200.h,
-                  width: 375.w,
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 10.0),
-                    child: GridView.builder(
-                      itemCount: 10,
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2),
-                      itemBuilder: (BuildContext context, int index) {
-                        return const HomepageSquareImageCard(
-                          imageUrl: 'assets/homeImage3.png',
-                          name: 'Joel Tiana',
-                          location: 'Lagos',
-                        );
-                      },
+                // scrolable image cards
+                Expanded(
+                  child: SizedBox(
+                    width: 375.w,
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 10.0),
+                      child: GridView.builder(
+                        itemCount: 10,
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 2),
+                        itemBuilder: (BuildContext context, int index) {
+                          return const HomepageSquareImageCard(
+                            imageUrl: 'assets/homeImage3.png',
+                            name: 'Joel Tiana',
+                            location: 'Lagos',
+                          );
+                        },
+                      ),
                     ),
                   ),
                 ),
