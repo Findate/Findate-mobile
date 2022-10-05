@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:findate/constants/appColor.dart';
-import 'package:findate/view/core/profile_set_ups/purpose_for_signup_screen.dart';
+import 'package:findate/view/profile_set_ups/purpose_for_signup_screen.dart';
 import 'package:findate/widgets/reusesable_widget/normal_text.dart';
 import 'package:findate/widgets/reusesable_widget/reuseable_appbar_button.dart';
 import 'package:findate/widgets/reusesable_widget/reuseable_button.dart';

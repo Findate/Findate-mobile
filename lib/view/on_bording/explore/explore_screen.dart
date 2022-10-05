@@ -1,19 +1,19 @@
 import 'package:findate/constants/appColor.dart';
-import 'package:findate/view/core/homepage/homepage_widgets.dart';
+import 'package:findate/view/core/on_bording/homepage/homepage_widgets.dart';
 import 'package:findate/widgets/reusesable_widget/normal_text.dart';
 import 'package:findate/widgets/reusesable_widget/reusaable_textformfield.dart';
 import 'package:findate/widgets/reusesable_widget/reuseable_appbar_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class HomePageScreen extends StatefulWidget {
-  const HomePageScreen({Key? key}) : super(key: key);
+class ExploreScreen extends StatefulWidget {
+  const ExploreScreen({Key? key}) : super(key: key);
 
   @override
-  State<HomePageScreen> createState() => _HomePageScreenState();
+  State<ExploreScreen> createState() => _ExploreScreenState();
 }
 
-class _HomePageScreenState extends State<HomePageScreen> {
+class _ExploreScreenState extends State<ExploreScreen> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -35,6 +35,15 @@ class _HomePageScreenState extends State<HomePageScreen> {
                       size: 22.sp,
                       fontWeight: FontWeight.w600,
                     ),
+                    ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                        itemCount: 6,
+                        itemBuilder: (context, int i) {
+                          return const HomePageImageStoryCard(
+                            name: 'Josiah',
+                            imageUrl: 'assets/homeImage1.png',
+                          );
+                        }),
                     ReusesableAppbarButton(
                       iconButton: IconButton(
                         onPressed: () {},
@@ -163,6 +172,6 @@ class _HomePageScreenState extends State<HomePageScreen> {
           ),
         ),
       ),
-    ));
+    ),);
   }
 }

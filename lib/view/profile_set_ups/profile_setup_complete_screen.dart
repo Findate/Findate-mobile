@@ -1,9 +1,10 @@
 import 'package:findate/constants/appColor.dart';
-import 'package:findate/view/core/homepage/homepage_screen.dart';
+import 'package:findate/view/on_bording/explore/explore_screen.dart';
 import 'package:findate/widgets/reusesable_widget/normal_text.dart';
 import 'package:findate/widgets/reusesable_widget/reuseable_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 
 class ProfileSetupCompleteScreen extends StatelessWidget {
   const ProfileSetupCompleteScreen({Key? key}) : super(key: key);
@@ -58,7 +59,7 @@ class ProfileSetupCompleteScreen extends StatelessWidget {
               onPressed: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: ((context) => const HomePageScreen()),
+                    builder: ((context) => const ExploreScreen()),
                   ),
                 );
               }),

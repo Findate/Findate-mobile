@@ -195,3 +195,35 @@ class _HomepageSquareImageCardState extends State<HomepageSquareImageCard> {
     );
   }
 }
+
+class HomePageImageStoryCard extends StatelessWidget {
+  final String imageUrl;
+  final String name;
+
+  const HomePageImageStoryCard({
+    Key? key,
+    required this.imageUrl,
+    required this.name,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Container(
+          height: 50.h,
+          width: 50.w,
+          decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              image: DecorationImage(
+                  image: AssetImage(imageUrl), fit: BoxFit.cover)),
+        ),
+        NormalText(
+          text: name,
+          size: 14.sp,
+          fontWeight: FontWeight.w600,
+        )
+      ],
+    );
+  }
+}

@@ -1,6 +1,6 @@
 
-import 'package:findate/view/core/profile_set_ups/profile_setup_complete_screen.dart';
-import 'package:findate/view/core/profile_set_ups/profile_setups_widgets.dart';
+import 'package:findate/view/profile_set_ups/profile_setup_complete_screen.dart';
+import 'package:findate/view/profile_set_ups/profile_setups_widgets.dart';
 import 'package:findate/widgets/reusesable_widget/reuseable_button.dart';
 import 'package:flutter/material.dart';
 
