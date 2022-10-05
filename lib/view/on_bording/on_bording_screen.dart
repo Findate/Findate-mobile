@@ -33,28 +33,29 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
     return Scaffold(
       body: screens[currentIndex],
       bottomNavigationBar: BottomNavigationBar(
-        iconSize: 25.0.w,
+        iconSize: 20.0.w,
         backgroundColor: Colors.white70,
         selectedItemColor: AppColor.mainColor,
+        unselectedItemColor: AppColor.grey400,
         type: BottomNavigationBarType.fixed,
         onTap: (index) => setState(() => currentIndex = index),
         currentIndex: currentIndex,
         items: const [
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
+            icon: Icon(Icons.explore_rounded),
+            label: 'Explore',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.favorite),
-            label: 'Favourite',
+            icon: Icon(Icons.search),
+            label: 'Nearby Dates',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.notifications),
-            label: 'Notification',
+            icon: Icon(Icons.favorite_outline),
+            label: 'Matches',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Profile',
+            icon: Icon(Icons.chat_outlined),
+            label: 'Chats',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person),

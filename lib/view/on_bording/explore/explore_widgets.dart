@@ -4,11 +4,11 @@ import 'package:findate/widgets/reusesable_widget/normal_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class ReuseHomepageHorizontalImageCard extends StatefulWidget {
+class ExploreHorizontalImageCard extends StatefulWidget {
   final String imageUrl;
   final String name;
   final String location;
-  const ReuseHomepageHorizontalImageCard({
+  const ExploreHorizontalImageCard({
     Key? key,
     required this.imageUrl,
     required this.name,
@@ -16,12 +16,12 @@ class ReuseHomepageHorizontalImageCard extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<ReuseHomepageHorizontalImageCard> createState() =>
-      _ReuseHomepageHorizontalImageCardState();
+  State<ExploreHorizontalImageCard> createState() =>
+      _ExploreHorizontalImageCardState();
 }
 
-class _ReuseHomepageHorizontalImageCardState
-    extends State<ReuseHomepageHorizontalImageCard> {
+class _ExploreHorizontalImageCardState
+    extends State<ExploreHorizontalImageCard> {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -108,11 +108,11 @@ class _ReuseHomepageHorizontalImageCardState
   }
 }
 
-class HomepageSquareImageCard extends StatefulWidget {
+class ExploreSquareImageCard extends StatefulWidget {
   final String imageUrl;
   final String name;
   final String location;
-  const HomepageSquareImageCard({
+  const ExploreSquareImageCard({
     Key? key,
     required this.imageUrl,
     required this.name,
@@ -120,11 +120,11 @@ class HomepageSquareImageCard extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<HomepageSquareImageCard> createState() =>
-      _HomepageSquareImageCardState();
+  State<ExploreSquareImageCard> createState() =>
+      _ExploreSquareImageCardState();
 }
 
-class _HomepageSquareImageCardState extends State<HomepageSquareImageCard> {
+class _ExploreSquareImageCardState extends State<ExploreSquareImageCard> {
   bool clicked = false;
   @override
   Widget build(BuildContext context) {
@@ -196,11 +196,11 @@ class _HomepageSquareImageCardState extends State<HomepageSquareImageCard> {
   }
 }
 
-class HomePageImageStoryCard extends StatelessWidget {
+class ExploreImageStoryCard extends StatelessWidget {
   final String imageUrl;
   final String name;
 
-  const HomePageImageStoryCard({
+  const ExploreImageStoryCard({
     Key? key,
     required this.imageUrl,
     required this.name,
@@ -208,22 +208,25 @@ class HomePageImageStoryCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          height: 50.h,
-          width: 50.w,
-          decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              image: DecorationImage(
-                  image: AssetImage(imageUrl), fit: BoxFit.cover)),
-        ),
-        NormalText(
-          text: name,
-          size: 14.sp,
-          fontWeight: FontWeight.w600,
-        )
-      ],
+    return Padding(
+      padding: const EdgeInsets.all(15.0),
+      child: Column(
+        children: [
+          Container(
+            height: 50.h,
+            width: 50.w,
+            decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                image: DecorationImage(
+                    image: AssetImage(imageUrl), fit: BoxFit.cover)),
+          ),
+          NormalText(
+            text: name,
+            size: 14.sp,
+            fontWeight: FontWeight.w600,
+          )
+        ],
+      ),
     );
   }
 }
