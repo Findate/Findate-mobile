@@ -72,6 +72,7 @@ class _ConfirmEmailScreenState extends State<ConfirmEmailScreen> {
                     children: <TextSpan>[
                       TextSpan(
                         text: 'A verification code was sent to \n',
+                        
                         style: GoogleFonts.nunito(
                           color: AppColor.grey400,
                           fontSize: 14.sp,

@@ -110,6 +110,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   height: 20,
                 ),
                 ReuseableButton(
+                  width: 323.w,
                     text: 'Login',
                     onPressed: () {
                       Navigator.of(context).push(

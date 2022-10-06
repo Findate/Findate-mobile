@@ -69,6 +69,7 @@ class _LandingPageState extends State<LandingPage> {
                 height: 20.h,
               ),
               ReuseableButton(
+                width: 323.w,
                 text: isLastPage ?'Login': 'Continue' ,
                 onPressed: () {
                   !isLastPage
