@@ -196,6 +196,7 @@ class SecondSetupScreen extends StatefulWidget {
 
 class _SecondSetupScreenState extends State<SecondSetupScreen> {
   CalendarFormat format = CalendarFormat.month;
+
   @override
   Widget build(
     BuildContext context,
@@ -318,6 +319,7 @@ class ThirdSetupScreen extends StatefulWidget {
 
 class _ThirdSetupScreenState extends State<ThirdSetupScreen> {
   String message = '';
+  bool clicked = false;
 
   @override
   Widget build(
@@ -358,25 +360,19 @@ class _ThirdSetupScreenState extends State<ThirdSetupScreen> {
             SizedBox(
               height: 25.h,
             ),
-            Row(
-              children: [cards('Cooking'), cards('Traveling')],
+            SizedBox(
+              height: 400,
+              child: GridView.builder(
+                itemCount: 20,
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    mainAxisExtent: 70,
+                    ),
+                itemBuilder: (BuildContext context, int index) {
+                  return Cards(message: 'Cooking');
+                },
+              ),
             ),
-            Row(
-              children: [cards('Baking'), cards('Football')],
-            ),
-            Row(
-              children: [cards('Dancing'), cards('Eating')],
-            ),
-            Row(
-              children: [cards('Reading'), cards('Painting')],
-            ),
-            Row(
-              children: [cards('Reading'), cards('Painting')],
-            ),
-            Row(
-              children: [cards('Reading'), cards('Painting')],
-            ),
-          
             Padding(
               padding: const EdgeInsets.all(7.5),
               child: TextFormField(
@@ -400,13 +396,48 @@ class _ThirdSetupScreenState extends State<ThirdSetupScreen> {
       ],
     );
   }
+
 //individual cards for third set up screen
-  Widget cards(String message) {
+
+//   Widget cards(String message) {
+//     return Padding(
+//       padding: const EdgeInsets.all(7.5),
+//       child: Container(
+//         width: 164.w,
+//         height: 12.h,
+//         decoration: BoxDecoration(
+//           color: Colors.white,
+//           border: Border.all(width: 1.0, color: AppColor.secondaryMain),
+//           borderRadius: BorderRadius.circular(5.r),
+//         ),
+//         child: Center(
+//           child: NormalText(
+//             text: message,
+//             color: AppColor.secondaryMain,
+//             size: 14.sp,
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+}
+
+class Cards extends StatefulWidget {
+  final String message;
+  const Cards({Key? key, required this.message}) : super(key: key);
+
+  @override
+  State<Cards> createState() => _CardsState();
+}
+
+class _CardsState extends State<Cards> {
+  @override
+  Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(7.5),
       child: Container(
-        width: 154.w,
-        height: 52.h,
+        width: 164.w,
+        height: 12.h,
         decoration: BoxDecoration(
           color: Colors.white,
           border: Border.all(width: 1.0, color: AppColor.secondaryMain),
@@ -414,7 +445,7 @@ class _ThirdSetupScreenState extends State<ThirdSetupScreen> {
         ),
         child: Center(
           child: NormalText(
-            text: message,
+            text: widget.message,
             color: AppColor.secondaryMain,
             size: 14.sp,
           ),

@@ -69,7 +69,7 @@ class _LandingPageState extends State<LandingPage> {
                 height: 20.h,
               ),
               ReuseableButton(
-                text: 'Continue',
+                text: isLastPage ?'Login': 'Continue' ,
                 onPressed: () {
                   !isLastPage
                       ? pageController.nextPage(
@@ -94,7 +94,7 @@ class _LandingPageState extends State<LandingPage> {
                   );
                 },
                 child: NormalText(
-                  text: 'Skip',
+                  text:isLastPage? 'Register': 'Skip',
                   color: AppColor.mainColor,
                 ),
               ),

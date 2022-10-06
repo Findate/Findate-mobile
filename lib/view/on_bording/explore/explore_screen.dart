@@ -61,6 +61,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
                         fontWeight: FontWeight.w600,
                         size: 16),
                   ),
+                  SizedBox(height: 10.h,),
                   Row(
                     children: [
                       ReuseableButton(
@@ -122,7 +123,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
                     ],
                   ),
                   SizedBox(
-                    height: 100.h,
+                    height: 110.h,
                     width: 375.w,
                     child: ListView.builder(
                         scrollDirection: Axis.horizontal,
@@ -159,6 +160,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
                       ),
                     ],
                   ),
+                  //reusesable card for horizontal image card in explore screen
                   const ExploreHorizontalImageCard(
                     imageUrl: 'assets/homeImage1.png',
                     name: 'Joel Tiana',

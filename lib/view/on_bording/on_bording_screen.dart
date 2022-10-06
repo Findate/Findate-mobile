@@ -47,7 +47,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.search),
-            label: 'Nearby Dates',
+            label: 'Nearby',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.favorite_outline),

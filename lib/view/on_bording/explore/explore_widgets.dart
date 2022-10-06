@@ -74,8 +74,9 @@ class _ExploreHorizontalImageCardState
               ],
             ),
           ),
+          //position the top left favourite and close icons on card
           Positioned(
-              bottom: 50.h,
+              bottom: 40.h,
               right: 30.w,
               child: Row(
                 children: [
@@ -139,6 +140,7 @@ class _ExploreSquareImageCardState extends State<ExploreSquareImageCard> {
                 image: AssetImage(widget.imageUrl), fit: BoxFit.cover),
           ),
         ),
+         //position the bottom icons
         Positioned(
           bottom: 10,
           left: 10,
@@ -176,6 +178,7 @@ class _ExploreSquareImageCardState extends State<ExploreSquareImageCard> {
             ],
           ),
         ),
+         //position the top left favourite icon
         Positioned(
             right: 15,
             top: 10,
