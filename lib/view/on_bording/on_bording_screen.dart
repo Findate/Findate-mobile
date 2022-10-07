@@ -10,7 +10,7 @@ import 'explore/explore_screen.dart';
 import 'matches/matches_screen.dart';
 
 class OnBoardingScreen extends StatefulWidget {
-  static String id = 'onBordingScreen';
+  static String id = 'onBordingScreens';
   const OnBoardingScreen({Key? key}) : super(key: key);
 
   @override
