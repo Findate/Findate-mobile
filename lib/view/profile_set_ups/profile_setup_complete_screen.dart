@@ -1,5 +1,4 @@
 import 'package:findate/constants/appColor.dart';
-import 'package:findate/view/on_bording/explore/explore_screen.dart';
 import 'package:findate/view/on_bording/on_bording_screen.dart';
 import 'package:findate/widgets/reusesable_widget/normal_text.dart';
 import 'package:findate/widgets/reusesable_widget/reuseable_button.dart';

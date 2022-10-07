@@ -42,7 +42,7 @@ class ReuseableButton extends StatelessWidget {
             ),
             backgroundColor: backGroundColor,
             minimumSize: Size.fromHeight(70.h),
-            primary: Colors.white,
+            foregroundColor: Colors.white,
           ),
           onPressed: isActive ? onPressed : null,
           child: NormalText(

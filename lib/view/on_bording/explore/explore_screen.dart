@@ -1,4 +1,5 @@
 import 'package:findate/constants/appColor.dart';
+import 'package:findate/constants/shared_preferences.dart';
 import 'package:findate/view/on_bording/explore/explore_widgets.dart';
 import 'package:findate/view/on_bording/explore/hot_or_not_screen.dart';
 import 'package:findate/widgets/reusesable_widget/normal_text.dart';
@@ -6,6 +7,7 @@ import 'package:findate/widgets/reusesable_widget/reuseable_appbar_button.dart';
 import 'package:findate/widgets/reusesable_widget/reuseable_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 
 class ExploreScreen extends StatefulWidget {
   const ExploreScreen({Key? key}) : super(key: key);
@@ -15,12 +17,20 @@ class ExploreScreen extends StatefulWidget {
 }
 
 class _ExploreScreenState extends State<ExploreScreen> {
+
   @override
   void initState() {
     super.initState();
-    Future.delayed( Duration.zero, () {
-      modalBottomSheetMenu();
+// get pref key
+   final  initialized = UserPreferences.getInitialized();
+ 
+//call modal sheet function
+    Future.delayed(Duration.zero, () {
+      //if key wasnt set means its null, call modalsheet fuction else do nothing
+      initialized == null  ? modalBottomSheetMenu() : null;
     });
+    //set key to true to init dont call modalshet again aftr first call
+    UserPreferences.setInitialized(true);
   }
 
 //show location modal function
@@ -61,7 +71,9 @@ class _ExploreScreenState extends State<ExploreScreen> {
                         fontWeight: FontWeight.w600,
                         size: 16),
                   ),
-                  SizedBox(height: 10.h,),
+                  SizedBox(
+                    height: 10.h,
+                  ),
                   Row(
                     children: [
                       ReuseableButton(
@@ -145,11 +157,11 @@ class _ExploreScreenState extends State<ExploreScreen> {
                       ),
                       TextButton(
                         onPressed: () {
-                           Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: ((context) => const HotOrNotScreen()),
-                        ),
-                      );
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: ((context) => const HotOrNotScreen()),
+                            ),
+                          );
                         },
                         child: NormalText(
                           text: 'view all',

@@ -56,6 +56,8 @@ dependencies:
 
   #calender
   table_calendar: ^3.0.7
+  #manage local state
+  shared_preferences: ^2.0.15
 
 
 

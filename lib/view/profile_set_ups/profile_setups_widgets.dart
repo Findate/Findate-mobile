@@ -369,7 +369,7 @@ class _ThirdSetupScreenState extends State<ThirdSetupScreen> {
                     mainAxisExtent: 70,
                     ),
                 itemBuilder: (BuildContext context, int index) {
-                  return Cards(message: 'Cooking');
+                  return const Cards(message: 'Cooking');
                 },
               ),
             ),

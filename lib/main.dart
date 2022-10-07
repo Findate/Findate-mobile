@@ -1,24 +1,23 @@
 import 'package:findate/constants/appColor.dart';
-import 'package:findate/view/auth/login_screen.dart';
-import 'package:findate/view/landing_page/landing_page.dart';
 import 'package:findate/view/on_bording/on_bording_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/services.dart';
 
+import 'constants/shared_preferences.dart';
 
-
-
-void main() {
+void main() async {
   // add these lines
   WidgetsFlutterBinding.ensureInitialized();
+
+  await UserPreferences.init();
+  
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
 
   // run app
-  runApp(const  MyApp());
+  runApp(const MyApp());
 }
-
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -30,20 +29,16 @@ class MyApp extends StatelessWidget {
       designSize: const Size(375, 812),
       minTextAdapt: true,
       splitScreenMode: true,
-      builder: (context , child) {
+      builder: (context, child) {
         return MaterialApp(
-          debugShowCheckedModeBanner: false,
-          title: 'Fin Date',
-          theme: ThemeData(
-            primaryColor: Colors.pink[50],
-            primarySwatch: Colors.pink,
-            unselectedWidgetColor: AppColor.mainColor
-          ),
-           home: const LandingPage()
-     
-        ); 
+            debugShowCheckedModeBanner: false,
+            title: 'Fin Date',
+            theme: ThemeData(
+                primaryColor: Colors.pink[50],
+                primarySwatch: Colors.pink,
+                unselectedWidgetColor: AppColor.mainColor),
+            home: const OnBoardingScreen());
       },
-      
     );
   }
 }
