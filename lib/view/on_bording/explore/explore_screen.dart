@@ -27,15 +27,17 @@ class _ExploreScreenState extends State<ExploreScreen> {
 //call modal sheet function
     Future.delayed(Duration.zero, () {
       //if key wasnt set means its null, call modalsheet fuction else do nothing
-      initialized == null  ? modalBottomSheetMenu() : null;
+      initialized == null ? modalBottomSheetMenu() : null;
     });
     //set key to true to init dont call modalshet again aftr first call
     UserPreferences.setInitialized(true);
+    
   }
 
 //show location modal function
   void modalBottomSheetMenu() {
     showDialog(
+      barrierDismissible: false,
         context: context,
         builder: (builder) {
           return Center(

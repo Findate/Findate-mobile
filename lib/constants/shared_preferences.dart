@@ -15,7 +15,6 @@ static SharedPreferences? _preferences;
 
 // get key function
   static bool? getInitialized() => _preferences!.getBool(keyInitialized);
-
  
 
 
