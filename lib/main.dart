@@ -40,7 +40,7 @@ class MyApp extends StatelessWidget {
                 primaryColor: Colors.pink[50],
                 primarySwatch: Colors.pink,
                 unselectedWidgetColor: AppColor.mainColor),
-            home: const OnBoardingScreen());
+            home: const LandingPage());
       },
     );
   }

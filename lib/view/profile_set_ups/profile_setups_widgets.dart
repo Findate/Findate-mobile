@@ -314,30 +314,30 @@ class _SecondSetupScreenState extends State<SecondSetupScreen> {
             SizedBox(
               height: 46.h,
             ),
-            NormalText(
-              text: 'Your Location',
-              size: 14.sp,
-              fontWeight: FontWeight.w500,
-            ),
-            SizedBox(
-              height: 8.h,
-            ),
-            Container(
-              width: 343.w,
-              height: 55.h,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                border: Border.all(width: 0.5, color: AppColor.grey400),
-                borderRadius: BorderRadius.circular(5.r),
-              ),
-              child: TextFormField(
-                cursorColor: AppColor.grey400,
-                decoration: InputDecoration(
-                  border: InputBorder.none,
-                  contentPadding: EdgeInsets.all(16.w),
-                ),
-              ),
-            ),
+            // NormalText(
+            //   text: 'Your Location',
+            //   size: 14.sp,
+            //   fontWeight: FontWeight.w500,
+            // ),
+            // SizedBox(
+            //   height: 8.h,
+            // ),
+            // Container(
+            //   width: 343.w,
+            //   height: 55.h,
+            //   decoration: BoxDecoration(
+            //     color: Colors.white,
+            //     border: Border.all(width: 0.5, color: AppColor.grey400),
+            //     borderRadius: BorderRadius.circular(5.r),
+            //   ),
+            //   child: TextFormField(
+            //     cursorColor: AppColor.grey400,
+            //     decoration: InputDecoration(
+            //       border: InputBorder.none,
+            //       contentPadding: EdgeInsets.all(16.w),
+            //     ),
+            //   ),
+            // ),
           ],
         ),
       ],

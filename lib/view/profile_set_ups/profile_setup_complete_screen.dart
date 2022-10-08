@@ -18,8 +18,8 @@ class ProfileSetupCompleteScreen extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
             Container(
-            height: 150.h,
-            width: 150.w,
+            height: 160.h,
+            width: 160.w,
             decoration: BoxDecoration(
               // color: AppColor.secondaryMain,
               borderRadius: BorderRadius.circular(5.r),

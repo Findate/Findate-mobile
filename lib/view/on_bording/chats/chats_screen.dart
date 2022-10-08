@@ -123,7 +123,7 @@ class _FirstChatListState extends State<FirstChatList> {
     return GestureDetector(
       onTap: () {},
       child: SizedBox(
-        height: 80.h,
+        height: 85.h,
         width: 375,
         child: Column(
           children: [
