@@ -2,6 +2,7 @@
 
 import 'package:findate/constants/appColor.dart';
 import 'package:findate/widgets/reusesable_widget/normal_text.dart';
+import 'package:findate/widgets/reusesable_widget/reuseable_appbar_button.dart';
 import 'package:findate/widgets/reusesable_widget/reuseable_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -33,7 +34,62 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       image: AssetImage('assets/profileHeader.png'),
                       fit: BoxFit.cover),
                 ),
-                // child: Image.asset('assets/profileHeader.png'),
+                child: Column(
+                  children: [
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        NormalText(
+                          text: 'Profile',
+                          size: 22.sp,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.white,
+                        ),
+                        ReusesableAppbarButton(
+                          backGroundColor: Colors.white,
+                          iconButton: IconButton(
+                            onPressed: () {},
+                            icon: const Icon(
+                              Icons.settings,
+                              color: AppColor.mainColor,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                    Stack(
+                      children: [
+                        SizedBox(
+                          height: 100.h,
+                          width: 150.w,
+                          child: Image.asset('assets/profileAvatar.png'),
+                        ),
+                        Positioned(
+                          left: 100,
+                          top: 55,
+                          child: Container(
+                            width: 44.w,
+                            height: 44.h,
+                            decoration: const BoxDecoration(
+                              color: AppColor.mainColor,
+                              shape: BoxShape.circle,
+                            ),
+                            child: IconButton(
+                                icon: Icon(
+                                  Icons.camera_alt_outlined,
+                                  size: 24.h,
+                                  color: Colors.white,
+                                ),
+                                onPressed: () {}),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
               Padding(
                 padding: const EdgeInsets.all(10.0),

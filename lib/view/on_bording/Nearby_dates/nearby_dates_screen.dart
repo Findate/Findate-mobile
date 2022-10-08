@@ -18,7 +18,7 @@ class _NearbyDatesState extends State<NearbyDates> {
     return SafeArea(
       child: Scaffold(
         body: Padding(
-          padding:const EdgeInsets.symmetric(horizontal: 12.0),
+          padding: const EdgeInsets.symmetric(horizontal: 12.0),
           child: SingleChildScrollView(
             child: SizedBox(
               height: 900,
@@ -55,25 +55,43 @@ class _NearbyDatesState extends State<NearbyDates> {
                       )
                     ],
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Icon(
-                        Icons.location_on_outlined,
-                        size: 21,
+                      Padding(
+                        padding: const EdgeInsets.only(left: 10.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            const Icon(
+                              Icons.location_on,
+                              color: Colors.black,
+                              size: 18,
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(left:10.0),
+                              child: NormalText(
+                                text: 'Your Location',
+                                size: 16.sp,
+                                fontWeight: FontWeight.w400,
+                                color: Colors.black,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(left: 5.0),
+                        padding: const EdgeInsets.only(left: 20.0),
                         child: NormalText(
-                          text: 'Your Location',
-                          size: 16.sp,
-                          fontWeight: FontWeight.w400,
-                          color: Colors.white,
+                          text: 'london',
+                          size: 12.sp,
+                          fontWeight: FontWeight.w600,
+                          color: AppColor.grey400,
                         ),
                       ),
                     ],
                   ),
-                const  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   Expanded(
