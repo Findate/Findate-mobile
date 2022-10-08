@@ -1,5 +1,7 @@
 import 'package:findate/constants/appColor.dart';
+import 'package:findate/view/landing_page/landing_page.dart';
 import 'package:findate/view/on_bording/on_bording_screen.dart';
+import 'package:findate/view/profile_set_ups/profile_setup_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/services.dart';

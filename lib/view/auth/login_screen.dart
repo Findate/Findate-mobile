@@ -15,6 +15,7 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  final _key = GlobalKey<FormState>();
   bool check = false;
   @override
   Widget build(BuildContext context) {
@@ -48,36 +49,43 @@ class _LoginScreenState extends State<LoginScreen> {
                 const SizedBox(
                   height: 30,
                 ),
-                MyTextField(
-                  validator: (val) {
-                    if (val!.isEmpty) {
-                      return 'Field cannot be empty';
-                    }
-                    return null;
-                  },
-                  prefixIcon: Icons.person,
-                  isPassword: false,
-                  obcureText: false,
-                  isReadOnly: false,
-                  labelText: 'User Name',
-                  keyBoardType: TextInputType.text,
+                Form(
+                  key: _key,
+                  child: Column(
+                    children: [
+                      MyTextField(
+                        validator: (val) {
+                          if (val!.isEmpty) {
+                            return 'Field cannot be empty';
+                          }
+                          return null;
+                        },
+                        prefixIcon: Icons.person,
+                        isPassword: false,
+                        obcureText: false,
+                        isReadOnly: false,
+                        labelText: 'User Name',
+                        keyBoardType: TextInputType.text,
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      MyTextField(
+                          validator: (val) {
+                            if (val!.isEmpty) {
+                              return 'Field cannot be empty';
+                            }
+                            return null;
+                          },
+                          prefixIcon: Icons.lock,
+                          isPassword: true,
+                          obcureText: true,
+                          isReadOnly: false,
+                          labelText: 'Password',
+                          keyBoardType: TextInputType.text),
+                    ],
+                  ),
                 ),
-                const SizedBox(
-                  height: 20,
-                ),
-                MyTextField(
-                    validator: (val) {
-                      if (val!.isEmpty) {
-                        return 'Field cannot be empty';
-                      }
-                      return null;
-                    },
-                    prefixIcon: Icons.lock,
-                    isPassword: true,
-                    obcureText: true,
-                    isReadOnly: false,
-                    labelText: 'Password',
-                    keyBoardType: TextInputType.text),
                 const SizedBox(
                   height: 10,
                 ),
@@ -110,14 +118,16 @@ class _LoginScreenState extends State<LoginScreen> {
                   height: 20,
                 ),
                 ReuseableButton(
-                  width: 323.w,
+                    width: 323.w,
                     text: 'Login',
                     onPressed: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: ((context) => const ConfirmEmailScreen()),
-                        ),
-                      );
+                      if (_key.currentState!.validate()) {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: ((context) => const ConfirmEmailScreen()),
+                          ),
+                        );
+                      }
                     }),
                 SizedBox(
                   height: 26.h,

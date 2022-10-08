@@ -8,10 +8,26 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 //First Setup Screen
-class FirstSetupScreen extends StatelessWidget {
+class FirstSetupScreen extends StatefulWidget {
   final PageController pageController;
   const FirstSetupScreen({Key? key, required this.pageController})
       : super(key: key);
+
+  @override
+  State<FirstSetupScreen> createState() => _FirstSetupScreenState();
+}
+
+class _FirstSetupScreenState extends State<FirstSetupScreen> {
+
+  // Initial Selected Value
+  String dropdownvalue = 'Male';
+
+  // List of items in our dropdown menu
+  var genders = [
+    'Male',
+    'Female',
+    'Others',
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +40,7 @@ class FirstSetupScreen extends StatelessWidget {
               height: 25.h,
             ),
             SmoothPageIndicator(
-              controller: pageController,
+              controller: widget.pageController,
               count: 3,
               effect: ExpandingDotsEffect(
                   spacing: 70,
@@ -32,7 +48,8 @@ class FirstSetupScreen extends StatelessWidget {
                   dotHeight: 10.h,
                   activeDotColor: AppColor.secondaryMain,
                   dotColor: Colors.black12),
-              onDotClicked: (index) => pageController.animateToPage(index,
+              onDotClicked: (index) => widget.pageController.animateToPage(
+                  index,
                   duration: const Duration(milliseconds: 500),
                   curve: Curves.easeOut),
             ),
@@ -109,6 +126,12 @@ class FirstSetupScreen extends StatelessWidget {
                 borderRadius: BorderRadius.circular(5.r),
               ),
               child: TextFormField(
+                validator: (val) {
+                  if (val!.isEmpty) {
+                    return 'Field cannot be empty';
+                  }
+                  return null;
+                },
                 cursorColor: AppColor.grey400,
                 decoration: InputDecoration(
                   border: InputBorder.none,
@@ -136,6 +159,12 @@ class FirstSetupScreen extends StatelessWidget {
                 borderRadius: BorderRadius.circular(5.r),
               ),
               child: TextFormField(
+                validator: (val) {
+                  if (val!.isEmpty) {
+                    return 'Field cannot be empty';
+                  }
+                  return null;
+                },
                 cursorColor: AppColor.grey400,
                 decoration: InputDecoration(
                   border: InputBorder.none,
@@ -155,6 +184,7 @@ class FirstSetupScreen extends StatelessWidget {
               height: 8.h,
             ),
             Container(
+              padding: const EdgeInsets.only(left: 20),
               width: 343.w,
               height: 55.h,
               decoration: BoxDecoration(
@@ -162,18 +192,29 @@ class FirstSetupScreen extends StatelessWidget {
                 border: Border.all(width: 0.5, color: AppColor.grey400),
                 borderRadius: BorderRadius.circular(5.r),
               ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  IconButton(
-                    color: AppColor.grey400,
-                    iconSize: 30,
-                    icon: const Icon(
-                      Icons.keyboard_arrow_down_outlined,
-                    ),
-                    onPressed: () {},
-                  )
-                ],
+              child: DropdownButtonHideUnderline(
+                child: DropdownButton(
+                  isDense: false,
+                  isExpanded: true,
+                  // Initial Value
+                  value: dropdownvalue,
+                  // Down Arrow Icon
+                  icon: const Icon(Icons.keyboard_arrow_down),
+                  // Array list of items
+                  items: genders.map((String items) {
+                    return DropdownMenuItem(
+                      value: items,
+                      child: Text(items),
+                    );
+                  }).toList(),
+                  // After selecting the desired option,it will
+                  // change button value to selected value
+                  onChanged: (String? newValue) {
+                    setState(() {
+                      dropdownvalue = newValue!;
+                    });
+                  },
+                ),
               ),
             ),
           ],
@@ -365,11 +406,11 @@ class _ThirdSetupScreenState extends State<ThirdSetupScreen> {
               child: GridView.builder(
                 itemCount: 20,
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    mainAxisExtent: 70,
-                    ),
+                  crossAxisCount: 2,
+                  mainAxisExtent: 70,
+                ),
                 itemBuilder: (BuildContext context, int index) {
-                  return const Cards(message: 'Cooking');
+                  return Cards(message: 'Cooking');
                 },
               ),
             ),
@@ -424,30 +465,42 @@ class _ThirdSetupScreenState extends State<ThirdSetupScreen> {
 
 class Cards extends StatefulWidget {
   final String message;
-  const Cards({Key? key, required this.message}) : super(key: key);
+
+  Cards({
+    Key? key,
+    required this.message,
+  }) : super(key: key);
 
   @override
   State<Cards> createState() => _CardsState();
 }
 
 class _CardsState extends State<Cards> {
+  bool checked = false;
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(7.5),
-      child: Container(
-        width: 164.w,
-        height: 12.h,
-        decoration: BoxDecoration(
-          color: Colors.white,
-          border: Border.all(width: 1.0, color: AppColor.secondaryMain),
-          borderRadius: BorderRadius.circular(5.r),
-        ),
-        child: Center(
-          child: NormalText(
-            text: widget.message,
-            color: AppColor.secondaryMain,
-            size: 14.sp,
+      child: InkWell(
+        onTap: () {
+          setState(() {
+            checked = !checked;
+          });
+        },
+        child: Container(
+          width: 164.w,
+          height: 12.h,
+          decoration: BoxDecoration(
+            color: checked ? AppColor.secondaryMain : Colors.white,
+            border: Border.all(width: 1.0, color: AppColor.secondaryMain),
+            borderRadius: BorderRadius.circular(5.r),
+          ),
+          child: Center(
+            child: NormalText(
+              text: widget.message,
+              color: checked ? Colors.white : AppColor.secondaryMain,
+              size: 14.sp,
+            ),
           ),
         ),
       ),

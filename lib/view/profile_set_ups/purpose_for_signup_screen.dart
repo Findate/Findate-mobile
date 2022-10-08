@@ -15,7 +15,9 @@ class PurposeForSignup extends StatefulWidget {
 }
 
 class _PurposeForSignupState extends State<PurposeForSignup> {
-  bool checked = false;
+  bool checked1 = false;
+  bool checked2 = false;
+  bool checked3 = false;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -27,7 +29,7 @@ class _PurposeForSignupState extends State<PurposeForSignup> {
                 ReusesableAppbarButton(
                   iconButton: IconButton(
                       onPressed: () {},
-                      icon:const Icon(
+                      icon: const Icon(
                         Icons.keyboard_arrow_left_outlined,
                         color: AppColor.mainColor,
                       )),
@@ -48,12 +50,14 @@ class _PurposeForSignupState extends State<PurposeForSignup> {
                   width: 30.w,
                 ),
                 RichText(
-                    text: TextSpan(
-                        text: 'Hi Jeean! Why are you Here?',
-                        style: GoogleFonts.nunito(
-                          color: AppColor.grey400,
-                          fontSize: 14.sp,
-                        )))
+                  text: TextSpan(
+                    text: 'Hi Jeean! Why are you Here?',
+                    style: GoogleFonts.nunito(
+                      color: AppColor.grey400,
+                      fontSize: 14.sp,
+                    ),
+                  ),
+                ),
               ],
             ),
             const Padding(
@@ -66,10 +70,10 @@ class _PurposeForSignupState extends State<PurposeForSignup> {
                     color: AppColor.grey400,
                     fontSize: 12.sp,
                   )),
-              value: checked,
+              value: checked1,
               onChanged: (bool? value) {
                 setState(() {
-                  checked = value!;
+                  checked1 = value!;
                 });
               },
               checkColor: const Color(0xffFF6685),
@@ -86,10 +90,10 @@ class _PurposeForSignupState extends State<PurposeForSignup> {
                         color: AppColor.grey400,
                         fontSize: 12.sp,
                       )),
-              value: checked,
+              value: checked2,
               onChanged: (bool? value) {
                 setState(() {
-                  checked = value!;
+                  checked2 = value!;
                 });
               },
               checkColor: const Color(0xffFF6685),
@@ -105,10 +109,10 @@ class _PurposeForSignupState extends State<PurposeForSignup> {
                     color: AppColor.grey400,
                     fontSize: 14.sp,
                   )),
-              value: checked,
+              value: checked3,
               onChanged: (bool? value) {
                 setState(() {
-                  checked = value!;
+                  checked3 = value!;
                 });
               },
               checkColor: const Color(0xffFF6685),

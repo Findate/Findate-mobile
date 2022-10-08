@@ -1,5 +1,6 @@
 import 'package:findate/constants/appColor.dart';
 import 'package:findate/view/on_bording/matches/matches_screen.dart';
+import 'package:findate/view/on_bording/on_bording_screen.dart';
 import 'package:findate/widgets/reusesable_widget/normal_text.dart';
 import 'package:findate/widgets/reusesable_widget/reuseable_appbar_button.dart';
 import 'package:flutter/material.dart';
@@ -31,7 +32,13 @@ class _NearbyDatesState extends State<NearbyDates> {
                       ReusesableAppbarButton(
                           iconButton: IconButton(
                         //Onpressed function null
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => const OnBoardingScreen(),
+                            ),
+                          );
+                        },
                         icon: const Icon(
                           Icons.arrow_back_ios_new_rounded,
                           color: AppColor.mainColor,
@@ -69,7 +76,7 @@ class _NearbyDatesState extends State<NearbyDates> {
                               size: 18,
                             ),
                             Padding(
-                              padding: const EdgeInsets.only(left:10.0),
+                              padding: const EdgeInsets.only(left: 10.0),
                               child: NormalText(
                                 text: 'Your Location',
                                 size: 16.sp,

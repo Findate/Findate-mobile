@@ -2,7 +2,6 @@ import 'package:findate/constants/appColor.dart';
 import 'package:findate/widgets/reusesable_widget/normal_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter/cupertino.dart';
 
 class ChatsScreen extends StatefulWidget {
   const ChatsScreen({Key? key}) : super(key: key);
@@ -31,7 +30,9 @@ class _ChatsScreenState extends State<ChatsScreen> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(left: 20.0),
+                padding: const EdgeInsets.only(
+                  left: 20.0,
+                ),
                 child: SizedBox(
                   height: 40.h,
                   width: 348.w,
@@ -69,22 +70,22 @@ class _ChatsScreenState extends State<ChatsScreen> {
                     physics: const NeverScrollableScrollPhysics(),
                     children: const [
                       FirstChatList(
-                        message: 'typing',
+                        message: 'Typing........',
                         name: 'joel',
                         imageUrl: 'assets/homeImage1.png',
                       ),
                       FirstChatList(
-                        message: 'kkkk',
+                        message: 'Let’s Link Up Today',
                         name: 'joel',
                         imageUrl: 'assets/homeImage1.png',
                       ),
                       FirstChatList(
-                        message: 'let link up today',
+                        message: 'Let link up today',
                         name: 'joel',
                         imageUrl: 'assets/homeImage1.png',
                       ),
                       FirstChatList(
-                        message: 'can i know you better',
+                        message: 'Can i know you better',
                         name: 'joel',
                         imageUrl: 'assets/homeImage1.png',
                       ),
@@ -127,59 +128,60 @@ class _FirstChatListState extends State<FirstChatList> {
         child: Column(
           children: [
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.only(left: 20.0),
-                  child: CircleAvatar(
-                    backgroundImage: AssetImage(widget.imageUrl),
-                    maxRadius: 30,
-                  ),
-                ),
-                const SizedBox(
-                  width: 16,
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Row(
-                      children: [
-                        NormalText(
-                          text: widget.name,
-                          size: 16.sp,
-                          fontWeight: FontWeight.w600,
-                        ),
-                        Text(
-                          'just now',
-                          style: TextStyle(
-                              fontSize: 10,
-                              color: AppColor.grey400,
-                              fontWeight: FontWeight.w400),
-                        )
-                      ],
+                Row(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(left: 20.0),
+                      child: CircleAvatar(
+                        backgroundImage: AssetImage(widget.imageUrl),
+                        maxRadius: 30,
+                      ),
                     ),
-                    const SizedBox(
-                      height: 6,
-                    ),
-                    Row(
-                      children: [
-                        Text(
-                          widget.message,
-                          style: const TextStyle(
-                              fontSize: 12,
-                              color: AppColor.mainColor,
-                              fontWeight: FontWeight.w400),
-                        ),
-                        const Text(
-                          'just now',
-                          style: TextStyle(
-                              fontSize: 10,
-                              color: AppColor.grey400,
-                              fontWeight: FontWeight.w400),
-                        ),
-                      ],
+                    Padding(
+                      padding: const EdgeInsets.only(left: 20.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          NormalText(
+                            text: widget.name,
+                            size: 16.sp,
+                            fontWeight: FontWeight.w700,
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Text(
+                            widget.message,
+                            style: const TextStyle(
+                                fontSize: 12,
+                                color: AppColor.grey400,
+                                fontWeight: FontWeight.w400),
+                          ),
+                        ],
+                      ),
                     ),
                   ],
                 ),
+                Padding(
+                  padding: const EdgeInsets.only(right: 20.0),
+                  child: Column(
+                    children: const [
+                      Text(
+                        'Just Now',
+                        style: TextStyle(
+                            fontSize: 10,
+                            color: AppColor.grey400,
+                            fontWeight: FontWeight.w400),
+                      ),
+                        SizedBox(
+                            height: 10,
+                          ),
+                      Icon(Icons.check, size: 14,),
+                    ],
+                  ),
+                )
               ],
             ),
             const Divider(

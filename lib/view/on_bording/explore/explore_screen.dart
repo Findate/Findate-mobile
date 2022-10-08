@@ -8,6 +8,7 @@ import 'package:findate/widgets/reusesable_widget/reuseable_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../matches/matches_screen.dart';
 
 class ExploreScreen extends StatefulWidget {
   const ExploreScreen({Key? key}) : super(key: key);
@@ -17,13 +18,12 @@ class ExploreScreen extends StatefulWidget {
 }
 
 class _ExploreScreenState extends State<ExploreScreen> {
-
   @override
   void initState() {
     super.initState();
 // get pref key
-   final  initialized = UserPreferences.getInitialized();
- 
+    final initialized = UserPreferences.getInitialized();
+
 //call modal sheet function
     Future.delayed(Duration.zero, () {
       //if key wasnt set means its null, call modalsheet fuction else do nothing
@@ -31,13 +31,12 @@ class _ExploreScreenState extends State<ExploreScreen> {
     });
     //set key to true to init dont call modalshet again aftr first call
     UserPreferences.setInitialized(true);
-    
   }
 
 //show location modal function
   void modalBottomSheetMenu() {
     showDialog(
-      barrierDismissible: false,
+        barrierDismissible: false,
         context: context,
         builder: (builder) {
           return Center(
@@ -215,7 +214,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
                         iconButton: IconButton(
                           onPressed: () {},
                           icon: Icon(
-                            Icons.format_list_bulleted_rounded,
+                            Icons.tune,
                             color: AppColor.mainColor,
                             size: 30.h,
                           ),
@@ -233,7 +232,13 @@ class _ExploreScreenState extends State<ExploreScreen> {
                         fontWeight: FontWeight.w600,
                       ),
                       TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: ((context) => const PopularMatches()),
+                            ),
+                          );
+                        },
                         child: NormalText(
                           text: 'view all',
                           size: 12.sp,

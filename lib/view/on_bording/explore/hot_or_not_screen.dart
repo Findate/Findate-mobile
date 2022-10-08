@@ -42,7 +42,7 @@ class _HotOrNotScreenState extends State<HotOrNotScreen> {
                 iconButton: IconButton(
                   onPressed: () {},
                   icon: const Icon(
-                    Icons.format_list_bulleted_rounded,
+                    Icons.tune,
                     color: AppColor.mainColor,
                   ),
                 ),

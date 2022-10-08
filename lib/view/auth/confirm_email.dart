@@ -30,6 +30,9 @@ class _ConfirmEmailScreenState extends State<ConfirmEmailScreen> {
   //acess text inputed
   String currentText = "";
 
+  //form key
+  final _key = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -72,7 +75,6 @@ class _ConfirmEmailScreenState extends State<ConfirmEmailScreen> {
                     children: <TextSpan>[
                       TextSpan(
                         text: 'A verification code was sent to \n',
-                        
                         style: GoogleFonts.nunito(
                           color: AppColor.grey400,
                           fontSize: 14.sp,
@@ -93,77 +95,82 @@ class _ConfirmEmailScreenState extends State<ConfirmEmailScreen> {
             //Pin text field
             Padding(
               padding: const EdgeInsets.all(40.0),
-              child: PinCodeTextField(
-                appContext: context,
-                // pastedTextStyle: TextStyle(
-                //   color: Colors.green.shade600,
-                //   fontWeight: FontWeight.bold,
-                // ),
-                length: 4,
-                obscureText: true,
-                obscuringCharacter: '*',
-                blinkWhenObscuring: true,
-                animationType: AnimationType.fade,
-                validator: (v) {
-                  if (v!.length < 4) {
-                    return "Pin Must be 4 digits";
-                  } else {
-                    return null;
-                  }
-                },
-                pinTheme: PinTheme(
-                    activeColor: Colors.white,
-                    activeFillColor: Colors.white,
-                    selectedColor: AppColor.mainColor,
-                    inactiveColor: const Color(0xffFF6685),
-                    selectedFillColor: Colors.white,
-                    inactiveFillColor: Colors.white,
-                    shape: PinCodeFieldShape.box,
-                    borderRadius: BorderRadius.circular(5),
-                    fieldHeight: 60.h,
-                    fieldWidth: 60.w,
-                    borderWidth: 0.3),
-                cursorColor: Colors.black,
-                animationDuration: const Duration(milliseconds: 300),
-                enableActiveFill: true,
-                errorAnimationController: errorController,
-                controller: textEditingController,
-                keyboardType: TextInputType.number,
-                boxShadows: const [
-                  BoxShadow(
-                    offset: Offset(0, 1),
-                    color: Colors.black12,
-                    blurRadius: 10,
-                  )
-                ],
-                // onCompleted: (v) {
-                //   debugPrint("Completed");
-                // },
-                // onTap: () {
-                //   print("Pressed");
-                // },
-                onChanged: (value) {
-                  // debugPrint(value);
-                  setState(() {
-                    currentText = value;
-                  });
-                },
-                // beforeTextPaste: (text) {
-                //   debugPrint("Allowing to paste $text");
-                //   //if you return true then it will show the paste confirmation dialog. Otherwise if false, then nothing will happen.
-                //   //but you can show anything you want here, like your pop up saying wrong paste format or etc
-                //   return false;
-                // },
+              child: Form(
+                key: _key,
+                child: PinCodeTextField(
+                  appContext: context,
+                  // pastedTextStyle: TextStyle(
+                  //   color: Colors.green.shade600,
+                  //   fontWeight: FontWeight.bold,
+                  // ),
+                  length: 4,
+                  obscureText: true,
+                  obscuringCharacter: '*',
+                  blinkWhenObscuring: true,
+                  animationType: AnimationType.fade,
+                  validator: (v) {
+                    if (v!.length < 4) {
+                      return "Pin Must be 4 digits";
+                    } else {
+                      return null;
+                    }
+                  },
+                  pinTheme: PinTheme(
+                      activeColor: Colors.white,
+                      activeFillColor: Colors.white,
+                      selectedColor: AppColor.mainColor,
+                      inactiveColor: const Color(0xffFF6685),
+                      selectedFillColor: Colors.white,
+                      inactiveFillColor: Colors.white,
+                      shape: PinCodeFieldShape.box,
+                      borderRadius: BorderRadius.circular(5),
+                      fieldHeight: 60.h,
+                      fieldWidth: 60.w,
+                      borderWidth: 0.3),
+                  cursorColor: Colors.black,
+                  animationDuration: const Duration(milliseconds: 300),
+                  enableActiveFill: true,
+                  errorAnimationController: errorController,
+                  controller: textEditingController,
+                  keyboardType: TextInputType.number,
+                  boxShadows: const [
+                    BoxShadow(
+                      offset: Offset(0, 1),
+                      color: Colors.black12,
+                      blurRadius: 10,
+                    )
+                  ],
+                  // onCompleted: (v) {
+                  //   debugPrint("Completed");
+                  // },
+                  // onTap: () {
+                  //   print("Pressed");
+                  // },
+                  onChanged: (value) {
+                    // debugPrint(value);
+                    setState(() {
+                      currentText = value;
+                    });
+                  },
+                  // beforeTextPaste: (text) {
+                  //   debugPrint("Allowing to paste $text");
+                  //   //if you return true then it will show the paste confirmation dialog. Otherwise if false, then nothing will happen.
+                  //   //but you can show anything you want here, like your pop up saying wrong paste format or etc
+                  //   return false;
+                  // },
+                ),
               ),
             ),
             ReuseableButton(
                 text: 'Verify',
                 onPressed: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: ((context) => const PurposeForSignup()),
-                    ),
-                  );
+                  if (_key.currentState!.validate()) {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: ((context) => const PurposeForSignup()),
+                      ),
+                    );
+                  }
                 }),
             const SizedBox(
               height: 40,
