@@ -14,31 +14,33 @@ class ReuseableButton extends StatelessWidget {
   final bool isActive;
   final Color backGroundColor;
   final Color textColor;
+  final double? radius;
+  final double? margin;
 
-  ReuseableButton(
-      {Key? key,
-      required this.text,
-      required this.onPressed,
-      this.height = 55,
-      this.textSize = 16,
-      this.width = 327,
-      this.isActive = true,
-      this.backGroundColor = AppColor.mainColor,
-      this.textColor = Colors.white,
-      
-      })
-      : super(key: key);
+  ReuseableButton({
+    Key? key,
+    this.margin = 20,
+    this.radius = 55,
+    required this.text,
+    required this.onPressed,
+    this.height = 55,
+    this.textSize = 16,
+    this.width = 327,
+    this.isActive = true,
+    this.backGroundColor = AppColor.mainColor,
+    this.textColor = Colors.white,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.fromLTRB(20.0.w, 0.0.h, 20.0.w, 0.0.h),
+      margin: EdgeInsets.fromLTRB(margin!, 0.0.h, margin!, 0.0.h),
       height: height,
       width: width,
       child: TextButton(
           style: TextButton.styleFrom(
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(55.r),
+              borderRadius: BorderRadius.circular(radius!),
             ),
             backgroundColor: backGroundColor,
             minimumSize: Size.fromHeight(70.h),

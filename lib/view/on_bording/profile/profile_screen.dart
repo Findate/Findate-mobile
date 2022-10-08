@@ -1,4 +1,10 @@
+// ignore_for_file: must_be_immutable
+
+import 'package:findate/constants/appColor.dart';
+import 'package:findate/widgets/reusesable_widget/normal_text.dart';
+import 'package:findate/widgets/reusesable_widget/reuseable_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -10,6 +16,210 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return SafeArea(
+      child: SingleChildScrollView(
+        child: SizedBox(
+          height: 1300.h,
+          width: 375.w,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                width: 375.w,
+                height: 275.h,
+                decoration: const BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage('assets/profileHeader.png'),
+                      fit: BoxFit.cover),
+                ),
+                // child: Image.asset('assets/profileHeader.png'),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: SizedBox(
+                  child: Column(children: [
+                    ProfileCards(title: 'Full Name'),
+                    ProfileCards(title: 'Gender'),
+                    ProfileCards(title: 'Location'),
+                    ProfileCards(title: 'Date of birth'),
+                    ProfileCards(title: 'Occupation'),
+                    ProfileCards(title: 'About me'),
+                    SizedBox(
+                      height: 80.h,
+                    ),
+                    NormalText(text: 'Interests (Max 3 allowed)'),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(right: 10.0),
+                          child: ReuseableButton(
+                            margin: 0,
+                            radius: 2.r,
+                            text: '+',
+                            onPressed: () {},
+                            height: 32.h,
+                            width: 32.w,
+                            backGroundColor: AppColor.mainColor,
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(5.0),
+                          child: ReuseableButton(
+                            margin: 0,
+                            radius: 2.r,
+                            text: 'Pet',
+                            onPressed: () {},
+                            height: 32.4,
+                            width: 90.w,
+                            backGroundColor: AppColor.secondaryMain,
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(5.0),
+                          child: ReuseableButton(
+                            margin: 0,
+                            radius: 2.r,
+                            text: 'Cooking',
+                            onPressed: () {},
+                            height: 32.4,
+                            width: 90.w,
+                            backGroundColor: AppColor.secondaryMain,
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(5.0),
+                          child: ReuseableButton(
+                            margin: 0,
+                            radius: 2.r,
+                            text: 'Art',
+                            onPressed: () {},
+                            height: 32.4,
+                            width: 90.w,
+                            backGroundColor: AppColor.secondaryMain,
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 30.h,
+                    ),
+                    NormalText(text: 'Preference'),
+                    SizedBox(
+                      height: 10.h,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        ReuseableButton(
+                          margin: 0,
+                          radius: 2.r,
+                          text: 'Male',
+                          onPressed: () {},
+                          height: 32.4,
+                          width: 110.w,
+                          backGroundColor: const Color(0xffCCCCCC),
+                        ),
+                        ReuseableButton(
+                          margin: 0,
+                          radius: 2.r,
+                          text: 'Female',
+                          onPressed: () {},
+                          height: 32.4,
+                          width: 110.w,
+                          backGroundColor: AppColor.secondaryMain,
+                        ),
+                        ReuseableButton(
+                          margin: 0,
+                          radius: 2.r,
+                          text: 'Others',
+                          onPressed: () {},
+                          height: 32.4,
+                          width: 110.w,
+                          backGroundColor: const Color(0xffCCCCCC),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 20.h,
+                    ),
+                    NormalText(text: 'Photo Gallery'),
+                    SizedBox(
+                      height: 10.h,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        SizedBox(
+                          width: 103.w,
+                          height: 124.h,
+                          child: Image.asset('assets/profileImage.png'),
+                        ),
+                        SizedBox(
+                          width: 103.w,
+                          height: 124.h,
+                          child: Image.asset('assets/profileImage1.png'),
+                        ),
+                        SizedBox(
+                          width: 103.w,
+                          height: 124.h,
+                          child: Image.asset('assets/profileImage2.png'),
+                        ),
+                      ],
+                    ),
+                  ]),
+                ),
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class ProfileCards extends StatefulWidget {
+  String title;
+
+  ProfileCards({Key? key, required this.title}) : super(key: key);
+
+  @override
+  State<ProfileCards> createState() => _ProfileCardsState();
+}
+
+class _ProfileCardsState extends State<ProfileCards> {
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        NormalText(
+          text: widget.title,
+          size: 14.sp,
+          fontWeight: FontWeight.w500,
+        ),
+        SizedBox(
+          height: 8.h,
+        ),
+        Container(
+          width: 343.w,
+          height: 55.h,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            border: Border.all(width: 0.5, color: AppColor.grey400),
+            borderRadius: BorderRadius.circular(5.r),
+          ),
+          child: TextFormField(
+            cursorColor: AppColor.grey400,
+            decoration: InputDecoration(
+              border: InputBorder.none,
+              contentPadding: EdgeInsets.all(16.w),
+            ),
+          ),
+        ),
+      ],
+    );
   }
 }
