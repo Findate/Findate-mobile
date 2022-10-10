@@ -8,6 +8,7 @@ import 'package:findate/widgets/reusesable_widget/reuseable_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../matches/matches_details_screen.dart';
 import '../matches/matches_screen.dart';
 
 class ExploreScreen extends StatefulWidget {
@@ -235,7 +236,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
                         onPressed: () {
                           Navigator.of(context).push(
                             MaterialPageRoute(
-                              builder: ((context) => const PopularMatches()),
+                              builder: ((context) => const MatchUserInfo()),
                             ),
                           );
                         },

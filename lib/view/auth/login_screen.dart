@@ -1,6 +1,8 @@
 import 'package:findate/constants/appColor.dart';
 import 'package:findate/view/auth/confirm_email.dart';
 import 'package:findate/view/auth/signup_screen.dart';
+import 'package:findate/view/on_bording/explore/explore_screen.dart';
+import 'package:findate/view/on_bording/on_bording_screen.dart';
 import 'package:findate/widgets/reusesable_widget/normal_text.dart';
 import 'package:findate/widgets/reusesable_widget/reusaable_textformfield.dart';
 import 'package:findate/widgets/reusesable_widget/reuseable_button.dart';
@@ -124,7 +126,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       if (_key.currentState!.validate()) {
                         Navigator.of(context).push(
                           MaterialPageRoute(
-                            builder: ((context) => const ConfirmEmailScreen()),
+                            builder: ((context) => const OnBoardingScreen()),
                           ),
                         );
                       }
