@@ -30,10 +30,11 @@ class NormalText extends StatelessWidget {
     return Text(
       textAlign: textAlign,
       text,
-        style:GoogleFonts.nunito(
+        style:TextStyle(
         color: color,
         fontSize: size,
-        fontWeight: fontWeight
+        fontWeight: fontWeight,
+        fontFamily: 'nunito'
         
       ),
     

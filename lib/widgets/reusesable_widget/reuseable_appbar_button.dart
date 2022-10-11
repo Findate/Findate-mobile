@@ -18,7 +18,6 @@ class ReusesableAppbarButton extends StatelessWidget {
       child: Container(
           height: 52.h,
           width: 52.w,
-          margin: const EdgeInsets.all(15.0),
           padding: const EdgeInsets.all(3.0),
           decoration: BoxDecoration(
             color: Colors.white,
