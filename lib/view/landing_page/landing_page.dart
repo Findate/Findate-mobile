@@ -1,5 +1,5 @@
 import 'package:findate/constants/appColor.dart';
-import 'package:findate/view/auth/login_screen.dart';
+import 'package:findate/view/auth/views/login_screen.dart';
 import 'package:findate/widgets/reusesable_widget/normal_text.dart';
 import 'package:findate/widgets/reusesable_widget/reuseable_button.dart';
 import 'package:flutter/material.dart';

@@ -8,25 +8,26 @@ import 'package:simple_connection_checker/simple_connection_checker.dart';
 import '../constants/status_codes copy.dart';
 
 class WebServices {
-  static Future<Object> sendRequest(String url, context) async {
-    bool isConnected = await SimpleConnectionChecker.isConnectedToInternet();
+  static Future<Object> sendRequest(String url, Object body, context) async {
+    print(body);
 
     try {
-      if (isConnected) {
-        var response = await http.get(Uri.parse(url));
+      var response = await http.post(Uri.parse('findate.herokuapp.com/api/v1/users/login'), body:{
+                                "username": "kolikay1989@gmail.com",
+                                "password": "password",
+                              } );
 
-        if (response.statusCode == 200) {
-          Navigator.pop(context);
-          return Success(response: response.body);
-        } else {
-          return Failure(
-              code: USER_INVALID_RESPONSE, errorResponse: 'Invalid Response');
-        }
+      print(response.body);
+
+      if (response.statusCode == 200) {
+        print('passed');
+    
+        return Success(response: response.body);
       } else {
-        return const SocketException('No Data Found');
+        return Failure(
+            code: USER_INVALID_RESPONSE, errorResponse: 'Invalid Response');
       }
     } catch (e) {
-      Navigator.pop(context);
       return Failure(code: UNKNOWN_ERROR, errorResponse: 'Unknown Error');
     }
   }
