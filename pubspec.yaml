@@ -56,8 +56,17 @@ dependencies:
 
   #calender
   table_calendar: ^3.0.7
+
   #manage local state
   shared_preferences: ^2.0.15
+
+  #check connection package
+  simple_connection_checker: ^0.2.1
+  
+  #state management
+  flutter_riverpod: ^1.0.1
+
+
 
 
 

@@ -1,4 +1,5 @@
 import 'package:findate/constants/appColor.dart';
+import 'package:findate/view/on_bording/on_bording_screen.dart';
 import 'package:findate/widgets/reusesable_widget/normal_text.dart';
 import 'package:findate/widgets/reusesable_widget/reuseable_appbar_button.dart';
 import 'package:flutter/material.dart';
@@ -24,13 +25,17 @@ class _MatchUserInfoState extends State<MatchUserInfo> {
           width: 343.w,
           child: Column(
             children: [
+              const SizedBox(
+                height: 20,
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   ReusesableAppbarButton(
                     iconButton: IconButton(
                       onPressed: () {
-                        Navigator.pop(context);
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => const OnBoardingScreen()));
                       },
                       icon: const Icon(
                         Icons.keyboard_arrow_left_outlined,
@@ -39,7 +44,7 @@ class _MatchUserInfoState extends State<MatchUserInfo> {
                     ),
                   ),
                   NormalText(
-                    text: ' Popular Matches ',
+                    text: 'Popular Matches',
                     size: 22.sp,
                     fontWeight: FontWeight.w600,
                   ),
@@ -226,7 +231,8 @@ class _MatchCardState extends State<MatchCard> {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20.r),
                 image: const DecorationImage(
-                    image: AssetImage('assets/homeImage3.png'), fit: BoxFit.fill),
+                    image: AssetImage('assets/homeImage3.png'),
+                    fit: BoxFit.fill),
               ),
             ),
           ),
