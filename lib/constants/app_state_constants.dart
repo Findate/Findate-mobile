@@ -5,7 +5,7 @@ import 'package:findate/view/auth/auth_view_models/auth_view_model.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 
-const String baseUrl = 'findate.herokuapp.com/api/v1/users/login';
+const String baseUrl = 'https://findate.herokuapp.com/api/v1/users/login';
 
 
 

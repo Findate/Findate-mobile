@@ -1,5 +1,8 @@
+import 'dart:convert';
 import 'dart:io';
 
+import 'package:findate/routes/page_routes.dart';
+import 'package:findate/view/on_bording/on_bording_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -10,18 +13,23 @@ import '../constants/status_codes copy.dart';
 class WebServices {
   static Future<Object> sendRequest(String url, Object body, context) async {
     print(body);
+    final bodyParm = ({body});
+    final header = <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+    };
 
     try {
-      var response = await http.post(Uri.parse('findate.herokuapp.com/api/v1/users/login'), body:{
-                                "username": "kolikay1989@gmail.com",
-                                "password": "password",
-                              } );
-
-      print(response.body);
+      var response = await http.post(Uri.parse(url),
+          body: jsonEncode(body), headers: header);
+      print(response);
 
       if (response.statusCode == 200) {
-        print('passed');
-    
+         Navigator.of(context).push(
+    MaterialPageRoute(
+      builder: (context) => const OnBoardingScreen(),
+    ),
+  );
+
         return Success(response: response.body);
       } else {
         return Failure(

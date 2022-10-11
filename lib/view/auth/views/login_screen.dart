@@ -163,7 +163,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                       if (_key.currentState!.validate()) {
                         if (_key.currentState!.validate()) {
                           authViewModel.loginUser(
-                              '$baseUrl',
+                              baseUrl,
                               {
                                 "username": usernameController.text.trim(),
                                 "password": passwordController.text.trim()
