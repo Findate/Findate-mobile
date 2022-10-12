@@ -1,3 +1,5 @@
+// ignore_for_file: depend_on_referenced_packages
+
 import 'dart:convert';
 import 'dart:io';
 
@@ -14,6 +16,7 @@ class WebServices {
   static Future<Object> sendRequest(String url, Object body, context) async {
     print(body);
     final bodyParm = ({body});
+
     final header = <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     };
@@ -21,19 +24,24 @@ class WebServices {
     try {
       var response = await http.post(Uri.parse(url),
           body: jsonEncode(body), headers: header);
-      print(response);
 
       if (response.statusCode == 200) {
-         Navigator.of(context).push(
-    MaterialPageRoute(
-      builder: (context) => const OnBoardingScreen(),
-    ),
-  );
-
         return Success(response: response.body);
       } else {
-        return Failure(
-            code: USER_INVALID_RESPONSE, errorResponse: 'Invalid Response');
+        print(response);
+
+        if (response.statusCode == 200) {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => const OnBoardingScreen(),
+            ),
+          );
+
+          return Success(response: response.body);
+        } else {
+          return Failure(
+              code: USER_INVALID_RESPONSE, errorResponse: 'Invalid Response');
+        }
       }
     } catch (e) {
       return Failure(code: UNKNOWN_ERROR, errorResponse: 'Unknown Error');
