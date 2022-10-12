@@ -180,9 +180,15 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                         width: 323.w,
                         text: 'Login',
                         onPressed: () {
+                          
                           if (_key.currentState!.validate()) {
                             authViewModel.loginUser(
-                                '${baseUrl}login', requestBody, context);
+                                baseUrl,
+                                {
+                                  "username": usernameController.text.trim(),
+                                  "password": passwordController.text.trim()
+                                },
+                                context);
 
                             FocusScope.of(context).unfocus();
                           }

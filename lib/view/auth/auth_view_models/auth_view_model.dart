@@ -22,36 +22,26 @@ class AuthViewModel extends ChangeNotifier {
   }
 
 // login view model
+
   loginUser(url, body, context) async {
     setLoading(true);
 
     final response = await WebServices.sendRequest(url, body, context);
 
     if (response is Success) {
+      print(response);
       pushOnBoardingScreen(context);
 
-      loginUser(url, body, context) async {
-        setLoading(true);
-
-        final response = await WebServices.sendRequest(url, body, context);
-
-        if (response is Success) {
-          pushOnBoardingScreen(context);
-
-          // pushToHomePage(context);
-
-          setLoading(false);
-        }
-        if (response is Failure) {
-          setLoginError(true);
-          setLoading(false);
-        }
-        if (response is SocketException) {
-          pushToNoInternetPage(context);
-          setLoading(false);
-        }
-        setLoading(false);
-      }
+      setLoading(false);
     }
+    if (response is Failure) {
+      setLoginError(true);
+      setLoading(false);
+    }
+    if (response is SocketException) {
+      pushToNoInternetPage(context);
+      setLoading(false);
+    }
+    setLoading(false);
   }
 }
