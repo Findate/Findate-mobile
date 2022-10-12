@@ -13,30 +13,18 @@ import 'package:simple_connection_checker/simple_connection_checker.dart';
 import '../constants/status_codes copy.dart';
 
 class WebServices {
-  static Future<Object> sendRequest(String url, Object body, context) async {
+  static Future sendRequest(String url, Object body, context) async {
     print(body);
 
     final header = <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     };
-
     try {
       var response = await http.post(Uri.parse(url),
           body: jsonEncode(body), headers: header);
-
-      if (response.statusCode == 200) {
-        print(response.body);
-        return Success(response: response.body);
-      } else {
-        if (response.statusCode == 200) {
-          return Success(response: response.body);
-        } else {
-          return Failure(
-              code: USER_INVALID_RESPONSE, errorResponse: 'Invalid Response');
-        }
-      }
+      return response;
     } catch (e) {
-      return Failure(code: UNKNOWN_ERROR, errorResponse: 'Unknown Error');
+      return e.toString();
     }
   }
 }

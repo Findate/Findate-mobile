@@ -23,8 +23,11 @@ pushToLoginPage(BuildContext context) async {
 }
 
 pushOnBoardingScreen(BuildContext context) async {
-  Navigator.of(context).pushNamedAndRemoveUntil(
-      OnBoardingScreen.id, (Route<dynamic> route) => false);
+    Navigator.of(context).push(
+    MaterialPageRoute(
+      builder: (context) => const OnBoardingScreen(),
+    ),
+  );
 }
 
 // pushCategoriesPage(BuildContext context) async {

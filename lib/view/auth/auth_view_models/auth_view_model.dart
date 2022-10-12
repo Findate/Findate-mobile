@@ -4,6 +4,7 @@ import 'package:findate/constants/status_codes.dart';
 import 'package:findate/routes/page_routes.dart';
 import 'package:findate/services/web_service.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
 
 class AuthViewModel extends ChangeNotifier {
   bool _loading = false;
@@ -26,15 +27,15 @@ class AuthViewModel extends ChangeNotifier {
   loginUser(url, body, context) async {
     setLoading(true);
 
-    final response = await WebServices.sendRequest(url, body, context);
+    Response response = await WebServices.sendRequest(url, body, context);
+    print(response);
 
-    if (response is Success) {
-      print(response);
+    if (response.statusCode == 200) {
       pushOnBoardingScreen(context);
 
       setLoading(false);
     }
-    if (response is Failure) {
+    if (response.statusCode != 200) {
       setLoginError(true);
       setLoading(false);
     }

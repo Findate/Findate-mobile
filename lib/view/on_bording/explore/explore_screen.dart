@@ -80,7 +80,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
                     children: [
                       ReuseableButton(
                         height: 36.h,
-                        width: 131.w,
+                        width: 128.w,
                         text: 'Skip',
                         onPressed: () {
                           Navigator.pop(context);
@@ -90,7 +90,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
                       ),
                       ReuseableButton(
                           height: 36.h,
-                          width: 131.w,
+                          width: 128.w,
                           text: 'Share ',
                           onPressed: () {
                             Navigator.pop(context);
