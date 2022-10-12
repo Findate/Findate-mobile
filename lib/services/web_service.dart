@@ -14,17 +14,19 @@ import '../constants/status_codes copy.dart';
 
 class WebServices {
   static Future sendRequest(String url, Object body, context) async {
-    print(body);
+
+    bool isConnected = await SimpleConnectionChecker.isConnectedToInternet();
 
     final header = <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     };
-    try {
+    
+    if (isConnected) {
       var response = await http.post(Uri.parse(url),
           body: jsonEncode(body), headers: header);
       return response;
-    } catch (e) {
-      return e.toString();
+    } else {
+      pushToNoInternetPage(context);
     }
   }
 }

@@ -13,6 +13,8 @@ class NoInternetScreen extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         body: Container(
+          height: 900.h,
+          width: 327.w,
           color: AppColor.grey400,
           child: Column(
             children: [
