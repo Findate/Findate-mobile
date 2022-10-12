@@ -184,10 +184,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                           if (_key.currentState!.validate()) {
                             authViewModel.loginUser(
                                 baseUrl,
-                                {
-                                  "username": usernameController.text.trim(),
-                                  "password": passwordController.text.trim()
-                                },
+                               requestBody,
                                 context);
 
                             FocusScope.of(context).unfocus();

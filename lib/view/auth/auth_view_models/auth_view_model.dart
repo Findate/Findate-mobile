@@ -28,7 +28,7 @@ class AuthViewModel extends ChangeNotifier {
     setLoading(true);
 
     Response response = await WebServices.sendRequest(url, body, context);
-    print(response);
+
 
     if (response.statusCode == 200) {
       pushOnBoardingScreen(context);
@@ -37,10 +37,6 @@ class AuthViewModel extends ChangeNotifier {
     }
     if (response.statusCode != 200) {
       setLoginError(true);
-      setLoading(false);
-    }
-    if (response is SocketException) {
-      pushToNoInternetPage(context);
       setLoading(false);
     }
     setLoading(false);
