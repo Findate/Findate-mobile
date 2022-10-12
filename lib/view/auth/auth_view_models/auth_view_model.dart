@@ -5,6 +5,7 @@ import 'package:findate/routes/page_routes.dart';
 import 'package:findate/services/web_service.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
+import 'package:simple_connection_checker/simple_connection_checker.dart';
 
 class AuthViewModel extends ChangeNotifier {
   bool _loading = false;
@@ -22,20 +23,17 @@ class AuthViewModel extends ChangeNotifier {
     _loginError = loginError;
   }
 
-// login view model
-
-  loginUser(url, body, context) async {
+// login view model function
+  loginUser(String url, body, context) async {
     setLoading(true);
 
-    Response response = await WebServices.sendRequest(url, body, context);
+    var response = await WebServices.sendPostRequest(url, body, context);
 
-
-    if (response.statusCode == 200) {
+    if (response.code == SUCCESS) {
       pushOnBoardingScreen(context);
-
       setLoading(false);
     }
-    if (response.statusCode != 200) {
+    if (response.code != SUCCESS) {
       setLoginError(true);
       setLoading(false);
     }

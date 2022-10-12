@@ -1,5 +1,7 @@
 import 'package:findate/constants/appColor.dart';
+import 'package:findate/constants/app_state_constants.dart';
 import 'package:findate/constants/shared_preferences.dart';
+import 'package:findate/services/web_service.dart';
 import 'package:findate/view/on_bording/explore/explore_widgets.dart';
 import 'package:findate/view/on_bording/explore/hot_or_not_screen.dart';
 import 'package:findate/widgets/reusesable_widget/normal_text.dart';
@@ -93,7 +95,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
                           width: 128.w,
                           text: 'Share ',
                           onPressed: () {
-                            Navigator.pop(context);
+                          Navigator.pop(context);
                           }),
                     ],
                   ),
