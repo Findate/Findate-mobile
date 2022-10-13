@@ -24,10 +24,7 @@ class WebServices {
       final response = await http.post(Uri.parse(url),
           body: jsonEncode(body), headers: header);
       if (response.statusCode == 200) {
-        final decodedResponse = jsonDecode(response.body);
-
-        //set save login user token
-        UserPreferences.setLoginUerToken(decodedResponse['data']['token']);
+        
 
         return Success(code: SUCCESS, response: response.body);
       }

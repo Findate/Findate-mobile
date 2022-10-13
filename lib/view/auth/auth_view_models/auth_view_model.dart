@@ -1,6 +1,9 @@
+import 'dart:convert';
 import 'dart:io';
 
+import 'package:findate/constants/shared_preferences.dart';
 import 'package:findate/constants/status_codes.dart';
+import 'package:findate/models/userDataModel.dart';
 import 'package:findate/routes/page_routes.dart';
 import 'package:findate/services/web_service.dart';
 import 'package:flutter/material.dart';
@@ -30,8 +33,18 @@ class AuthViewModel extends ChangeNotifier {
     var response = await WebServices.sendPostRequest(url, body, context);
 
     if (response.code == SUCCESS) {
+
+      final List result = response.body['data'];
+
+      final decodedResponse = jsonDecode(response.body);
+
+        //set save login user token
+        UserPreferences.setLoginUerToken(decodedResponse['data']['token']);
+
       pushOnBoardingScreen(context);
       setLoading(false);
+
+      return result.map(((e) => UserDataModel.fromJson(e))).toList();
     }
     if (response.code != SUCCESS) {
       setLoginError(true);
