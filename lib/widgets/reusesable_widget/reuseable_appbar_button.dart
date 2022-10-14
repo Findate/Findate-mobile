@@ -5,7 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class ReusesableAppbarButton extends StatelessWidget {
   final IconButton iconButton;
   final Color? backGroundColor;
-  ReusesableAppbarButton(
+ const ReusesableAppbarButton(
       {Key? key,
       required this.iconButton,
       this.backGroundColor = AppColor.mainColor})

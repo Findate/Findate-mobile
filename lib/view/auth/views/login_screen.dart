@@ -1,6 +1,5 @@
 import 'package:findate/constants/appColor.dart';
 import 'package:findate/constants/app_state_constants.dart';
-import 'package:findate/services/web_service.dart';
 import 'package:findate/view/auth/views/signup_screen.dart';
 import 'package:findate/widgets/reusesable_widget/normal_text.dart';
 import 'package:findate/widgets/reusesable_widget/reusaable_textformfield.dart';
@@ -177,7 +176,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                         width: 323.w,
                         text: 'Login',
                         onPressed: () {
-                          // WebServices.sendGetRequest('$baseUrl', context);
+                          
                           if (_key.currentState!.validate()) {
                             authViewModel.loginUser(
                                 '$baseUrl/login',
@@ -188,6 +187,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                                 context);
                             FocusScope.of(context).unfocus();
                           }
+                         
                         }),
                     SizedBox(
                       height: 26.h,

@@ -1,13 +1,8 @@
 // ignore_for_file: depend_on_referenced_packages
 
 import 'dart:convert';
-import 'dart:io';
-
 import 'package:findate/constants/shared_preferences.dart';
 import 'package:findate/routes/page_routes.dart';
-import 'package:findate/view/on_bording/on_bording_screen.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:simple_connection_checker/simple_connection_checker.dart';
 
@@ -24,8 +19,6 @@ class WebServices {
       final response = await http.post(Uri.parse(url),
           body: jsonEncode(body), headers: header);
       if (response.statusCode == 200) {
-        
-
         return Success(code: SUCCESS, response: response.body);
       }
       Failure(code: INVALID_FORMAT, errorResponse: {'error': 'Invalid format'});
@@ -39,8 +32,14 @@ class WebServices {
         code: UNKNOWN_ERROR, errorResponse: {'error': 'Unknown Error'});
   }
 
+
+
+
+  
+
 //handles get requests
-  static Future sendGetRequest(String url, context) async {
+  static Future sendGetRequest(String url) async {
+
     final token = UserPreferences.getToken();
     bool isConnected = await SimpleConnectionChecker.isConnectedToInternet();
     final header = <String, String>{
@@ -51,14 +50,16 @@ class WebServices {
 
     if (isConnected) {
       final response = await http.get(Uri.parse(url), headers: header);
-      print(response.body);
+     
 
-      if (response.statusCode == 200) {
+      if (response.statusCode == SUCCESS) {
         return Success(code: SUCCESS, response: response.body);
+        
+        // return response;
       }
       Failure(code: INVALID_FORMAT, errorResponse: {'error': 'Invalid format'});
     } else {
-      pushToNoInternetPage(context);
+      // pushToNoInternetPage(context);
       return Failure(
           code: NO_INTERNET,
           errorResponse: {'error': 'No Internet Connection'});

@@ -410,7 +410,7 @@ class _ThirdSetupScreenState extends State<ThirdSetupScreen> {
                   mainAxisExtent: 70,
                 ),
                 itemBuilder: (BuildContext context, int index) {
-                  return Cards(message: 'Cooking');
+                  return const Cards(message: 'Cooking');
                 },
               ),
             ),
@@ -466,7 +466,7 @@ class _ThirdSetupScreenState extends State<ThirdSetupScreen> {
 class Cards extends StatefulWidget {
   final String message;
 
-  Cards({
+  const Cards({
     Key? key,
     required this.message,
   }) : super(key: key);

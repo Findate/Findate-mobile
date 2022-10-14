@@ -2,44 +2,41 @@
 //
 //     final userDataModel = userDataModelFromJson(jsonString);
 
+// ignore_for_file: file_names
+
 import 'dart:convert';
 
-UserDataModel userDataModelFromJson(String str) => UserDataModel.fromJson(json.decode(str));
 
-String userDataModelToJson(UserDataModel data) => json.encode(data.toJson());
+UserModel userDataModelFromJson(String str) => UserModel.fromJson(json.decode(str));
 
-class UserDataModel {
-    UserDataModel({
-       this.id,
-      required  this.email,
-      required  this.username,
-        this.header,
-        this.role,
-        this.verified,
-        this.active,
-        this.createdAt,
-        this.updatedAt,
-        this.about,
-        this.dob,
-        this.gender,
-        this.interest,
-        this.location,
-        this.name,
-        this.occupation,
-        this.surname,
+String userDataModelToJson(UserModel data) => json.encode(data.toJson());
+
+class UserModel {
+    UserModel({
+    required   this.id,
+       required this.email,
+    required    this.username,
+     required   this.header,
+     required   this.role,
+     required   this.verified,
+     required   this.active,
+      required  this.about,
+     required   this.gender,
+     required   this.interest,
+     required   this.location,
+     required   this.name,
+     required   this.occupation,
+      required  this.surname,
     });
 
     String? id;
     String email;
-    String username;
+    String? username;
     String? header;
     String? role;
     bool? verified;
     bool? active;
-    DateTime? createdAt;
-    DateTime? updatedAt;
     String? about;
-    DateTime? dob;
     String? gender;
     String? interest;
     String? location;
@@ -47,7 +44,7 @@ class UserDataModel {
     String? occupation;
     String? surname;
 
-    factory UserDataModel.fromJson(Map<String, dynamic> json) => UserDataModel(
+    factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
         id: json["_id"],
         email: json["email"],
         username: json["username"],
@@ -55,10 +52,7 @@ class UserDataModel {
         role: json["role"],
         verified: json["verified"],
         active: json["active"],
-        createdAt: DateTime.parse(json["createdAt"]),
-        updatedAt: DateTime.parse(json["updatedAt"]),
         about: json["about"],
-        dob: DateTime.parse(json["dob"]),
         gender: json["gender"],
         interest: json["interest"],
         location: json["location"],
@@ -75,10 +69,7 @@ class UserDataModel {
         "role": role,
         "verified": verified,
         "active": active,
-        "createdAt": createdAt!.toIso8601String(),
-        "updatedAt": updatedAt!.toIso8601String(),
         "about": about,
-        "dob": dob!.toIso8601String(),
         "gender": gender,
         "interest": interest,
         "location": location,
@@ -87,3 +78,46 @@ class UserDataModel {
         "surname": surname,
     };
 }
+
+
+// To parse this JSON data, do
+//
+//     final userModel = userModelFromJson(jsonString);
+
+// import 'dart:convert';
+
+// List<UserModel> userModelFromJson(String str) => List<UserModel>.from(json.decode(str).map((x) => UserModel.fromJson(x)));
+
+// String userModelToJson(List<UserModel> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+
+// class UserModel {
+//     UserModel({
+//      required   this.id,
+//     required    this.email,
+//     required    this.firstName,
+//     required    this.lastName,
+//     required    this.avatar,
+//     });
+
+//     int id;
+//     String email;
+//     String firstName;
+//     String lastName;
+//     String avatar;
+
+//     factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
+//         id: json["id"],
+//         email: json["email"],
+//         firstName: json["first_name"],
+//         lastName: json["last_name"],
+//         avatar: json["avatar"],
+//     );
+
+//     Map<String, dynamic> toJson() => {
+//         "id": id,
+//         "email": email,
+//         "first_name": firstName,
+//         "last_name": lastName,
+//         "avatar": avatar,
+//     };
+// }

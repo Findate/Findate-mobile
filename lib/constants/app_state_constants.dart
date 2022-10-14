@@ -1,6 +1,9 @@
 // ignore_for_file: non_constant_identifier_names
 
 
+
+
+import 'package:findate/models/userDataModel.dart';
 import 'package:findate/view/auth/auth_view_models/auth_view_model.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -15,17 +18,12 @@ final authViewModelProvider = ChangeNotifierProvider<AuthViewModel>((ref) {
 
 
 
-// final profileViewModelProvider =
-//     ChangeNotifierProvider<ProfileModelView>((ref) {
-//   return ProfileModelView();
-// });
+
+final userDataProvider = FutureProvider<List<UserModel>>((ref) async {
+  return ref.watch(userProvider).getUsers(baseUrl);
+});
 
 
 
-
-// // Update state and notify Notification screen app bar
-// final notificationProvider = ChangeNotifierProvider<NotificationViewModel>((ref) {
-//   return NotificationViewModel();
-// });
 
 

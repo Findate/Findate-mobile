@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:findate/constants/shared_preferences.dart';
 import 'package:findate/constants/status_codes.dart';
@@ -7,8 +6,8 @@ import 'package:findate/models/userDataModel.dart';
 import 'package:findate/routes/page_routes.dart';
 import 'package:findate/services/web_service.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart';
-import 'package:simple_connection_checker/simple_connection_checker.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 
 class AuthViewModel extends ChangeNotifier {
   bool _loading = false;
@@ -27,24 +26,22 @@ class AuthViewModel extends ChangeNotifier {
   }
 
 // login view model function
-  loginUser(String url, body, context) async {
+  Future loginUser(String url, body, context) async {
     setLoading(true);
 
     var response = await WebServices.sendPostRequest(url, body, context);
 
     if (response.code == SUCCESS) {
+      final result = jsonDecode(response.response)['data'];
 
-      final List result = response.body['data'];
-
-      final decodedResponse = jsonDecode(response.body);
-
-        //set save login user token
-        UserPreferences.setLoginUerToken(decodedResponse['data']['token']);
+      //set save login user token
+      UserPreferences.setLoginUerToken(result['token']);
 
       pushOnBoardingScreen(context);
       setLoading(false);
-
-      return result.map(((e) => UserDataModel.fromJson(e))).toList();
+    } else {
+      setLoginError(true);
+      setLoading(false);
     }
     if (response.code != SUCCESS) {
       setLoginError(true);
@@ -52,4 +49,23 @@ class AuthViewModel extends ChangeNotifier {
     }
     setLoading(false);
   }
+
+
+
+//get all users function
+  Future<List<UserModel>> getUsers(url) async {
+
+    var response = await WebServices.sendGetRequest(url);
+
+    if (response.code == SUCCESS) {
+      final List result = jsonDecode(response.response)['data']['users'];
+      
+      return result.map(((e) => UserModel.fromJson(e))).toList();
+    } else {
+      throw Failure(
+        code: UNKNOWN_ERROR, errorResponse: {'error': 'Unknown Error'});
+    }
+  }
 }
+
+final userProvider = Provider<AuthViewModel>((ref) => AuthViewModel());

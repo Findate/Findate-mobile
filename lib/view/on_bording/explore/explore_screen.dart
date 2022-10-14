@@ -1,26 +1,24 @@
 import 'package:findate/constants/appColor.dart';
 import 'package:findate/constants/app_state_constants.dart';
 import 'package:findate/constants/shared_preferences.dart';
-import 'package:findate/services/web_service.dart';
-import 'package:findate/view/on_bording/explore/explore_widgets.dart';
-import 'package:findate/view/on_bording/explore/hot_or_not_screen.dart';
+import 'package:findate/models/userDataModel.dart';
+import 'package:findate/view/auth/auth_view_models/auth_view_model.dart';
 import 'package:findate/widgets/reusesable_widget/normal_text.dart';
-import 'package:findate/widgets/reusesable_widget/reuseable_appbar_button.dart';
 import 'package:findate/widgets/reusesable_widget/reuseable_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../matches/matches_details_screen.dart';
-import '../matches/matches_screen.dart';
 
-class ExploreScreen extends StatefulWidget {
+
+class ExploreScreen extends ConsumerStatefulWidget {
   const ExploreScreen({Key? key}) : super(key: key);
 
   @override
-  State<ExploreScreen> createState() => _ExploreScreenState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _ExploreScreenState();
 }
 
-class _ExploreScreenState extends State<ExploreScreen> {
+class _ExploreScreenState extends ConsumerState<ExploreScreen> {
   @override
   void initState() {
     super.initState();
@@ -85,7 +83,8 @@ class _ExploreScreenState extends State<ExploreScreen> {
                         width: 128.w,
                         text: 'Skip',
                         onPressed: () {
-                          Navigator.pop(context);
+                          AuthViewModel().getUsers(baseUrl);
+                          // WebServices.sendGetRequest(baseUrl);
                         },
                         backGroundColor: const Color(0xffF5F5F5),
                         textColor: AppColor.mainColor,
@@ -95,7 +94,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
                           width: 128.w,
                           text: 'Share ',
                           onPressed: () {
-                          Navigator.pop(context);
+                            Navigator.pop(context);
                           }),
                     ],
                   ),
@@ -108,179 +107,193 @@ class _ExploreScreenState extends State<ExploreScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final data = ref.watch(userDataProvider);
+
     return SafeArea(
       child: Scaffold(
-        body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 12.0),
-          child: SingleChildScrollView(
-            child: SizedBox(
-              height: 900.h,
-              width: 375.w,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      NormalText(
-                        text: 'Explore',
-                        size: 22.sp,
-                        fontWeight: FontWeight.w600,
-                      ),
-                      ReusesableAppbarButton(
-                        iconButton: IconButton(
-                          onPressed: () {},
-                          icon: const Icon(
-                            Icons.notifications_on_outlined,
-                            color: AppColor.mainColor,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 110.h,
-                    width: 375.w,
-                    child: ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        itemCount: 12,
-                        itemBuilder: (context, int i) {
-                          return const ExploreImageStoryCard(
-                            name: 'Josiah',
-                            imageUrl: 'assets/homeImage1.png',
-                          );
-                        }),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      NormalText(
-                        text: 'Hot or Not',
-                        size: 22.sp,
-                        fontWeight: FontWeight.w600,
-                      ),
-                      TextButton(
-                        onPressed: () {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: ((context) => const HotOrNotScreen()),
-                            ),
-                          );
-                        },
-                        child: NormalText(
-                          text: 'view all',
-                          size: 12.sp,
-                          fontWeight: FontWeight.w400,
-                          color: AppColor.grey400,
-                        ),
-                      ),
-                    ],
-                  ),
-                  //reusesable card for horizontal image card in explore screen
-                  const ExploreHorizontalImageCard(
-                    imageUrl: 'assets/homeImage1.png',
-                    name: 'Joel Tiana',
-                    location: 'Lagos',
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      SizedBox(
-                        height: 40.h,
-                        width: 262.w,
-                        child: TextFormField(
-                          decoration: InputDecoration(
-                            labelText: 'Search Dates and friends',
-                            labelStyle: TextStyle(
-                                color: Colors.black54, fontSize: 16.sp),
-                            prefixIcon: IconButton(
-                              icon: const Icon(
-                                Icons.search,
-                                size: 20,
-                              ),
-                              onPressed: () {},
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: AppColor.mainColor, width: 1.0.w),
-                              borderRadius: BorderRadius.circular(55),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: AppColor.mainColor, width: 1.0.w),
-                              borderRadius: BorderRadius.circular(55),
-                            ),
-                          ),
-                        ),
-                      ),
-                      ReusesableAppbarButton(
-                        iconButton: IconButton(
-                          onPressed: () {},
-                          icon: Icon(
-                            Icons.tune,
-                            color: AppColor.mainColor,
-                            size: 30.h,
-                          ),
-                        ),
-                      )
-                    ],
-                  ),
+        body: data.when(
+            data: (data) {
+              List<UserModel> userlist = data.map((e) => e).toList();
+              return ListView.builder(
+                itemBuilder: (context, index) {
+                  return Text(userlist[0].email);
+                },
+              );
+            },
+            error: ((error, stackTrace) => Text(error.toString())),
+            loading: (() =>const CircularProgressIndicator())),
 
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      NormalText(
-                        text: 'Popular Matches',
-                        size: 22.sp,
-                        fontWeight: FontWeight.w600,
-                      ),
-                      TextButton(
-                        onPressed: () {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: ((context) => const MatchUserInfo()),
-                            ),
-                          );
-                        },
-                        child: NormalText(
-                          text: 'view all',
-                          size: 12.sp,
-                          fontWeight: FontWeight.w400,
-                          color: AppColor.grey400,
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 10.h,
-                  ),
-                  // scrolable image cards
-                  Expanded(
-                    child: SizedBox(
-                      width: 375.w,
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 10.0),
-                        child: GridView.builder(
-                          itemCount: 10,
-                          gridDelegate:
-                              const SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: 2),
-                          itemBuilder: (BuildContext context, int index) {
-                            return const ExploreSquareImageCard(
-                              imageUrl: 'assets/homeImage3.png',
-                              name: 'Joel Tiana',
-                              location: 'Lagos',
-                            );
-                          },
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
+        // Padding(
+        //   padding: const EdgeInsets.symmetric(horizontal: 12.0),
+        //   child: SingleChildScrollView(
+        //     child: SizedBox(
+        //       height: 900.h,
+        //       width: 375.w,
+        //       child: Column(
+        //         crossAxisAlignment: CrossAxisAlignment.start,
+        //         children: [
+        //           Row(
+        //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        //             children: [
+        //               NormalText(
+        //                 text: 'Explore',
+        //                 size: 22.sp,
+        //                 fontWeight: FontWeight.w600,
+        //               ),
+        //               ReusesableAppbarButton(
+        //                 iconButton: IconButton(
+        //                   onPressed: () {},
+        //                   icon: const Icon(
+        //                     Icons.notifications_on_outlined,
+        //                     color: AppColor.mainColor,
+        //                   ),
+        //                 ),
+        //               ),
+        //             ],
+        //           ),
+        //           SizedBox(
+        //             height: 110.h,
+        //             width: 375.w,
+        //             child: ListView.builder(
+        //                 scrollDirection: Axis.horizontal,
+        //                 itemCount: 12,
+        //                 itemBuilder: (context, int i) {
+        //                   return const ExploreImageStoryCard(
+        //                     name: 'jane',
+        //                     imageUrl: 'assets/homeImage1.png',
+        //                   );
+        //                 }),
+        //           ),
+        //           Row(
+        //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        //             children: [
+        //               NormalText(
+        //                 text: 'Hot or Not',
+        //                 size: 22.sp,
+        //                 fontWeight: FontWeight.w600,
+        //               ),
+        //               TextButton(
+        //                 onPressed: () {
+        //                   Navigator.of(context).push(
+        //                     MaterialPageRoute(
+        //                       builder: ((context) => const HotOrNotScreen()),
+        //                     ),
+        //                   );
+        //                 },
+        //                 child: NormalText(
+        //                   text: 'view all',
+        //                   size: 12.sp,
+        //                   fontWeight: FontWeight.w400,
+        //                   color: AppColor.grey400,
+        //                 ),
+        //               ),
+        //             ],
+        //           ),
+        //           //reusesable card for horizontal image card in explore screen
+        //           const ExploreHorizontalImageCard(
+        //             imageUrl: 'assets/homeImage1.png',
+        //             name: 'Joel Tiana',
+        //             location: 'Lagos',
+        //           ),
+        //           Row(
+        //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        //             children: [
+        //               SizedBox(
+        //                 height: 40.h,
+        //                 width: 262.w,
+        //                 child: TextFormField(
+        //                   decoration: InputDecoration(
+        //                     labelText: 'Search Dates and friends',
+        //                     labelStyle: TextStyle(
+        //                         color: Colors.black54, fontSize: 16.sp),
+        //                     prefixIcon: IconButton(
+        //                       icon: const Icon(
+        //                         Icons.search,
+        //                         size: 20,
+        //                       ),
+        //                       onPressed: () {},
+        //                     ),
+        //                     focusedBorder: OutlineInputBorder(
+        //                       borderSide: BorderSide(
+        //                           color: AppColor.mainColor, width: 1.0.w),
+        //                       borderRadius: BorderRadius.circular(55),
+        //                     ),
+        //                     enabledBorder: OutlineInputBorder(
+        //                       borderSide: BorderSide(
+        //                           color: AppColor.mainColor, width: 1.0.w),
+        //                       borderRadius: BorderRadius.circular(55),
+        //                     ),
+        //                   ),
+        //                 ),
+        //               ),
+        //               ReusesableAppbarButton(
+        //                 iconButton: IconButton(
+        //                   onPressed: () {},
+        //                   icon: Icon(
+        //                     Icons.tune,
+        //                     color: AppColor.mainColor,
+        //                     size: 30.h,
+        //                   ),
+        //                 ),
+        //               )
+        //             ],
+        //           ),
+
+        //           Row(
+        //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        //             children: [
+        //               NormalText(
+        //                 text: 'Popular Matches',
+        //                 size: 22.sp,
+        //                 fontWeight: FontWeight.w600,
+        //               ),
+        //               TextButton(
+        //                 onPressed: () {
+        //                   Navigator.of(context).push(
+        //                     MaterialPageRoute(
+        //                       builder: ((context) => const MatchUserInfo()),
+        //                     ),
+        //                   );
+        //                 },
+        //                 child: NormalText(
+        //                   text: 'view all',
+        //                   size: 12.sp,
+        //                   fontWeight: FontWeight.w400,
+        //                   color: AppColor.grey400,
+        //                 ),
+        //               ),
+        //             ],
+        //           ),
+        //           SizedBox(
+        //             height: 10.h,
+        //           ),
+        //           // scrolable image cards
+        //           Expanded(
+        //             child: SizedBox(
+        //               width: 375.w,
+        //               child: Padding(
+        //                 padding: const EdgeInsets.only(left: 10.0),
+        //                 child: GridView.builder(
+        //                   itemCount: 10,
+        //                   gridDelegate:
+        //                       const SliverGridDelegateWithFixedCrossAxisCount(
+        //                           crossAxisCount: 2),
+        //                   itemBuilder: (BuildContext context, int index) {
+        //                     return const ExploreSquareImageCard(
+        //                       imageUrl: 'assets/homeImage3.png',
+        //                       name: 'Joel Tiana',
+        //                       location: 'Lagos',
+        //                     );
+        //                   },
+        //                 ),
+        //               ),
+        //             ),
+        //           ),
+        //         ],
+        //       ),
+        //     ),
+        //   ),
+        // ),
       ),
     );
   }
