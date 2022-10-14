@@ -73,7 +73,7 @@ class AuthViewModel extends ChangeNotifier {
     setLoading(false);
   }
 
-  // Register view model function
+  // Confrim view model function
   Future confrimEmail(String url, body, context) async {
     setLoading(true);
 

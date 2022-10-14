@@ -38,6 +38,14 @@ pushConfrimEmailScreen(BuildContext context) async {
   );
 }
 
+pushConfrimEmailScreen1(BuildContext context) async {
+    Navigator.of(context).push(
+    MaterialPageRoute(
+      builder: (context) => const ConfirmEmailScreen(),
+    ),
+  );
+}
+
 // pushCategoriesPage(BuildContext context) async {
 //   Navigator.pushNamed(context, CategoriesPage.id);
 // }
