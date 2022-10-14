@@ -15,8 +15,10 @@ class WebServices {
     final header = <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     };
+
     if (isConnected) {
       final response = await http.post(Uri.parse(url),
+
           body: jsonEncode(body), headers: header);
       if (response.statusCode == 200) {
         return Success(code: SUCCESS, response: response.body);
@@ -29,7 +31,7 @@ class WebServices {
           errorResponse: {'error': 'No Internet Connection'});
     }
     return Failure(
-        code: UNKNOWN_ERROR, errorResponse: {'error': 'Unknown Error'});
+        code: UNKNOWN_ERROR, errorResponse: {'error': 'Unknown Error now'});
   }
 
 
