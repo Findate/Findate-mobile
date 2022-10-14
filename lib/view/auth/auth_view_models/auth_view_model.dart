@@ -2,14 +2,15 @@ import 'dart:convert';
 
 import 'package:findate/constants/shared_preferences.dart';
 import 'package:findate/constants/status_codes.dart';
+import 'package:findate/models/userData.dart';
 import 'package:findate/models/userDataModel.dart';
 import 'package:findate/routes/page_routes.dart';
 import 'package:findate/services/web_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-
 class AuthViewModel extends ChangeNotifier {
+  AuthViewModel();
   bool _loading = false;
   bool get loading => _loading;
 
@@ -50,8 +51,6 @@ class AuthViewModel extends ChangeNotifier {
     setLoading(false);
   }
 
-
-
 //get all users function
   Future<List<UserModel>> getUsers(url) async {
 
@@ -59,11 +58,11 @@ class AuthViewModel extends ChangeNotifier {
 
     if (response.code == SUCCESS) {
       final List result = jsonDecode(response.response)['data']['users'];
-      
+
       return result.map(((e) => UserModel.fromJson(e))).toList();
     } else {
       throw Failure(
-        code: UNKNOWN_ERROR, errorResponse: {'error': 'Unknown Error'});
+          code: UNKNOWN_ERROR, errorResponse: {'error': 'Unknown Error'});
     }
   }
 }

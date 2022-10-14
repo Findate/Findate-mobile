@@ -13,24 +13,24 @@ String userDataModelToJson(UserModel data) => json.encode(data.toJson());
 
 class UserModel {
     UserModel({
-    required   this.id,
-       required this.email,
-    required    this.username,
-     required   this.header,
-     required   this.role,
-     required   this.verified,
-     required   this.active,
-      required  this.about,
-     required   this.gender,
-     required   this.interest,
-     required   this.location,
-     required   this.name,
-     required   this.occupation,
-      required  this.surname,
+       this.id,
+        this.email,
+        this.username,
+        this.header,
+        this.role,
+        this.verified,
+        this.active,
+        this.about,
+        this.gender,
+        this.interest,
+        this.location,
+        this.name,
+        this.occupation,
+        this.surname,
     });
 
     String? id;
-    String email;
+    String? email;
     String? username;
     String? header;
     String? role;

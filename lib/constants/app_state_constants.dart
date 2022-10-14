@@ -3,6 +3,7 @@
 
 
 
+import 'package:findate/models/userData.dart';
 import 'package:findate/models/userDataModel.dart';
 import 'package:findate/view/auth/auth_view_models/auth_view_model.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -23,7 +24,9 @@ final userDataProvider = FutureProvider<List<UserModel>>((ref) async {
   return ref.watch(userProvider).getUsers(baseUrl);
 });
 
-
+final newDataProvider = ChangeNotifierProvider<DataProvider>((ref){
+  return DataProvider();
+});
 
 
 

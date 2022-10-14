@@ -107,21 +107,30 @@ class _ExploreScreenState extends ConsumerState<ExploreScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final data = ref.watch(userDataProvider);
+    // final data = ref.watch(userDataProvider);
+    final data = ref.watch(newDataProvider);
 
     return SafeArea(
       child: Scaffold(
-        body: data.when(
-            data: (data) {
-              List<UserModel> userlist = data.map((e) => e).toList();
-              return ListView.builder(
+        body: ListView.builder(
+          itemCount: data.userData.length,
                 itemBuilder: (context, index) {
-                  return Text(userlist[0].email);
+                  
+                  return Text(data.userData[index].email!);
                 },
-              );
-            },
-            error: ((error, stackTrace) => Text(error.toString())),
-            loading: (() =>const CircularProgressIndicator())),
+              )
+        
+        //  data.when(
+        //     data: (data) {
+        //       List<UserModel> userlist = data.map((e) => e).toList();
+        //       return ListView.builder(
+        //         itemBuilder: (context, index) {
+        //           return Text(userlist[0].email!);
+        //         },
+        //       );
+        //     },
+        //     error: ((error, stackTrace) => Text(error.toString())),
+        //     loading: (() =>const CircularProgressIndicator())),
 
         // Padding(
         //   padding: const EdgeInsets.symmetric(horizontal: 12.0),
