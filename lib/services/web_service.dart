@@ -50,11 +50,9 @@ class WebServices {
 
     if (isConnected) {
       final response = await http.get(Uri.parse(url), headers: header);
-     
 
       if (response.statusCode == SUCCESS) {
         return Success(code: SUCCESS, response: response.body);
-        
         // return response;
       }
       Failure(code: INVALID_FORMAT, errorResponse: {'error': 'Invalid format'});
