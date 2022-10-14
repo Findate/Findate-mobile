@@ -1,25 +1,27 @@
 import 'dart:async';
 
 import 'package:findate/constants/appColor.dart';
-import 'package:findate/view/profile_set_ups/purpose_for_signup_screen.dart';
+import 'package:findate/constants/app_state_constants.dart';
 import 'package:findate/widgets/reusesable_widget/normal_text.dart';
 import 'package:findate/widgets/reusesable_widget/reuseable_appbar_button.dart';
 import 'package:findate/widgets/reusesable_widget/reuseable_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
-class ConfirmEmailScreen extends StatefulWidget {
+class ConfirmEmailScreen extends ConsumerStatefulWidget {
   const ConfirmEmailScreen({Key? key}) : super(key: key);
 
   @override
-  State<ConfirmEmailScreen> createState() => _ConfirmEmailScreenState();
+  ConsumerState<ConsumerStatefulWidget> createState() =>
+      _ConfirmEmailScreenState();
 }
 
-class _ConfirmEmailScreenState extends State<ConfirmEmailScreen> {
+class _ConfirmEmailScreenState extends ConsumerState<ConfirmEmailScreen> {
   // controller to access pin text input
-  TextEditingController textEditingController = TextEditingController();
+  TextEditingController pinController = TextEditingController();
 
   // controller to access pin input error
   StreamController<ErrorAnimationType>? errorController;
@@ -35,6 +37,7 @@ class _ConfirmEmailScreenState extends State<ConfirmEmailScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final authViewModel = ref.watch(authViewModelProvider);
     return SafeArea(
       child: Scaffold(
         body: Column(
@@ -98,11 +101,8 @@ class _ConfirmEmailScreenState extends State<ConfirmEmailScreen> {
               child: Form(
                 key: _key,
                 child: PinCodeTextField(
+                  controller: pinController,
                   appContext: context,
-                  // pastedTextStyle: TextStyle(
-                  //   color: Colors.green.shade600,
-                  //   fontWeight: FontWeight.bold,
-                  // ),
                   length: 4,
                   obscureText: true,
                   obscuringCharacter: '*',
@@ -131,7 +131,7 @@ class _ConfirmEmailScreenState extends State<ConfirmEmailScreen> {
                   animationDuration: const Duration(milliseconds: 300),
                   enableActiveFill: true,
                   errorAnimationController: errorController,
-                  controller: textEditingController,
+
                   keyboardType: TextInputType.number,
                   boxShadows: const [
                     BoxShadow(
@@ -165,11 +165,12 @@ class _ConfirmEmailScreenState extends State<ConfirmEmailScreen> {
                 text: 'Verify',
                 onPressed: () {
                   if (_key.currentState!.validate()) {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: ((context) => const PurposeForSignup()),
-                      ),
-                    );
+                    authViewModel.confrimEmail(
+                        '$baseUrl/verify',
+                        {
+                          "token": pinController.text.trim(),
+                        },
+                        context);
                   }
                 }),
             const SizedBox(

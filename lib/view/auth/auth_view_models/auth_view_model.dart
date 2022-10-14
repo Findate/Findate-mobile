@@ -6,7 +6,6 @@ import 'package:findate/routes/page_routes.dart';
 import 'package:findate/services/web_service.dart';
 import 'package:flutter/material.dart';
 
-
 class AuthViewModel extends ChangeNotifier {
   AuthViewModel();
   bool _loading = false;
@@ -48,5 +47,54 @@ class AuthViewModel extends ChangeNotifier {
     }
     setLoading(false);
   }
-}
 
+  // Register view model function
+  Future regisUser(String url, body, context) async {
+    setLoading(true);
+
+    var response = await WebServices.sendPostRequest(url, body, context);
+
+    if (response.code == SUCCESS) {
+      final result = jsonDecode(response.response);
+      if (result.statusCode == 201) {
+        //navigate to screen after successful registration
+        pushConfrimEmailScreen(context);
+        setLoading(false);
+        return result;
+      }
+    } else {
+      setLoginError(true);
+      setLoading(false);
+    }
+    if (response.code != SUCCESS) {
+      setLoginError(true);
+      setLoading(false);
+    }
+    setLoading(false);
+  }
+
+  // Register view model function
+  Future confrimEmail(String url, body, context) async {
+    setLoading(true);
+
+    var response = await WebServices.sendPostRequest(url, body, context);
+
+    if (response.code == SUCCESS) {
+      final result = jsonDecode(response.response);
+      if (result.statusCode == 200) {
+        //navigate to screen after email confirmation and registration
+        pushToLoginPage(context);
+        setLoading(false);
+        return result;
+      }
+    } else {
+      setLoginError(true);
+      setLoading(false);
+    }
+    if (response.code != SUCCESS) {
+      setLoginError(true);
+      setLoading(false);
+    }
+    setLoading(false);
+  }
+}

@@ -1,3 +1,4 @@
+import 'package:findate/view/auth/views/confirm_email.dart';
 import 'package:findate/view/auth/views/login_screen.dart';
 import 'package:findate/view/landing_page/no_internet_screen.dart';
 import 'package:findate/view/on_bording/on_bording_screen.dart';
@@ -26,6 +27,13 @@ pushOnBoardingScreen(BuildContext context) async {
     Navigator.of(context).push(
     MaterialPageRoute(
       builder: (context) => const OnBoardingScreen(),
+    ),
+  );
+}
+pushConfrimEmailScreen(BuildContext context) async {
+    Navigator.of(context).push(
+    MaterialPageRoute(
+      builder: (context) => const ConfirmEmailScreen(),
     ),
   );
 }

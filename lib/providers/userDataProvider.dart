@@ -1,3 +1,5 @@
+
+
 import 'dart:convert';
 
 import 'package:findate/constants/app_state_constants.dart';
@@ -13,7 +15,7 @@ class UserDataProvider extends ChangeNotifier {
     getAllUsers(baseUrl);
   }
 
-  
+  //Function that get all users data from API
   Future getAllUsers(url) async {
 
     var response = await WebServices.sendGetRequest(url);
@@ -29,4 +31,9 @@ class UserDataProvider extends ChangeNotifier {
           code: UNKNOWN_ERROR, errorResponse: {'error': 'Unknown Error'});
     }
   }
+
+
+
+
+  
 }

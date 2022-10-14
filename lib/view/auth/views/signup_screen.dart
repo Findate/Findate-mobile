@@ -1,30 +1,48 @@
 import 'package:findate/constants/appColor.dart';
-import 'package:findate/view/auth/views/confirm_email.dart';
+import 'package:findate/constants/app_state_constants.dart';
 import 'package:findate/view/auth/views/login_screen.dart';
 import 'package:findate/widgets/reusesable_widget/normal_text.dart';
 import 'package:findate/widgets/reusesable_widget/reusaable_textformfield.dart';
 import 'package:findate/widgets/reusesable_widget/reuseable_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class SignUpScreen extends StatefulWidget {
+class SignUpScreen extends ConsumerStatefulWidget {
   const SignUpScreen({Key? key}) : super(key: key);
 
   @override
-  State<SignUpScreen> createState() => _SignUpScreenState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _SignUpScreenState();
 }
 
-class _SignUpScreenState extends State<SignUpScreen> {
+class _SignUpScreenState extends ConsumerState<SignUpScreen> {
   //sign up form key
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   //password visibility
   bool _isObscure = true;
   bool _isObscure1 = true;
+  final TextEditingController userNameController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController retypePasswordController =
+      TextEditingController();
 
   //check of checked box is ticked or not
   bool check = false;
+
+  getInputedData() {
+    final body = {
+      "username": userNameController.text.trim(),
+      "email": emailController.text.trim(),
+      "password": passwordController.text.trim(),
+      "retypePassword": retypePasswordController.text.trim(),
+    };
+    return body;
+  }
+
   @override
   Widget build(BuildContext context) {
+    final authViewModel = ref.watch(authViewModelProvider);
     return SafeArea(
       child: Scaffold(
         body: SingleChildScrollView(
@@ -76,6 +94,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   child: Column(
                     children: [
                       MyTextField(
+                          controller: userNameController,
                           validator: (val) {
                             if (val!.isEmpty) {
                               return 'Field cannot be empty';
@@ -85,27 +104,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           isPassword: false,
                           obcureText: false,
                           isReadOnly: false,
-                          labelText: 'First Name',
+                          labelText: 'Username',
                           keyBoardType: TextInputType.text),
                       const SizedBox(
                         height: 20,
                       ),
                       MyTextField(
-                          validator: (val) {
-                            if (val!.isEmpty) {
-                              return 'Field cannot be empty';
-                            }
-                            return null;
-                          },
-                          isPassword: false,
-                          obcureText: false,
-                          isReadOnly: false,
-                          labelText: 'Last Name',
-                          keyBoardType: TextInputType.text),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      MyTextField(
+                          controller: emailController,
                           validator: (val) {
                             if (val!.isEmpty) {
                               return 'Field cannot be empty';
@@ -121,6 +126,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         height: 20,
                       ),
                       MyTextField(
+                        controller: passwordController,
                         validator: (val) {
                           if (val!.isEmpty) {
                             return 'Field cannot be empty';
@@ -148,6 +154,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         height: 20,
                       ),
                       MyTextField(
+                          controller: retypePasswordController,
                           validator: (val) {
                             if (val!.isEmpty) {
                               return 'Field cannot be empty';
@@ -221,11 +228,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     text: 'SignUp',
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: ((context) => const ConfirmEmailScreen()),
-                          ),
-                        );
+                       authViewModel.loginUser(
+                                '$baseUrl/register',
+                               getInputedData(),
+                                context);
                       }
                     }),
                 const SizedBox(
