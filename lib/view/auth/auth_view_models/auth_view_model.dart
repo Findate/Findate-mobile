@@ -1,7 +1,9 @@
 import 'dart:convert';
 
+import 'package:findate/constants/app_state_constants.dart';
 import 'package:findate/constants/shared_preferences.dart';
 import 'package:findate/constants/status_codes.dart';
+import 'package:findate/models/userDataModel.dart';
 import 'package:findate/routes/page_routes.dart';
 import 'package:findate/services/web_service.dart';
 import 'package:flutter/material.dart';
@@ -30,12 +32,10 @@ class AuthViewModel extends ChangeNotifier {
     var response = await WebServices.sendPostRequest(url, body, context);
 
     if (response.code == SUCCESS) {
-      final result = jsonDecode(response.response)['data'];
+      // //set save login user token from api response
+      UserPreferences.setLoginUerToken(response.response['data']['token']);
 
-      //set save login user token
-      UserPreferences.setLoginUerToken(result['token']);
-
-      pushOnBoardingScreen(context);
+      // pushOnBoardingScreen(context);
       setLoading(false);
     } else {
       setLoginError(true);
@@ -47,6 +47,8 @@ class AuthViewModel extends ChangeNotifier {
     }
     setLoading(false);
   }
+
+
 
   // Register view model function
   Future regisUser(String url, body, context) async {
@@ -73,7 +75,10 @@ class AuthViewModel extends ChangeNotifier {
     setLoading(false);
   }
 
-  // Confrim view model function
+
+
+
+  // Confrim email view model function
   Future confrimEmail(String url, body, context) async {
     setLoading(true);
 
@@ -96,5 +101,22 @@ class AuthViewModel extends ChangeNotifier {
       setLoading(false);
     }
     setLoading(false);
+  }
+
+
+
+
+  //Function that get all users data from API
+ static Future getAllUsers() async {
+    var response = await WebServices.sendGetRequest(baseUrl);
+
+    if (response.code == SUCCESS) {
+      final List result = jsonDecode(response.response)['data']['users'];
+      return result;
+
+    } else {
+      throw Failure(
+          code: UNKNOWN_ERROR, errorResponse: {'error': 'Unknown Error'});
+    }
   }
 }

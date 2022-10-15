@@ -67,6 +67,7 @@ dependencies:
   flutter_riverpod: ^1.0.1
 
   #sending request
+  dio: ^4.0.6
   
 
 
