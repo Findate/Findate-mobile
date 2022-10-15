@@ -1,4 +1,4 @@
-import 'dart:convert';
+
 
 import 'package:findate/constants/app_state_constants.dart';
 import 'package:findate/constants/shared_preferences.dart';
@@ -6,10 +6,15 @@ import 'package:findate/constants/status_codes.dart';
 import 'package:findate/models/userDataModel.dart';
 import 'package:findate/routes/page_routes.dart';
 import 'package:findate/services/web_service.dart';
+import 'package:findate/widgets/utils/snack_bar.dart';
 import 'package:flutter/material.dart';
 
 class AuthViewModel extends ChangeNotifier {
   AuthViewModel();
+
+//storing all user data rom api
+  List<UserModel> userData = [];
+
   bool _loading = false;
   bool get loading => _loading;
 
@@ -37,6 +42,9 @@ class AuthViewModel extends ChangeNotifier {
 
       pushOnBoardingScreen(context);
       setLoading(false);
+
+      //get all users onces login is succesful
+      getAllUsers(context);
     } else {
       setLoginError(true);
       setLoading(false);
@@ -74,11 +82,15 @@ class AuthViewModel extends ChangeNotifier {
   Future confrimEmail(String url, body, context) async {
     setLoading(true);
 
-    var response = await WebServices.sendPostRequest(url, body, context);
+    var response =
+        await WebServices.sendPatchRequest('$baseUrl/verify', body, context);
 
     if (response.code == SUCCESS) {
       //navigate to screen after email confirmation and registration
+
       pushToLoginPage(context);
+      CustomWidgets.buildErrorSnackbar(
+          context, 'Account Created successfully, please login to continue');
       setLoading(false);
     } else {
       setLoginError(true);
@@ -89,19 +101,19 @@ class AuthViewModel extends ChangeNotifier {
   }
 
   //Function that get all users data from API
-  Future getAllUsers() async {
+  Future getAllUsers(context) async {
     var response = await WebServices.sendGetRequest(
       baseUrl,
+      context,
     );
 
     if (response.response['statusCode'] == SUCCESS) {
       // final  result = jsonDecode(response.response);
       final List result = response.response['data']['users'];
-     
 
-      var userData = result.map(((e) => UserModel.fromJson(e))).toList();
+      userData = result.map(((e) => UserModel.fromJson(e))).toList();
 
-      return userData;
+      notifyListeners();
     } else {
       throw Failure(
           code: UNKNOWN_ERROR, errorResponse: {'error': 'Unknown Error'});

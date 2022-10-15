@@ -3,7 +3,7 @@
 
 
 
-import 'package:findate/providers/userDataProvider.dart';
+
 import 'package:findate/view/auth/auth_view_models/auth_view_model.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -17,9 +17,9 @@ final authViewModelProvider = ChangeNotifierProvider<AuthViewModel>((ref) {
 });
 
 
-final userDataProvider = ChangeNotifierProvider<UserDataProvider>((ref){
-  return UserDataProvider();
-});
+// final userDataProvider = ChangeNotifierProvider<UserDataProvider>((ref){
+//   return UserDataProvider();
+// });
 
 
 

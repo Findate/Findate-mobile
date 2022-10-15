@@ -1,8 +1,6 @@
 import 'package:findate/constants/appColor.dart';
 import 'package:findate/constants/app_state_constants.dart';
 import 'package:findate/constants/shared_preferences.dart';
-import 'package:findate/providers/userDataProvider.dart';
-import 'package:findate/view/auth/auth_view_models/auth_view_model.dart';
 import 'package:findate/view/on_bording/explore/explore_widgets.dart';
 import 'package:findate/view/on_bording/explore/hot_or_not_screen.dart';
 import 'package:findate/view/on_bording/matches/matches_details_screen.dart';
@@ -108,7 +106,7 @@ class _ExploreScreenState extends ConsumerState<ExploreScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final apiUserdata = ref.watch(userDataProvider).userData;
+    final apiUserdata = ref.watch(authViewModelProvider).userData;
 
     return SafeArea(
       child: Scaffold(

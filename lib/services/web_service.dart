@@ -3,8 +3,7 @@
 import 'dart:convert';
 import 'package:findate/constants/shared_preferences.dart';
 import 'package:findate/routes/page_routes.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:http/http.dart' as http;
+import 'package:findate/widgets/utils/snack_bar.dart';
 import 'package:simple_connection_checker/simple_connection_checker.dart';
 import 'package:dio/dio.dart';
 
@@ -28,14 +27,16 @@ class WebServices {
             data: jsonEncode(body), options: Options(headers: header));
 
         if (response.statusCode == 200 ) {
+          
           return Success(code: SUCCESS, response: response.data);
         }
          else if (response.statusCode == 201 ) {
           return Success(code: SUCCESS, response: response.data);
         }
       } on DioError catch (error) {
-        // Handle error
-        print(error.response!.data.toString());
+        // Handle error and display on snackbar
+        
+        CustomWidgets.buildErrorSnackbar(context,error.response!.data.toString());
         return Failure(
             code: error.response!.statusCode,
             errorResponse: {'error': error.response!.data.toString()});
@@ -51,6 +52,8 @@ class WebServices {
 //handles get requests
   static Future sendGetRequest(
     String url,
+    context,
+     
   ) async {
     final token = UserPreferences.getToken();
     bool isConnected = await SimpleConnectionChecker.isConnectedToInternet();
@@ -69,22 +72,57 @@ class WebServices {
         }
       } on DioError catch (error) {
         // Handle error
+        CustomWidgets.buildErrorSnackbar(context,error.response!.data.toString());
         return Failure(
             code: error.response!.statusCode,
             errorResponse: {'error': error.response!.data.toString()});
       }
       //push to no internet screen if isConnected is false
     } else {
-      // pushToNoInternetPage(context);
+      pushToNoInternetPage(context);
       return Failure(
           code: NO_INTERNET, errorResponse: {'error': 'No Internet'});
     }
   }
+
+
+
+//handles patch requests
+  static Future sendPatchRequest(String url, Object body, context) async {
+
+    bool isConnected = await SimpleConnectionChecker.isConnectedToInternet();
+    final header = <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+    };
+
+
+    if (isConnected) {
+      try {
+        final response = await Dio().patch(url,
+            data: jsonEncode(body), options: Options(headers: header));
+
+        if (response.statusCode == 200 ) {
+          return Success(code: SUCCESS, response: response.data);
+        }
+         else if (response.statusCode == 201 ) {
+          return Success(code: SUCCESS, response: response.data);
+        }
+      } on DioError catch (error) {
+        // Handle error
+        CustomWidgets.buildErrorSnackbar(context,error.response!.data.toString());
+        return Failure(
+            code: error.response!.statusCode,
+            errorResponse: {'error': error.response!.data.toString()});
+      }
+      //push to no internet screen if isConnected is false
+    } else {
+      pushToNoInternetPage(context);
+      return Failure(
+          code: NO_INTERNET, errorResponse: {'error': 'No Internet'});
+    }
+  }
+
 }
-
-
-
-
 
 
 

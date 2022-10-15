@@ -8,6 +8,7 @@ import 'package:findate/widgets/utils/progress_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:email_validator/email_validator.dart';
 
 class SignUpScreen extends ConsumerStatefulWidget {
   const SignUpScreen({Key? key}) : super(key: key);
@@ -115,12 +116,10 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                           ),
                           MyTextField(
                               controller: emailController,
-                              validator: (val) {
-                                if (val!.isEmpty) {
-                                  return 'Field cannot be empty';
-                                }
-                                return null;
-                              },
+                              validator: (value) =>
+                                  EmailValidator.validate(value!)
+                                      ? null
+                                      : "Please enter a valid email",
                               isPassword: false,
                               obcureText: false,
                               isReadOnly: false,
@@ -234,7 +233,6 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                           if (_formKey.currentState!.validate()) {
                             authViewModel.regisUser(
                                 '$baseUrl/register', getInputedData(), context);
-                            print(getInputedData());
                           }
                         }),
                     const SizedBox(
