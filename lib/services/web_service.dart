@@ -45,7 +45,7 @@ class WebServices {
 
 
 //handles get requests
-  static Future sendGetRequest(String url ) async {
+  static Future sendGetRequest(String url ,) async {
     final token = UserPreferences.getToken();
     bool isConnected = await SimpleConnectionChecker.isConnectedToInternet();
     final header = <String, String>{

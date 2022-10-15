@@ -48,17 +48,17 @@ class AuthViewModel extends ChangeNotifier {
     setLoading(false);
   }
 
-
-
   // Register view model function
   Future regisUser(String url, body, context) async {
+    
     setLoading(true);
 
     var response = await WebServices.sendPostRequest(url, body, context);
 
     if (response.code == SUCCESS) {
       final result = jsonDecode(response.response);
-      if (result.statusCode == 201) {
+      if (result.statusCode == 200) {
+        print(result);
         //navigate to screen after successful registration
         pushConfrimEmailScreen(context);
         setLoading(false);
@@ -74,9 +74,6 @@ class AuthViewModel extends ChangeNotifier {
     }
     setLoading(false);
   }
-
-
-
 
   // Confrim email view model function
   Future confrimEmail(String url, body, context) async {
@@ -103,17 +100,15 @@ class AuthViewModel extends ChangeNotifier {
     setLoading(false);
   }
 
-
-
-
   //Function that get all users data from API
- static Future getAllUsers() async {
-    var response = await WebServices.sendGetRequest(baseUrl);
+  static Future getAllUsers() async {
+    var response = await WebServices.sendGetRequest(
+      baseUrl,
+    );
 
     if (response.code == SUCCESS) {
       final List result = jsonDecode(response.response)['data']['users'];
       return result;
-
     } else {
       throw Failure(
           code: UNKNOWN_ERROR, errorResponse: {'error': 'Unknown Error'});
