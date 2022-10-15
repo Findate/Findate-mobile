@@ -50,28 +50,19 @@ class AuthViewModel extends ChangeNotifier {
 
   // Register view model function
   Future regisUser(String url, body, context) async {
-    
     setLoading(true);
 
     var response = await WebServices.sendPostRequest(url, body, context);
 
     if (response.code == SUCCESS) {
-      final result = jsonDecode(response.response);
-      if (result.statusCode == 200) {
-        print(result);
-        //navigate to screen after successful registration
-        pushConfrimEmailScreen(context);
-        setLoading(false);
-        return result;
-      }
+      //navigate to screen after successful registration
+      pushConfrimEmailScreen(context);
+      setLoading(false);
     } else {
       setLoginError(true);
       setLoading(false);
     }
-    if (response.code != SUCCESS) {
-      setLoginError(true);
-      setLoading(false);
-    }
+
     setLoading(false);
   }
 
@@ -82,36 +73,29 @@ class AuthViewModel extends ChangeNotifier {
     var response = await WebServices.sendPostRequest(url, body, context);
 
     if (response.code == SUCCESS) {
-      final result = jsonDecode(response.response);
-      if (result.statusCode == 200) {
-        //navigate to screen after email confirmation and registration
-        pushToLoginPage(context);
-        setLoading(false);
-        return result;
-      }
+      //navigate to screen after email confirmation and registration
+      pushToLoginPage(context);
+      setLoading(false);
     } else {
       setLoginError(true);
       setLoading(false);
     }
-    if (response.code != SUCCESS) {
-      setLoginError(true);
-      setLoading(false);
-    }
+
     setLoading(false);
   }
 
   //Function that get all users data from API
   static Future getAllUsers() async {
-    var response = await WebServices.sendGetRequest(
-      baseUrl,
-    );
+    // var response = await WebServices.sendGetRequest(
+    //   baseUrl,
+    // );
 
-    if (response.code == SUCCESS) {
-      final List result = jsonDecode(response.response)['data']['users'];
-      return result;
-    } else {
-      throw Failure(
-          code: UNKNOWN_ERROR, errorResponse: {'error': 'Unknown Error'});
-    }
+    // if (response.code == SUCCESS) {
+    //   final List result = jsonDecode(response.response)['data']['users'];
+    //   return result;
+    // } else {
+    //   throw Failure(
+    //       code: UNKNOWN_ERROR, errorResponse: {'error': 'Unknown Error'});
+    // }
   }
 }

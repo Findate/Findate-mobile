@@ -31,15 +31,15 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
   //check of checked box is ticked or not
   bool check = false;
 
-  getInputedData() {
-    final body = {
-      "username": userNameController.text.trim(),
-      "email": emailController.text.trim(),
-      "password": passwordController.text.trim(),
-      "retypePassword": retypePasswordController.text.trim(),
-    };
-    return body;
-  }
+  // getInputedData() {
+  //   final body = {
+  //     "username": userNameController.text.trim(),
+  //     "email": emailController.text.trim(),
+  //     "password": passwordController.text.trim(),
+  //     "retypePassword": retypePasswordController.text.trim(),
+  //   };
+  //   return body;
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -235,10 +235,11 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                             authViewModel.regisUser(
                                 '$baseUrl/register',
                                 {
-                                  "username": "kolikay",
-                                  "email": "kolikay1989@gmail.com",
-                                  "password": "11111",
-                                  "retypePassword": "11111",
+                                  "username": userNameController.text.trim(),
+                                  "email": emailController.text.trim(),
+                                  "password": passwordController.text.trim(),
+                                  "retypePassword":
+                                      retypePasswordController.text.trim(),
                                 },
                                 context);
                           }

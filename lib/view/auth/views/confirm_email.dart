@@ -21,7 +21,7 @@ class ConfirmEmailScreen extends ConsumerStatefulWidget {
 
 class _ConfirmEmailScreenState extends ConsumerState<ConfirmEmailScreen> {
   // controller to access pin text input
-  TextEditingController pinController = TextEditingController();
+  final pinController = TextEditingController();
 
   // controller to access pin input error
   StreamController<ErrorAnimationType>? errorController;
