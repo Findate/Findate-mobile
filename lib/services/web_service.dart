@@ -13,19 +13,24 @@ import '../constants/status_codes copy.dart';
 class WebServices {
   final dio = Dio();
 
-
 //handles post requests
   static Future sendPostRequest(String url, Object body, context) async {
+
     bool isConnected = await SimpleConnectionChecker.isConnectedToInternet();
     final header = <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     };
+
+
     if (isConnected) {
       try {
         final response = await Dio().post(url,
             data: jsonEncode(body), options: Options(headers: header));
 
-        if (response.statusCode == 200) {
+        if (response.statusCode == 200 ) {
+          return Success(code: SUCCESS, response: response.data);
+        }
+         else if (response.statusCode == 201 ) {
           return Success(code: SUCCESS, response: response.data);
         }
       } on DioError catch (error) {
@@ -43,9 +48,10 @@ class WebServices {
     }
   }
 
-
 //handles get requests
-  static Future sendGetRequest(String url ,) async {
+  static Future sendGetRequest(
+    String url,
+  ) async {
     final token = UserPreferences.getToken();
     bool isConnected = await SimpleConnectionChecker.isConnectedToInternet();
     final header = <String, String>{
@@ -55,13 +61,13 @@ class WebServices {
     };
     if (isConnected) {
       try {
-        final response = await Dio().get(url,options: Options(headers: header));
+        final response =
+            await Dio().get(url, options: Options(headers: header));
 
         if (response.statusCode == 200) {
           return Success(code: SUCCESS, response: response.data);
         }
       } on DioError catch (error) {
-
         // Handle error
         return Failure(
             code: error.response!.statusCode,

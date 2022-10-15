@@ -2,6 +2,7 @@ import 'package:findate/constants/appColor.dart';
 import 'package:findate/constants/app_state_constants.dart';
 import 'package:findate/constants/shared_preferences.dart';
 import 'package:findate/providers/userDataProvider.dart';
+import 'package:findate/view/auth/auth_view_models/auth_view_model.dart';
 import 'package:findate/view/on_bording/explore/explore_widgets.dart';
 import 'package:findate/view/on_bording/explore/hot_or_not_screen.dart';
 import 'package:findate/view/on_bording/matches/matches_details_screen.dart';
@@ -84,7 +85,7 @@ class _ExploreScreenState extends ConsumerState<ExploreScreen> {
                         width: 128.w,
                         text: 'Skip',
                         onPressed: () {
-                          UserDataProvider();
+                        Navigator.pop(context);
                         },
                         backGroundColor: const Color(0xffF5F5F5),
                         textColor: AppColor.mainColor,
@@ -130,7 +131,9 @@ class _ExploreScreenState extends ConsumerState<ExploreScreen> {
                       ),
                       ReusesableAppbarButton(
                         iconButton: IconButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            print(apiUserdata[0].email);
+                          },
                           icon: const Icon(
                             Icons.notifications_on_outlined,
                             color: AppColor.mainColor,

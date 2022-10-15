@@ -35,7 +35,7 @@ class AuthViewModel extends ChangeNotifier {
       // //set save login user token from api response
       UserPreferences.setLoginUerToken(response.response['data']['token']);
 
-      // pushOnBoardingScreen(context);
+      pushOnBoardingScreen(context);
       setLoading(false);
     } else {
       setLoginError(true);
@@ -54,11 +54,15 @@ class AuthViewModel extends ChangeNotifier {
 
     var response = await WebServices.sendPostRequest(url, body, context);
 
-    if (response.code == SUCCESS) {
+    if (response.code == 200) {
       //navigate to screen after successful registration
       pushConfrimEmailScreen(context);
       setLoading(false);
     } else {
+      setLoginError(true);
+      setLoading(false);
+    }
+    if (response.code != 200) {
       setLoginError(true);
       setLoading(false);
     }
@@ -85,17 +89,22 @@ class AuthViewModel extends ChangeNotifier {
   }
 
   //Function that get all users data from API
-  static Future getAllUsers() async {
-    // var response = await WebServices.sendGetRequest(
-    //   baseUrl,
-    // );
+  Future getAllUsers() async {
+    var response = await WebServices.sendGetRequest(
+      baseUrl,
+    );
 
-    // if (response.code == SUCCESS) {
-    //   final List result = jsonDecode(response.response)['data']['users'];
-    //   return result;
-    // } else {
-    //   throw Failure(
-    //       code: UNKNOWN_ERROR, errorResponse: {'error': 'Unknown Error'});
-    // }
+    if (response.response['statusCode'] == SUCCESS) {
+      // final  result = jsonDecode(response.response);
+      final List result = response.response['data']['users'];
+     
+
+      var userData = result.map(((e) => UserModel.fromJson(e))).toList();
+
+      return userData;
+    } else {
+      throw Failure(
+          code: UNKNOWN_ERROR, errorResponse: {'error': 'Unknown Error'});
+    }
   }
 }

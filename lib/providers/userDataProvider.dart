@@ -14,7 +14,7 @@ class UserDataProvider extends ChangeNotifier {
   }
 
   Future getUsers() async {
-    userData = await AuthViewModel.getAllUsers();
+    userData = await AuthViewModel().getAllUsers();
     notifyListeners();
   }
 
