@@ -36,6 +36,40 @@ class _ConfirmEmailScreenState extends ConsumerState<ConfirmEmailScreen> {
   //form key
   final _key = GlobalKey<FormState>();
 
+  int secondsRemaining = 30;
+  bool enableResend = false;
+  late Timer timer;
+
+  @override
+  initState() {
+    super.initState();
+    timer = Timer.periodic(Duration(seconds: 1), (_) {
+      if (secondsRemaining != 0) {
+        setState(() {
+          secondsRemaining--;
+        });
+      } else {
+        setState(() {
+          enableResend = true;
+        });
+      }
+    });
+  }
+
+  void _resendCode() {
+    //other code here
+    setState(() {
+      secondsRemaining = 30;
+      enableResend = false;
+    });
+  }
+
+  @override
+  dispose() {
+    timer.cancel();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     final authViewModel = ref.watch(authViewModelProvider);
@@ -179,31 +213,38 @@ class _ConfirmEmailScreenState extends ConsumerState<ConfirmEmailScreen> {
                 const SizedBox(
                   height: 40,
                 ),
+                Text(
+                  'after $secondsRemaining seconds',
+                  style: const TextStyle(color: Colors.white, fontSize: 10),
+                ),
                 // Show same texts with different colors
-                RichText(
-                  text: TextSpan(
-                    style: TextStyle(
-                      color: Colors.black87,
-                      fontSize: 16.sp,
-                    ),
-                    children: <TextSpan>[
-                      TextSpan(
-                          text: 'I did not receive any code, ',
-                          style: TextStyle(
-                              color: AppColor.dullBlack, fontSize: 14.sp)),
-                      TextSpan(
-                        text: 'Resend Code',
-                        style: TextStyle(
-                            color: AppColor.mainColor,
-                            fontWeight: FontWeight.w500,
-                            fontSize: 16.sp),
+                TextButton(
+                  onPressed: enableResend ? _resendCode : null,
+                  child: RichText(
+                    text: TextSpan(
+                      style: TextStyle(
+                        color: Colors.black87,
+                        fontSize: 16.sp,
                       ),
-                    ],
+                      children: <TextSpan>[
+                        TextSpan(
+                            text: 'I did not receive any code, ',
+                            style: TextStyle(
+                                color: AppColor.dullBlack, fontSize: 14.sp)),
+                        TextSpan(
+                          text: 'Resend Code',
+                          style: TextStyle(
+                              color: AppColor.mainColor,
+                              fontWeight: FontWeight.w500,
+                              fontSize: 16.sp),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ],
             ),
-               Positioned(
+            Positioned(
               child: authViewModel.loading
                   ? const ProgressDialog(
                       message: 'Loading....',
@@ -216,3 +257,12 @@ class _ConfirmEmailScreenState extends ConsumerState<ConfirmEmailScreen> {
     );
   }
 }
+      
+        // FlatButton(
+        //   child: Text('Resend Code'),
+        //   onPressed: 
+        // ),
+        // Text(
+        //   'after $secondsRemaining seconds',
+        //   style: TextStyle(color: Colors.white, fontSize: 10),
+        // ),
