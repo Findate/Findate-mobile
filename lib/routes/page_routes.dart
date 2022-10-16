@@ -2,6 +2,7 @@ import 'package:findate/view/auth/views/confirm_email.dart';
 import 'package:findate/view/auth/views/login_screen.dart';
 import 'package:findate/view/landing_page/no_internet_screen.dart';
 import 'package:findate/view/on_bording/on_bording_screen.dart';
+import 'package:findate/view/profile_set_ups/profile_setup_screen.dart';
 import 'package:findate/widgets/reusesable_widget/complete_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -38,15 +39,15 @@ pushConfrimEmailScreen(BuildContext context) async {
   );
 }
 
-pushLoginafterReg(BuildContext context) {
+pushProfileSetupAfterReg(BuildContext context) {
   CompleteScreen(
-    bodyMessage: 'Congratulations, you have completed your registration, please login to continue',
-    buttonMessage: 'Login',
+    bodyMessage: 'Congratulations, you have completed your registration, please setup your profile',
+    buttonMessage: 'Profile setup',
     headerMessage: 'Registration complete',
     navigate: () {
       Navigator.of(context).push(
         MaterialPageRoute(
-          builder: ((context) => const LoginScreen()),
+          builder: ((context) => const ProfileSetupScreen()),
         ),
       );
     },

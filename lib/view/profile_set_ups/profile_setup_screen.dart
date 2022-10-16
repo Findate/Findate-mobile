@@ -1,3 +1,4 @@
+import 'package:findate/view/auth/views/login_screen.dart';
 import 'package:findate/view/on_bording/on_bording_screen.dart';
 import 'package:findate/widgets/reusesable_widget/complete_screen.dart';
 import 'package:findate/view/profile_set_ups/profile_setups_widgets.dart';
@@ -72,14 +73,14 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> {
                             MaterialPageRoute(
                               builder: ((context) => CompleteScreen(
                                     bodyMessage:
-                                        'Congratulations, you have completed your profile set up',
-                                    buttonMessage: 'To to Main Screen',
+                                        'Congratulations, you have completed your profile set up, please login to continue',
+                                    buttonMessage: 'login',
                                     headerMessage: 'Profile setup complete',
                                     navigate: () {
                                       Navigator.of(context).push(
                                         MaterialPageRoute(
                                           builder: ((context) =>
-                                              const OnBoardingScreen()),
+                                              const LoginScreen()),
                                         ),
                                       );
                                     },

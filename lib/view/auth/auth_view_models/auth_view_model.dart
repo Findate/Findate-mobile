@@ -86,7 +86,7 @@ class AuthViewModel extends ChangeNotifier {
     if (response.code == SUCCESS) {
       //navigate to screen after email confirmation and registration
 
-      pushLoginafterReg(context);
+      pushProfileSetupAfterReg(context);
       // CustomWidgets.buildErrorSnackbar(
       //     context, 'Account Created successfully, please login to continue');
       setLoading(false);
