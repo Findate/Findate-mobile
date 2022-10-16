@@ -1,5 +1,3 @@
-
-
 import 'package:findate/constants/app_state_constants.dart';
 import 'package:findate/constants/shared_preferences.dart';
 import 'package:findate/constants/status_codes.dart';
@@ -88,9 +86,9 @@ class AuthViewModel extends ChangeNotifier {
     if (response.code == SUCCESS) {
       //navigate to screen after email confirmation and registration
 
-      pushToLoginPage(context);
-      CustomWidgets.buildErrorSnackbar(
-          context, 'Account Created successfully, please login to continue');
+      pushLoginafterReg(context);
+      // CustomWidgets.buildErrorSnackbar(
+      //     context, 'Account Created successfully, please login to continue');
       setLoading(false);
     } else {
       setLoginError(true);

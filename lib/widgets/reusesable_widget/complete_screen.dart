@@ -5,9 +5,18 @@ import 'package:findate/widgets/reusesable_widget/reuseable_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-
-class ProfileSetupCompleteScreen extends StatelessWidget {
-  const ProfileSetupCompleteScreen({Key? key}) : super(key: key);
+class CompleteScreen extends StatelessWidget {
+  String headerMessage;
+  String bodyMessage;
+  String buttonMessage;
+  GestureTapCallback navigate;
+  CompleteScreen(
+      {Key? key,
+      required this.bodyMessage,
+      required this.buttonMessage,
+      required this.headerMessage,
+      required this.navigate})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,21 +26,22 @@ class ProfileSetupCompleteScreen extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-            Container(
+          Container(
             height: 160.h,
             width: 160.w,
             decoration: BoxDecoration(
               // color: AppColor.secondaryMain,
               borderRadius: BorderRadius.circular(5.r),
-              image:const DecorationImage(
-                  image: AssetImage('assets/verifyicon.png'), fit: BoxFit.cover),
+              image: const DecorationImage(
+                  image: AssetImage('assets/verifyicon.png'),
+                  fit: BoxFit.cover),
             ),
           ),
           SizedBox(
             height: 25.h,
           ),
           NormalText(
-            text: 'Profile Setup Successful!!',
+            text: headerMessage,
             size: 24.sp,
             color: AppColor.secondaryMain,
             fontWeight: FontWeight.w700,
@@ -44,8 +54,7 @@ class ProfileSetupCompleteScreen extends StatelessWidget {
             height: 43.h,
             child: NormalText(
               textAlign: TextAlign.center,
-              text:
-                  'Congratulations, Your have successfully Setup your Profile',
+              text: bodyMessage,
               size: 16.sp,
               color: AppColor.grey400,
               fontWeight: FontWeight.w600,
@@ -55,14 +64,9 @@ class ProfileSetupCompleteScreen extends StatelessWidget {
             height: 110.h,
           ),
           ReuseableButton(
-              text: 'Go to Main Screen',
-              onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: ((context) => const OnBoardingScreen()),
-                  ),
-                );
-              }),
+            text: buttonMessage,
+            onPressed: navigate,
+          ),
         ],
       ),
     ));

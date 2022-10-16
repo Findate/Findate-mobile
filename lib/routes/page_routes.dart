@@ -2,8 +2,8 @@ import 'package:findate/view/auth/views/confirm_email.dart';
 import 'package:findate/view/auth/views/login_screen.dart';
 import 'package:findate/view/landing_page/no_internet_screen.dart';
 import 'package:findate/view/on_bording/on_bording_screen.dart';
+import 'package:findate/widgets/reusesable_widget/complete_screen.dart';
 import 'package:flutter/material.dart';
-
 
 pushToNoInternetPage(BuildContext context) async {
   Navigator.push(
@@ -14,8 +14,6 @@ pushToNoInternetPage(BuildContext context) async {
   );
 }
 
-
-
 pushToLoginPage(BuildContext context) async {
   Navigator.of(context).pushReplacement(
     MaterialPageRoute(
@@ -25,25 +23,33 @@ pushToLoginPage(BuildContext context) async {
 }
 
 pushOnBoardingScreen(BuildContext context) async {
-    Navigator.of(context).push(
+  Navigator.of(context).push(
     MaterialPageRoute(
       builder: (context) => const OnBoardingScreen(),
     ),
   );
 }
+
 pushConfrimEmailScreen(BuildContext context) async {
-    Navigator.of(context).push(
+  Navigator.of(context).push(
     MaterialPageRoute(
       builder: (context) => const ConfirmEmailScreen(),
     ),
   );
 }
 
-pushConfrimEmailScreen1(BuildContext context) async {
-    Navigator.of(context).push(
-    MaterialPageRoute(
-      builder: (context) => const ConfirmEmailScreen(),
-    ),
+pushLoginafterReg(BuildContext context) {
+  CompleteScreen(
+    bodyMessage: 'Congratulations, you have completed your registration, please login to continue',
+    buttonMessage: 'Login',
+    headerMessage: 'Registration complete',
+    navigate: () {
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: ((context) => const LoginScreen()),
+        ),
+      );
+    },
   );
 }
 
