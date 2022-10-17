@@ -87,79 +87,82 @@ class NotificationListPurple extends StatefulWidget {
 class _NotificationListPurpleState extends State<NotificationListPurple> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: const BoxDecoration(
-        color: Colors.deepPurpleAccent,
-      ),
-      height: 66,
-      width: 343,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              Row(
-                children: [
-                  const Padding(
-                    padding: EdgeInsets.only(left: 20.0),
-                    child: CircleAvatar(
-                      backgroundImage: AssetImage('assets/homeImage1.png'),
-                      maxRadius: 30,
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical :10.0),
+      child: Container(
+        decoration: const BoxDecoration(
+          color: Colors.deepPurpleAccent,
+        ),
+        height: 66,
+        width: 343,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Row(
+                  children: [
+                    const Padding(
+                      padding: EdgeInsets.only(left: 20.0),
+                      child: CircleAvatar(
+                        backgroundImage: AssetImage('assets/homeImage1.png'),
+                        maxRadius: 30,
+                      ),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 20.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        NormalText(
-                          text: 'Josphene Mark ',
-                          size: 16.sp,
-                          color: Colors.white,
-                          fontWeight: FontWeight.w600,
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        const Text(
-                          'Likes Your Photo',
-                          style: TextStyle(
-                            fontSize: 12,
+                    Padding(
+                      padding: const EdgeInsets.only(left: 20.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          NormalText(
+                            text: 'Josphene Mark ',
+                            size: 16.sp,
                             color: Colors.white,
                             fontWeight: FontWeight.w600,
                           ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-              Padding(
-                padding: const EdgeInsets.only(right: 20.0),
-                child: Column(
-                  children: [
-                    SizedBox(
-                      height: 24.h,
-                      width: 24.w,
-                      child: const Icon(Icons.cancel, color: Colors.white),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    const Text(
-                      '7 Hrs',
-                      style: TextStyle(
-                          fontSize: 12,
-                          color: Colors.white,
-                          fontWeight: FontWeight.w400),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          const Text(
+                            'Likes Your Photo',
+                            style: TextStyle(
+                              fontSize: 12,
+                              color: Colors.white,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ],
                 ),
-              )
-            ],
-          ),
-        ],
+                Padding(
+                  padding: const EdgeInsets.only(right: 20.0),
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: 24.h,
+                        width: 24.w,
+                        child: const Icon(Icons.cancel, color: Colors.white),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      const Text(
+                        '7 Hrs',
+                        style: TextStyle(
+                            fontSize: 12,
+                            color: Colors.white,
+                            fontWeight: FontWeight.w400),
+                      ),
+                    ],
+                  ),
+                )
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
