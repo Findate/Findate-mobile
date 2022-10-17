@@ -17,9 +17,6 @@ final authViewModelProvider = ChangeNotifierProvider<AuthViewModel>((ref) {
 });
 
 
-// final userDataProvider = ChangeNotifierProvider<UserDataProvider>((ref){
-//   return UserDataProvider();
-// });
 
 
 

@@ -1,5 +1,6 @@
 import 'package:findate/constants/appColor.dart';
 import 'package:findate/view/auth/views/confirm_email.dart';
+import 'package:findate/view/auth/views/login_screen.dart';
 import 'package:findate/view/landing_page/landing_page.dart';
 import 'package:findate/view/profile_set_ups/profile_setup_screen.dart';
 import 'package:flutter/material.dart';
@@ -41,7 +42,7 @@ class MyApp extends StatelessWidget {
                 primaryColor: Colors.pink[50],
                 primarySwatch: Colors.pink,
                 unselectedWidgetColor: AppColor.mainColor),
-            home: const ProfileSetupScreen());
+            home: const LoginScreen());
       },
     );
   }

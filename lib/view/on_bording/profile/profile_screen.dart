@@ -1,23 +1,26 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:findate/constants/appColor.dart';
+import 'package:findate/constants/app_state_constants.dart';
 import 'package:findate/routes/page_routes.dart';
 import 'package:findate/widgets/reusesable_widget/normal_text.dart';
 import 'package:findate/widgets/reusesable_widget/reuseable_appbar_button.dart';
 import 'package:findate/widgets/reusesable_widget/reuseable_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class ProfileScreen extends StatefulWidget {
+class ProfileScreen extends ConsumerStatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
 
   @override
-  State<ProfileScreen> createState() => _ProfileScreenState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _ProfileScreenState();
 }
 
-class _ProfileScreenState extends State<ProfileScreen> {
+class _ProfileScreenState extends ConsumerState<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
+ final authViewModel = ref.watch(authViewModelProvider);
     return SafeArea(
       child: SingleChildScrollView(
         child: SizedBox(
@@ -98,12 +101,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 padding: const EdgeInsets.all(10.0),
                 child: SizedBox(
                   child: Column(children: [
-                    ProfileCards(title: 'Full Name'),
-                    ProfileCards(title: 'Gender'),
-                    ProfileCards(title: 'Location'),
+                    ProfileCards(title: 'Full Name', lable: authViewModel.singleUserData[0].name! + authViewModel.singleUserData[0].surname!),
+                    ProfileCards(title: 'Gender', lable: authViewModel.singleUserData[0].gender!),
+                    ProfileCards(title: 'Location', lable: authViewModel.singleUserData[0].location!),
                     ProfileCards(title: 'Date of birth'),
-                    ProfileCards(title: 'Occupation'),
-                    ProfileCards(title: 'About me'),
+                    ProfileCards(title: 'Occupation', lable: authViewModel.singleUserData[0].occupation!),
+                    ProfileCards(title: 'Interest', lable: authViewModel.singleUserData[0].interest!),
                     SizedBox(
                       height: 80.h,
                     ),
@@ -238,18 +241,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 }
 
-class ProfileCards extends StatefulWidget {
+class ProfileCards extends ConsumerStatefulWidget {
   String title;
+  String lable;
 
-  ProfileCards({Key? key, required this.title}) : super(key: key);
+  ProfileCards({Key? key, required this.title, this.lable = ''}) : super(key: key);
 
   @override
-  State<ProfileCards> createState() => _ProfileCardsState();
+ ConsumerState<ConsumerStatefulWidget>createState() => _ProfileCardsState();
 }
 
-class _ProfileCardsState extends State<ProfileCards> {
+class _ProfileCardsState extends ConsumerState<ProfileCards> {
+  
   @override
   Widget build(BuildContext context) {
+       
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -271,8 +277,10 @@ class _ProfileCardsState extends State<ProfileCards> {
             borderRadius: BorderRadius.circular(5.r),
           ),
           child: TextFormField(
+
             cursorColor: AppColor.grey400,
             decoration: InputDecoration(
+              labelText: widget.lable,
               border: InputBorder.none,
               contentPadding: EdgeInsets.all(16.w),
             ),

@@ -1,9 +1,13 @@
+import 'dart:convert';
+
 import 'package:findate/constants/app_state_constants.dart';
 import 'package:findate/constants/shared_preferences.dart';
 import 'package:findate/constants/status_codes.dart';
-import 'package:findate/models/userDataModel.dart';
+import 'package:findate/models/allUsersDataModel.dart';
+import 'package:findate/models/userModel.dart';
 import 'package:findate/routes/page_routes.dart';
 import 'package:findate/services/web_service.dart';
+import 'package:findate/view/profile_set_ups/profile_setup_screen.dart';
 import 'package:findate/widgets/utils/snack_bar.dart';
 import 'package:flutter/material.dart';
 
@@ -11,7 +15,8 @@ class AuthViewModel extends ChangeNotifier {
   AuthViewModel();
 
 //storing all user data rom api
-  List<UserModel> userData = [];
+  List<AllUsersModel> userData = [];
+  List<UserModel> singleUserData = [];
 
   bool _loading = false;
   bool get loading => _loading;
@@ -38,7 +43,13 @@ class AuthViewModel extends ChangeNotifier {
       // //set save login user token from api response
       UserPreferences.setLoginUerToken(response.response['data']['token']);
 
-      pushOnBoardingScreen(context);
+      // pushOnBoardingScreen(context);
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: ((context) => const ProfileSetupScreen()),
+        ),
+      );
+
       setLoading(false);
 
       //get all users onces login is succesful
@@ -109,7 +120,7 @@ class AuthViewModel extends ChangeNotifier {
       // final  result = jsonDecode(response.response);
       final List result = response.response['data']['users'];
 
-      userData = result.map(((e) => UserModel.fromJson(e))).toList();
+      userData = result.map(((e) => AllUsersModel.fromJson(e))).toList();
 
       notifyListeners();
     } else {
@@ -118,15 +129,14 @@ class AuthViewModel extends ChangeNotifier {
     }
   }
 
-
-    // resend otp for registration view model function
+  // resend otp for registration view model function
   Future resendOTP(String email, context) async {
     setLoading(true);
 
-    var response = await WebServices.sendPostRequest("$baseUrl/otp/resend", email, context);
+    var response = await WebServices.sendPostRequest(
+        "$baseUrl/otp/resend", email, context);
 
     if (response.code == 200) {
-   
       setLoading(false);
     } else {
       setLoginError(true);
@@ -139,18 +149,23 @@ class AuthViewModel extends ChangeNotifier {
 
     setLoading(false);
   }
-    // Update users profile view model function
+
+  // Update users profile view model function
   Future updateProfile(body, context) async {
     setLoading(true);
 
     var response =
         await WebServices.sendPatchRequest('$baseUrl/update', body, context);
 
-    if (response.code == SUCCESS) {
-      //navigate to screen after email confirmation and registration
+    if (response.response['statusCode'] == SUCCESS) {
+      final result = response.response['data'];
+
+      singleUserData.add(UserModel.fromJson(result));
+
+      notifyListeners();
 
       pushOnBoardingScreen(context);
-     
+
       setLoading(false);
     } else {
       setLoginError(true);
@@ -159,6 +174,4 @@ class AuthViewModel extends ChangeNotifier {
 
     setLoading(false);
   }
-
-  
 }

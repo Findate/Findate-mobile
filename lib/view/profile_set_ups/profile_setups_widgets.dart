@@ -473,7 +473,7 @@ class _ThirdSetupScreenState extends ConsumerState<ThirdSetupScreen> {
     final authViewModel = ref.watch(authViewModelProvider);
     return SafeArea(
       child: Scaffold(
-        body: Container(
+        body: SizedBox(
           height: 800,
           child: Column(
             children: [
@@ -512,7 +512,7 @@ class _ThirdSetupScreenState extends ConsumerState<ThirdSetupScreen> {
                     height: 25.h,
                   ),
                   SizedBox(
-                    height: 200,
+                    height: 400,
                     child: GridView.builder(
                       itemCount: 20,
                       gridDelegate:
@@ -550,9 +550,8 @@ class _ThirdSetupScreenState extends ConsumerState<ThirdSetupScreen> {
                   ),
                   ReuseableButton(
                     onPressed: () {
-                      // authViewModel.updateProfile(getData(), context);
-                      print(getData().toString);
-                      print('jejejej');
+                      authViewModel.updateProfile(getData(), context);
+                   
                     },
                     text: 'Setup',
                   )
