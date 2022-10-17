@@ -139,4 +139,26 @@ class AuthViewModel extends ChangeNotifier {
 
     setLoading(false);
   }
+    // Update users profile view model function
+  Future updateProfile(body, context) async {
+    setLoading(true);
+
+    var response =
+        await WebServices.sendPatchRequest('$baseUrl/update', body, context);
+
+    if (response.code == SUCCESS) {
+      //navigate to screen after email confirmation and registration
+
+      pushOnBoardingScreen(context);
+     
+      setLoading(false);
+    } else {
+      setLoginError(true);
+      setLoading(false);
+    }
+
+    setLoading(false);
+  }
+
+  
 }

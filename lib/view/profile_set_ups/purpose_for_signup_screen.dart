@@ -122,11 +122,11 @@ class _PurposeForSignupState extends State<PurposeForSignup> {
             ReuseableButton(
                 text: 'Continue',
                 onPressed: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: ((context) => const ProfileSetupScreen()),
-                    ),
-                  );
+                  // Navigator.of(context).push(
+                  //   MaterialPageRoute(
+                  //     builder: ((context) => const ProfileSetupScreen()),
+                  //   ),
+                  // );
                 })
           ],
         ),

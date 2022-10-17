@@ -32,6 +32,8 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> {
     _pageController.dispose();
   }
 
+
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -58,39 +60,34 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> {
             ],
           ),
         ),
-        bottomSheet: SizedBox(
-          height: 120,
-          child: Column(
-            children: [
-              ReuseableButton(
-                  text: 'Continue',
-                  onPressed: () {
-                    !isLastPage
-                        ? _pageController.nextPage(
-                            duration: const Duration(milliseconds: 500),
-                            curve: Curves.easeOut)
-                        : Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: ((context) => CompleteScreen(
-                                    bodyMessage:
-                                        'Congratulations, you have completed your profile set up, please login to continue',
-                                    buttonMessage: 'login',
-                                    headerMessage: 'Profile setup complete',
-                                    navigate: () {
-                                      Navigator.of(context).push(
-                                        MaterialPageRoute(
-                                          builder: ((context) =>
-                                              const LoginScreen()),
-                                        ),
-                                      );
-                                    },
-                                  )),
-                            ),
-                          );
-                  }),
-            ],
-          ),
-        ),
+        // bottomSheet: SizedBox(
+        //   height: 120,
+        //   child: Column(
+        //     children: [
+        //       ReuseableButton(
+        //           text: 'Continue',
+        //           onPressed: () {
+        //             !isLastPage
+        //                 ? _pageController.nextPage(
+        //                     duration: const Duration(milliseconds: 500),
+        //                     curve: Curves.easeOut)
+        //                 : Navigator.of(context).push(
+        //                     MaterialPageRoute(
+        //                       builder: ((context) => CompleteScreen(
+        //                             bodyMessage:
+        //                                 'Congratulations, you have completed your profile set up, please login to continue',
+        //                             buttonMessage: 'login',
+        //                             headerMessage: 'Profile setup complete',
+        //                             navigate: () {
+                               
+        //                             },
+        //                           )),
+        //                     ),
+        //                   );
+        //           }),
+        //     ],
+        //   ),
+        // ),
       ),
     );
   }
