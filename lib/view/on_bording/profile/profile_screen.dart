@@ -1,6 +1,7 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:findate/constants/appColor.dart';
+import 'package:findate/routes/page_routes.dart';
 import 'package:findate/widgets/reusesable_widget/normal_text.dart';
 import 'package:findate/widgets/reusesable_widget/reuseable_appbar_button.dart';
 import 'package:findate/widgets/reusesable_widget/reuseable_button.dart';
@@ -36,30 +37,32 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
                 child: Column(
                   children: [
-                  Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        NormalText(
-                          text: 'Profile',
-                          size: 22.sp,
-                          fontWeight: FontWeight.w600,
-                          color: Colors.white,
-                        ),
-                        ReusesableAppbarButton(
-                          backGroundColor: Colors.white,
-                          iconButton: IconButton(
-                            onPressed: () {},
-                            icon: const Icon(
-                              Icons.settings,
-                              color: AppColor.mainColor,
+                    Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          NormalText(
+                            text: 'Profile',
+                            size: 22.sp,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.white,
+                          ),
+                          ReusesableAppbarButton(
+                            backGroundColor: Colors.white,
+                            iconButton: IconButton(
+                              onPressed: () {
+                                pushSettingsScreen(context);
+                              },
+                              icon: const Icon(
+                                Icons.settings,
+                                color: AppColor.mainColor,
+                              ),
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
                     Stack(
                       children: [
                         SizedBox(

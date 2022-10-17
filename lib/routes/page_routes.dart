@@ -2,6 +2,11 @@ import 'package:findate/view/auth/views/confirm_email.dart';
 import 'package:findate/view/auth/views/login_screen.dart';
 import 'package:findate/view/landing_page/no_internet_screen.dart';
 import 'package:findate/view/on_bording/on_bording_screen.dart';
+import 'package:findate/view/others/blocked_users_screen.dart';
+import 'package:findate/view/others/notifications_screen.dart';
+import 'package:findate/view/others/privacy_screen.dart';
+import 'package:findate/view/others/security_screen.dart';
+import 'package:findate/view/others/settings_screen.dart';
 import 'package:findate/view/profile_set_ups/profile_setup_screen.dart';
 import 'package:findate/widgets/reusesable_widget/complete_screen.dart';
 import 'package:flutter/material.dart';
@@ -31,10 +36,10 @@ pushOnBoardingScreen(BuildContext context) async {
   );
 }
 
-pushConfrimEmailScreen(BuildContext context) async {
+pushConfrimEmailScreen(BuildContext context, String email) async {
   Navigator.of(context).push(
     MaterialPageRoute(
-      builder: (context) => const ConfirmEmailScreen(),
+      builder: (context) => ConfirmEmailScreen(email: email),
     ),
   );
 }
@@ -54,6 +59,44 @@ pushProfileSetupAfterReg(BuildContext context) {
   );
 }
 
+pushSettingsScreen(BuildContext context) {
+   Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: ((context) => const Settings()),
+        ),
+      );
+}
+pushSecurityScreen(BuildContext context) {
+   Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: ((context) => const Security()),
+        ),
+      );
+}
+
+pushNotiicatioScreen(BuildContext context) {
+   Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: ((context) => const NotificationPage()),
+        ),
+      );
+}
+
+pushPrivacyScreen(BuildContext context) {
+   Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: ((context) => const Privacy()),
+        ),
+      );
+}
+
+pushBlockedUsersScreen(BuildContext context) {
+   Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: ((context) => const BlockedUsers()),
+        ),
+      );
+}
 // pushCategoriesPage(BuildContext context) async {
 //   Navigator.pushNamed(context, CategoriesPage.id);
 // }

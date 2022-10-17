@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:findate/constants/appColor.dart';
 import 'package:findate/constants/app_state_constants.dart';
+import 'package:findate/view/auth/auth_view_models/auth_view_model.dart';
 import 'package:findate/widgets/reusesable_widget/normal_text.dart';
 import 'package:findate/widgets/reusesable_widget/reuseable_appbar_button.dart';
 import 'package:findate/widgets/reusesable_widget/reuseable_button.dart';
@@ -13,7 +14,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 class ConfirmEmailScreen extends ConsumerStatefulWidget {
-  const ConfirmEmailScreen({Key? key}) : super(key: key);
+  final String email;
+  const ConfirmEmailScreen({Key? key, required this.email}) : super(key: key);
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
@@ -56,7 +58,8 @@ class _ConfirmEmailScreenState extends ConsumerState<ConfirmEmailScreen> {
     });
   }
 
-  void _resendCode() {
+  _resendCode(AuthViewModel auth) {
+    auth.resendOTP(widget.email, context);
     //other code here
     setState(() {
       secondsRemaining = 30;
@@ -207,19 +210,23 @@ class _ConfirmEmailScreenState extends ConsumerState<ConfirmEmailScreen> {
                             {
                               "token": pinController.text.trim(),
                             },
+                            widget.email,
                             context);
                       }
                     }),
                 const SizedBox(
-                  height: 40,
+                  height: 30,
                 ),
                 Text(
-                  'after $secondsRemaining seconds',
-                  style: const TextStyle(color: Colors.white, fontSize: 10),
+                  !enableResend
+                      ? 'Please resend code after $secondsRemaining seconds'
+                      : '',
+                  style:
+                      const TextStyle(color: AppColor.mainColor, fontSize: 12),
                 ),
                 // Show same texts with different colors
                 TextButton(
-                  onPressed: enableResend ? _resendCode : null,
+                  onPressed: enableResend ? _resendCode(authViewModel) : null,
                   child: RichText(
                     text: TextSpan(
                       style: TextStyle(
@@ -230,11 +237,13 @@ class _ConfirmEmailScreenState extends ConsumerState<ConfirmEmailScreen> {
                         TextSpan(
                             text: 'I did not receive any code, ',
                             style: TextStyle(
-                                color: AppColor.dullBlack, fontSize: 14.sp)),
+                                color: AppColor.dullBlack, fontSize: 15.sp)),
                         TextSpan(
                           text: 'Resend Code',
                           style: TextStyle(
-                              color: AppColor.mainColor,
+                              color: !enableResend
+                                  ? Colors.black
+                                  : AppColor.mainColor,
                               fontWeight: FontWeight.w500,
                               fontSize: 16.sp),
                         ),

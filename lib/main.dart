@@ -1,4 +1,5 @@
 import 'package:findate/constants/appColor.dart';
+import 'package:findate/view/auth/views/confirm_email.dart';
 import 'package:findate/view/landing_page/landing_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

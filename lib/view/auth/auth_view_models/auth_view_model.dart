@@ -55,14 +55,14 @@ class AuthViewModel extends ChangeNotifier {
   }
 
   // Register view model function
-  Future regisUser(String url, body, context) async {
+  Future regisUser(String url, body, String email, context) async {
     setLoading(true);
 
     var response = await WebServices.sendPostRequest(url, body, context);
 
     if (response.code == 200) {
       //navigate to screen after successful registration
-      pushConfrimEmailScreen(context);
+      pushConfrimEmailScreen(context, email);
       setLoading(false);
     } else {
       setLoginError(true);
@@ -77,7 +77,7 @@ class AuthViewModel extends ChangeNotifier {
   }
 
   // Confrim email view model function
-  Future confrimEmail(String url, body, context) async {
+  Future confrimEmail(String url, body, email, context) async {
     setLoading(true);
 
     var response =
@@ -116,5 +116,27 @@ class AuthViewModel extends ChangeNotifier {
       throw Failure(
           code: UNKNOWN_ERROR, errorResponse: {'error': 'Unknown Error'});
     }
+  }
+
+
+    // resend otp for registration view model function
+  Future resendOTP(String email, context) async {
+    setLoading(true);
+
+    var response = await WebServices.sendPostRequest("$baseUrl/otp/resend", email, context);
+
+    if (response.code == 200) {
+   
+      setLoading(false);
+    } else {
+      setLoginError(true);
+      setLoading(false);
+    }
+    if (response.code != 200) {
+      setLoginError(true);
+      setLoading(false);
+    }
+
+    setLoading(false);
   }
 }
