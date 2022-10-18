@@ -43,13 +43,8 @@ class AuthViewModel extends ChangeNotifier {
       // //set save login user token from api response
       UserPreferences.setLoginUerToken(response.response['data']['token']);
 
-      // pushOnBoardingScreen(context);
-      Navigator.of(context).push(
-        MaterialPageRoute(
-          builder: ((context) => const ProfileSetupScreen()),
-        ),
-      );
-
+     pushOnBoardingScreen(context);
+   
       setLoading(false);
 
       //get all users onces login is succesful
