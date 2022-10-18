@@ -1,5 +1,7 @@
 // ignore_for_file: no_leading_underscores_for_local_identifiers
 
+import 'dart:io';
+
 import 'package:findate/constants/appColor.dart';
 import 'package:findate/constants/app_state_constants.dart';
 import 'package:findate/widgets/reusesable_widget/normal_text.dart';
@@ -7,8 +9,13 @@ import 'package:findate/widgets/reusesable_widget/reuseable_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:table_calendar/table_calendar.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:flutter/services.dart';
+import 'package:path/path.dart' as PAth;
+import 'dart:convert' as convert;
 
 //First Setup Screen
 class FirstSetupScreen extends StatefulWidget {
@@ -23,6 +30,7 @@ class FirstSetupScreen extends StatefulWidget {
 class _FirstSetupScreenState extends State<FirstSetupScreen> {
   final TextEditingController nameController = TextEditingController();
   final TextEditingController surnameController = TextEditingController();
+  String? image;
 
   // Initial Selected Value
   String dropdownvalue = 'Male';
@@ -33,6 +41,112 @@ class _FirstSetupScreenState extends State<FirstSetupScreen> {
     'Female',
     'Others',
   ];
+
+  Future pickGalaryImage() async {
+    try {
+      final image = await ImagePicker().pickImage(source: ImageSource.gallery);
+
+      if (image == null) return;
+
+      // final imageTemporary = File(image.path);
+      final imagePamanent = await savePicture(image.path);
+
+        List<int> photoAsBytes = await imagePamanent.readAsBytes();
+      String photoAsBase64 = convert.base64Encode(photoAsBytes);
+      print(photoAsBase64);
+      print('kdkdkdkd');
+
+      setState(() {
+        this.image = photoAsBase64;
+      });
+    } on PlatformException catch (e) {
+      print('Failed to pick image: $e');
+    }
+  }
+
+  Future pickCameraImage() async {
+    try {
+      final image = await ImagePicker().pickImage(source: ImageSource.camera);
+
+      if (image == null) return;
+      final imagePamanent = File(image.path);
+         List<int> photoAsBytes = await imagePamanent.readAsBytes();
+      String photoAsBase64 = convert.base64Encode(photoAsBytes);
+      setState(() => this.image = photoAsBase64);
+    } on PlatformException catch (e) {
+      print('Failed to pick image: $e');
+    }
+  }
+
+  Future<File> savePicture(String imagePath) async {
+    final directory = await getApplicationDocumentsDirectory();
+    final name = PAth.basename(imagePath);
+    final image = File('${directory.path}/$name');
+    return File(imagePath).copy(image.path);
+  }
+
+  void _modalBottomSheetMenu() {
+    showModalBottomSheet(
+        context: context,
+        builder: (builder) {
+          return Container(
+            height: 80.0,
+            color: Colors.transparent, //could change this to Color(0xFF737373),
+            //so you don't have to change MaterialApp canvasColor
+            child: Container(
+                decoration: const BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(10.0),
+                    topRight: Radius.circular(10.0),
+                  ),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Center(
+                      child: Column(
+                        children: [
+                          IconButton(
+                            icon: const Icon(
+                              Icons.camera,
+                              size: 40,
+                              color: AppColor.mainColor,
+                            ),
+                            onPressed: () {
+                              pickCameraImage();
+                            },
+                          ),
+                          NormalText(
+                            text: 'Camera',
+                          )
+                        ],
+                      ),
+                    ),
+                    Center(
+                      child: Column(
+                        children: [
+                          IconButton(
+                            icon: const Icon(
+                              Icons.photo,
+                              size: 40,
+                              color: AppColor.mainColor,
+                            ),
+                            onPressed: () {
+                              pickGalaryImage();
+                            },
+                          ),
+                          NormalText(
+                            text: 'Gallary',
+                          )
+                        ],
+                      ),
+                    ),
+                  ],
+                )),
+          );
+        });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -107,7 +221,10 @@ class _FirstSetupScreenState extends State<FirstSetupScreen> {
                                   size: 24.h,
                                   color: Colors.white,
                                 ),
-                                onPressed: () {}),
+                                onPressed: () {
+                                  // _modalBottomSheetMenu();
+                                  pickGalaryImage();
+                                }),
                           ),
                         ),
                       ],
@@ -245,6 +362,7 @@ class _FirstSetupScreenState extends State<FirstSetupScreen> {
                               name: nameController.text.trim(),
                               surname: surnameController.text.trim(),
                               gender: dropdownvalue.trim(),
+                              image: image,
                             ),
                           ),
                         );
@@ -269,13 +387,15 @@ class SecondSetupScreen extends StatefulWidget {
   final String? name;
   final String? surname;
   final String? gender;
+  final String? image;
 
   const SecondSetupScreen(
       {Key? key,
       required this.pageController,
       this.name,
       this.gender,
-      this.surname})
+      this.surname,
+      this.image})
       : super(key: key);
 
   @override
@@ -406,12 +526,14 @@ class _SecondSetupScreenState extends State<SecondSetupScreen> {
                         Navigator.of(context).push(
                           MaterialPageRoute(
                             builder: (context) => ThirdSetupScreen(
-                                pageController: widget.pageController,
-                                name: widget.name,
-                                surname: widget.surname,
-                                gender: widget.gender,
-                                occupation: occupationController.text.trim(),
-                                location: occupationController.text.trim()),
+                              pageController: widget.pageController,
+                              name: widget.name,
+                              surname: widget.surname,
+                              gender: widget.gender,
+                              occupation: occupationController.text.trim(),
+                              location: occupationController.text.trim(),
+                              header: widget.image,
+                            ),
                           ),
                         );
                       },
@@ -436,15 +558,17 @@ class ThirdSetupScreen extends ConsumerStatefulWidget {
   final String? gender;
   final String? location;
   final String? occupation;
-  const ThirdSetupScreen({
-    Key? key,
-    required this.pageController,
-    this.name,
-    this.gender,
-    this.surname,
-    this.location,
-    this.occupation,
-  }) : super(key: key);
+  final String? header;
+  const ThirdSetupScreen(
+      {Key? key,
+      required this.pageController,
+      this.name,
+      this.gender,
+      this.surname,
+      this.location,
+      this.occupation,
+      this.header})
+      : super(key: key);
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
@@ -462,6 +586,7 @@ class _ThirdSetupScreenState extends ConsumerState<ThirdSetupScreen> {
       "gender": widget.gender,
       "occupation": widget.occupation,
       "interest": interestController.text.trim(),
+      "header": widget.header,
     };
     return data;
   }
@@ -551,7 +676,6 @@ class _ThirdSetupScreenState extends ConsumerState<ThirdSetupScreen> {
                   ReuseableButton(
                     onPressed: () {
                       authViewModel.updateProfile(getData(), context);
-                   
                     },
                     text: 'Setup',
                   )

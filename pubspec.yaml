@@ -71,6 +71,11 @@ dependencies:
 
   #emaill validator
   email_validator: '^2.1.16'
+
+  #image picker
+  image_picker: 0.8.4+4
+  path_provider: 2.0.8
+
   
 
 
