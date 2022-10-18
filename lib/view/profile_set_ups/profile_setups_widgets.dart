@@ -6,6 +6,7 @@ import 'package:findate/constants/appColor.dart';
 import 'package:findate/constants/app_state_constants.dart';
 import 'package:findate/widgets/reusesable_widget/normal_text.dart';
 import 'package:findate/widgets/reusesable_widget/reuseable_button.dart';
+import 'package:findate/widgets/utils/progress_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -586,7 +587,7 @@ class _ThirdSetupScreenState extends ConsumerState<ThirdSetupScreen> {
       "gender": widget.gender,
       "occupation": widget.occupation,
       "interest": interestController.text.trim(),
-      "header": widget.header,
+      
     };
     return data;
   }
@@ -598,90 +599,104 @@ class _ThirdSetupScreenState extends ConsumerState<ThirdSetupScreen> {
     final authViewModel = ref.watch(authViewModelProvider);
     return SafeArea(
       child: Scaffold(
-        body: SizedBox(
-          height: 800,
-          child: Column(
-            children: [
-              SizedBox(
-                height: 25.h,
-              ),
-              SmoothPageIndicator(
-                controller: widget.pageController,
-                count: 3,
-                effect: ExpandingDotsEffect(
-                    spacing: 70,
-                    dotWidth: 10.w,
-                    dotHeight: 10.h,
-                    activeDotColor: AppColor.secondaryMain,
-                    dotColor: Colors.black12),
-                onDotClicked: (index) => widget.pageController.animateToPage(
-                    index,
-                    duration: const Duration(milliseconds: 500),
-                    curve: Curves.easeOut),
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    height: 16.h,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(7.5),
-                    child: NormalText(
-                      text: 'Select Interest',
-                      size: 16.sp,
-                      fontWeight: FontWeight.w600,
+        body: SingleChildScrollView(
+          child: SizedBox(
+            height: 900,
+            child: Stack(
+              children: [
+                Column(
+                  children: [
+                    SizedBox(
+                      height: 25.h,
                     ),
-                  ),
-                  SizedBox(
-                    height: 25.h,
-                  ),
-                  SizedBox(
-                    height: 400,
-                    child: GridView.builder(
-                      itemCount: 20,
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        mainAxisExtent: 70,
-                      ),
-                      itemBuilder: (BuildContext context, int index) {
-                        return const Cards(message: 'Cooking');
-                      },
+                    SmoothPageIndicator(
+                      controller: widget.pageController,
+                      count: 3,
+                      effect: ExpandingDotsEffect(
+                          spacing: 70,
+                          dotWidth: 10.w,
+                          dotHeight: 10.h,
+                          activeDotColor: AppColor.secondaryMain,
+                          dotColor: Colors.black12),
+                      onDotClicked: (index) => widget.pageController.animateToPage(
+                          index,
+                          duration: const Duration(milliseconds: 500),
+                          curve: Curves.easeOut),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(7.5),
-                    child: TextFormField(
-                        controller: interestController,
-                        cursorColor: AppColor.grey400,
-                        decoration: const InputDecoration(
-                          hintText: 'Type interst here',
-                          hintStyle:
-                              TextStyle(color: AppColor.grey400, fontSize: 12),
-                          enabledBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(color: AppColor.grey400),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          height: 16.h,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(7.5),
+                          child: NormalText(
+                            text: 'Select Interest',
+                            size: 16.sp,
+                            fontWeight: FontWeight.w600,
                           ),
-                          focusedBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(color: AppColor.grey400),
+                        ),
+                        SizedBox(
+                          height: 25.h,
+                        ),
+                        SizedBox(
+                          height: 400,
+                          child: GridView.builder(
+                            itemCount: 20,
+                            gridDelegate:
+                                const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2,
+                              mainAxisExtent: 70,
+                            ),
+                            itemBuilder: (BuildContext context, int index) {
+                              return const Cards(message: 'Cooking');
+                            },
                           ),
-                          border: UnderlineInputBorder(
-                            borderSide: BorderSide(color: AppColor.grey400),
-                          ),
-                        )),
-                  ),
-                  SizedBox(
-                    height: 20.h,
-                  ),
-                  ReuseableButton(
-                    onPressed: () {
-                      authViewModel.updateProfile(getData(), context);
-                    },
-                    text: 'Setup',
-                  )
-                ],
-              ),
-            ],
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(7.5),
+                          child: TextFormField(
+                              controller: interestController,
+                              cursorColor: AppColor.grey400,
+                              decoration: const InputDecoration(
+                                hintText: 'Type interst here',
+                                hintStyle:
+                                    TextStyle(color: AppColor.grey400, fontSize: 12),
+                                enabledBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(color: AppColor.grey400),
+                                ),
+                                focusedBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(color: AppColor.grey400),
+                                ),
+                                border: UnderlineInputBorder(
+                                  borderSide: BorderSide(color: AppColor.grey400),
+                                ),
+                              )),
+                        ),
+                        SizedBox(
+                          height: 20.h,
+                        ),
+                        ReuseableButton(
+                          onPressed: () {
+                            authViewModel.updateProfile(getData(), context);
+                          },
+                          text: 'Setup',
+                        )
+                      ],
+                    ),
+                  ],
+                ),
+                  Positioned(
+
+                  child: authViewModel.loading
+                      ? const ProgressDialog(
+                          message: 'Loading....',
+                        )
+                      : const SizedBox(),
+                ),
+              ],
+            ),
           ),
         ),
       ),
