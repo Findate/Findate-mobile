@@ -60,48 +60,48 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                     const SizedBox(
                       height: 30,
                     ),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Visibility(
-                          visible: authViewModel.loginError,
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: Colors.pink[100],
-                              borderRadius: BorderRadius.circular(20.r),
-                            ),
-                            height: 70.h,
-                            width: 340.w,
-                            child: Row(
-                              children: [
-                                Container(
-                                    padding:
-                                        EdgeInsets.only(left: 5.w, right: 5.w),
-                                    child: Icon(
-                                      Icons.error,
-                                      color: const Color(0xffD32f2f),
-                                      size: 24.w,
-                                    )),
-                                SizedBox(
-                                  width: 300.w,
-                                  child: NormalText(
-                                    textAlign: TextAlign.start,
-                                    text:
-                                        'we didnt recognize that email address or password you can try again or use another login option',
-                                    color: Colors.black54,
-                                    size: 15.sp,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 20,
-                        )
-                      ],
-                    ),
+                    // Column(
+                    //   mainAxisAlignment: MainAxisAlignment.start,
+                    //   crossAxisAlignment: CrossAxisAlignment.start,
+                    //   children: [
+                    //     Visibility(
+                    //       visible: authViewModel.loginError ,
+                    //       child: Container(
+                    //         decoration: BoxDecoration(
+                    //           color: Colors.pink[100],
+                    //           borderRadius: BorderRadius.circular(20.r),
+                    //         ),
+                    //         height: 70.h,
+                    //         width: 340.w,
+                    //         child: Row(
+                    //           children: [
+                    //             Container(
+                    //                 padding:
+                    //                     EdgeInsets.only(left: 5.w, right: 5.w),
+                    //                 child: Icon(
+                    //                   Icons.error,
+                    //                   color: const Color(0xffD32f2f),
+                    //                   size: 24.w,
+                    //                 )),
+                    //             SizedBox(
+                    //               width: 300.w,
+                    //               child: NormalText(
+                    //                 textAlign: TextAlign.start,
+                    //                 text:
+                    //                     'we didnt recognize that email address or password you can try again or use another login option',
+                    //                 color: Colors.black54,
+                    //                 size: 15.sp,
+                    //               ),
+                    //             ),
+                    //           ],
+                    //         ),
+                    //       ),
+                    //     ),
+                    //     const SizedBox(
+                    //       height: 20,
+                    //     )
+                    //   ],
+                    // ),
                     Form(
                       key: _key,
                       child: Column(

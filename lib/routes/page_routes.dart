@@ -123,6 +123,15 @@ pushBlockedUsersScreen(BuildContext context) {
     ),
   );
 }
+
+logout(BuildContext context) async {
+  Navigator.of(context).pushNamedAndRemoveUntil(
+    LoginScreen.id, (Route<dynamic> route) => false);
+}
+
+
+
+
 // pushCategoriesPage(BuildContext context) async {
 //   Navigator.pushNamed(context, CategoriesPage.id);
 // }
@@ -251,10 +260,7 @@ pushBlockedUsersScreen(BuildContext context) {
 //   );
 // }
 
-// logout(BuildContext context) async {
-//   Navigator.of(context).pushNamedAndRemoveUntil(
-//     LoginScreen.id, (Route<dynamic> route) => false);
-// }
+
 
 // pushToOnboardingPage(BuildContext context) async {
 //   Navigator.of(context).push(

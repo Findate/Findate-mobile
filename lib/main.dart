@@ -16,7 +16,7 @@ void main() async {
 
   await UserPreferences.init();
 
-  UserPreferences.reset();
+  UserPreferences.resetSharedPref();
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
 
@@ -42,7 +42,8 @@ class MyApp extends StatelessWidget {
                 primaryColor: Colors.pink[50],
                 primarySwatch: Colors.pink,
                 unselectedWidgetColor: AppColor.mainColor),
-            home: const LandingPage());
+            home: const LandingPage(),
+            routes: {LoginScreen.id: (context) => const LoginScreen()});
       },
     );
   }

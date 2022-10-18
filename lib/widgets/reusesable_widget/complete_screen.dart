@@ -27,8 +27,8 @@ class CompleteScreen extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Container(
-            height: 160.h,
-            width: 160.w,
+            height: 165.h,
+            width: 165.w,
             decoration: BoxDecoration(
               // color: AppColor.secondaryMain,
               borderRadius: BorderRadius.circular(5.r),

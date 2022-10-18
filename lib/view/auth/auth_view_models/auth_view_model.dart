@@ -93,10 +93,6 @@ class AuthViewModel extends ChangeNotifier {
       print(response);
       //navigate to screen after email confirmation and registration
 
-
-
-      
-
       pushProfileSetupAfterReg(context);
 
       setLoading(false);

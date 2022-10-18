@@ -23,7 +23,7 @@ static SharedPreferences? _preferences;
   static String? getToken() => _preferences!.getString('token');
 
  
- static  reset() => _preferences!.clear();
+ static  resetSharedPref() => _preferences!.clear();
 
 
 }
