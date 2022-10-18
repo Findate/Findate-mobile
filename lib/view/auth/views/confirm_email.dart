@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:findate/constants/appColor.dart';
 import 'package:findate/constants/app_state_constants.dart';
+import 'package:findate/routes/page_routes.dart';
 import 'package:findate/view/auth/auth_view_models/auth_view_model.dart';
 import 'package:findate/widgets/reusesable_widget/normal_text.dart';
 import 'package:findate/widgets/reusesable_widget/reuseable_appbar_button.dart';
@@ -38,40 +39,40 @@ class _ConfirmEmailScreenState extends ConsumerState<ConfirmEmailScreen> {
   //form key
   final _key = GlobalKey<FormState>();
 
-  int secondsRemaining = 30;
+  // int secondsRemaining = 30;
   bool enableResend = false;
-  late Timer timer;
+  // late Timer timer;
 
-  @override
-  initState() {
-    super.initState();
-    timer = Timer.periodic(Duration(seconds: 1), (_) {
-      if (secondsRemaining != 0) {
-        setState(() {
-          secondsRemaining--;
-        });
-      } else {
-        setState(() {
-          enableResend = true;
-        });
-      }
-    });
-  }
+  // @override
+  // initState() {
+  //   super.initState();
+  //   timer = Timer.periodic(Duration(seconds: 1), (_) {
+  //     if (secondsRemaining != 0) {
+  //       setState(() {
+  //         secondsRemaining--;
+  //       });
+  //     } else {
+  //       setState(() {
+  //         enableResend = true;
+  //       });
+  //     }
+  //   });
+  // }
 
-  _resendCode(AuthViewModel auth) {
-    auth.resendOTP(widget.email, context);
-    //other code here
-    setState(() {
-      secondsRemaining = 30;
-      enableResend = false;
-    });
-  }
+  // _resenCode(AuthViewModel auth) {
+  //   auth.resendOTP(widget.email, context);
+  //   //other code here
+  //   setState(() {
+  //     secondsRemaining = 30;
+  //     enableResend = false;
+  //   });
+  // }
 
-  @override
-  dispose() {
-    timer.cancel();
-    super.dispose();
-  }
+  // @override
+  // dispose() {
+  //   timer.cancel();
+  //   super.dispose();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -124,7 +125,7 @@ class _ConfirmEmailScreenState extends ConsumerState<ConfirmEmailScreen> {
                             ),
                           ),
                           TextSpan(
-                            text: 'Abiodunmercy@gmail.com',
+                            text: '',
                             style: GoogleFonts.nunito(
                               color: AppColor.secondaryMain,
                               fontSize: 14.sp,
@@ -217,16 +218,17 @@ class _ConfirmEmailScreenState extends ConsumerState<ConfirmEmailScreen> {
                 const SizedBox(
                   height: 30,
                 ),
-                Text(
-                  !enableResend
-                      ? 'Please resend code after $secondsRemaining seconds'
-                      : '',
-                  style:
-                      const TextStyle(color: AppColor.mainColor, fontSize: 12),
-                ),
+                // Text(
+                //   !enableResend
+                //       ? 'Please resend code after $secondsRemaining seconds'
+                //       : '',
+                //   style:
+                //       const TextStyle(color: AppColor.mainColor, fontSize: 12),
+                // ),
                 // Show same texts with different colors
                 TextButton(
-                  onPressed: enableResend ? _resendCode(authViewModel) : null,
+                  onPressed: () {},
+                  // onPressed: enableResend ? _resendCode(authViewModel) : null,
                   child: RichText(
                     text: TextSpan(
                       style: TextStyle(

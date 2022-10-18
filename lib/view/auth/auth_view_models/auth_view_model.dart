@@ -15,8 +15,8 @@ class AuthViewModel extends ChangeNotifier {
   AuthViewModel();
 
 //storing all user data rom api
-  List<AllUsersModel> userData = [];
-  List<UserModel> singleUserData = [];
+  // List<AllUsersModel> userData = [];
+  List<UserModel> userData = [];
 
   bool _loading = false;
   bool get loading => _loading;
@@ -43,8 +43,8 @@ class AuthViewModel extends ChangeNotifier {
       // //set save login user token from api response
       UserPreferences.setLoginUerToken(response.response['data']['token']);
 
-     pushOnBoardingScreen(context);
-   
+      pushOnBoardingScreen(context);
+
       setLoading(false);
 
       //get all users onces login is succesful
@@ -90,11 +90,15 @@ class AuthViewModel extends ChangeNotifier {
         await WebServices.sendPatchRequest('$baseUrl/verify', body, context);
 
     if (response.code == SUCCESS) {
+      print(response);
       //navigate to screen after email confirmation and registration
 
+
+
+      
+
       pushProfileSetupAfterReg(context);
-      // CustomWidgets.buildErrorSnackbar(
-      //     context, 'Account Created successfully, please login to continue');
+
       setLoading(false);
     } else {
       setLoginError(true);
@@ -115,7 +119,8 @@ class AuthViewModel extends ChangeNotifier {
       // final  result = jsonDecode(response.response);
       final List result = response.response['data']['users'];
 
-      userData = result.map(((e) => AllUsersModel.fromJson(e))).toList();
+      // userData = result.map(((e) => AllUsersModel.fromJson(e))).toList();
+      userData = result.map(((e) => UserModel.fromJson(e))).toList();
 
       notifyListeners();
     } else {
@@ -155,11 +160,11 @@ class AuthViewModel extends ChangeNotifier {
     if (response.response['statusCode'] == SUCCESS) {
       final result = response.response['data'];
 
-      singleUserData.add(UserModel.fromJson(result));
+      userData.add(UserModel.fromJson(result));
 
       notifyListeners();
 
-      pushOnBoardingScreen(context);
+      pushLoginAfterProfileSetup(context);
 
       setLoading(false);
     } else {

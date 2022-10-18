@@ -45,57 +45,83 @@ pushConfrimEmailScreen(BuildContext context, String email) async {
 }
 
 pushProfileSetupAfterReg(BuildContext context) {
-  CompleteScreen(
-    bodyMessage: 'Congratulations, you have completed your registration, please setup your profile',
-    buttonMessage: 'Profile setup',
-    headerMessage: 'Registration complete',
-    navigate: () {
-      Navigator.of(context).push(
-        MaterialPageRoute(
-          builder: ((context) => const ProfileSetupScreen()),
-        ),
-      );
-    },
+  Navigator.of(context).push(
+    MaterialPageRoute(
+      builder: ((context) => CompleteScreen(
+            bodyMessage:
+                'Congratulations, you have completed your registration, please setup your profile',
+            buttonMessage: 'Profile setup',
+            headerMessage: 'Registration complete',
+            navigate: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: ((context) => const ProfileSetupScreen()),
+                ),
+              );
+            },
+          )),
+    ),
+  );
+}
+
+pushLoginAfterProfileSetup(BuildContext context) {
+  Navigator.of(context).push(
+    MaterialPageRoute(
+      builder: ((context) => CompleteScreen(
+            bodyMessage:
+                'Congratulations, you have completed your Profile Setup, please login ',
+            buttonMessage: 'Login',
+            headerMessage: 'Profile Setup complete',
+            navigate: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: ((context) => const LoginScreen()),
+                ),
+              );
+            },
+          )),
+    ),
   );
 }
 
 pushSettingsScreen(BuildContext context) {
-   Navigator.of(context).push(
-        MaterialPageRoute(
-          builder: ((context) => const Settings()),
-        ),
-      );
+  Navigator.of(context).push(
+    MaterialPageRoute(
+      builder: ((context) => const Settings()),
+    ),
+  );
 }
+
 pushSecurityScreen(BuildContext context) {
-   Navigator.of(context).push(
-        MaterialPageRoute(
-          builder: ((context) => const Security()),
-        ),
-      );
+  Navigator.of(context).push(
+    MaterialPageRoute(
+      builder: ((context) => const Security()),
+    ),
+  );
 }
 
 pushNotiicatioScreen(BuildContext context) {
-   Navigator.of(context).push(
-        MaterialPageRoute(
-          builder: ((context) => const NotificationPage()),
-        ),
-      );
+  Navigator.of(context).push(
+    MaterialPageRoute(
+      builder: ((context) => const NotificationPage()),
+    ),
+  );
 }
 
 pushPrivacyScreen(BuildContext context) {
-   Navigator.of(context).push(
-        MaterialPageRoute(
-          builder: ((context) => const Privacy()),
-        ),
-      );
+  Navigator.of(context).push(
+    MaterialPageRoute(
+      builder: ((context) => const Privacy()),
+    ),
+  );
 }
 
 pushBlockedUsersScreen(BuildContext context) {
-   Navigator.of(context).push(
-        MaterialPageRoute(
-          builder: ((context) => const BlockedUsers()),
-        ),
-      );
+  Navigator.of(context).push(
+    MaterialPageRoute(
+      builder: ((context) => const BlockedUsers()),
+    ),
+  );
 }
 // pushCategoriesPage(BuildContext context) async {
 //   Navigator.pushNamed(context, CategoriesPage.id);

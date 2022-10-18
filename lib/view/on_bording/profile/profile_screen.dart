@@ -135,9 +135,9 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                   decoration: BoxDecoration(
                     image: DecorationImage(
                         image: NetworkImage(authViewModel
-                                    .singleUserData[0].header !=
+                                    .userData[0].header !=
                                 null
-                            ? authViewModel.singleUserData[0].header!
+                            ? authViewModel.userData[0].header!
                             : 'https://res.cloudinary.com/hyghdrogin/image/upload/v1665284795/Findate/findate_m0lrnn.jpg'),
                         fit: BoxFit.cover),
                   ),
@@ -169,7 +169,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                           ],
                         ),
                       ),
-                      Stack(
+                    authViewModel.userData[0].header == null?   Stack(
                         children: [
                           SizedBox(
                             height: 100.h,
@@ -198,7 +198,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                             ),
                           ),
                         ],
-                      ),
+                      ) : const SizedBox() ,
                     ],
                   ),
                 ),
@@ -208,21 +208,21 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                     child: Column(children: [
                       ProfileCards(
                           title: 'Full Name',
-                          lable: authViewModel.singleUserData[0].name! +
-                              authViewModel.singleUserData[0].surname!),
+                          lable: authViewModel.userData[0].name! +
+                              authViewModel.userData[0].surname!),
                       ProfileCards(
                           title: 'Gender',
-                          lable: authViewModel.singleUserData[0].gender!),
+                          lable: authViewModel.userData[0].gender!),
                       ProfileCards(
                           title: 'Location',
-                          lable: authViewModel.singleUserData[0].location!),
+                          lable: authViewModel.userData[0].location!),
                       ProfileCards(title: 'Date of birth'),
                       ProfileCards(
                           title: 'Occupation',
-                          lable: authViewModel.singleUserData[0].occupation!),
+                          lable: authViewModel.userData[0].occupation!),
                       ProfileCards(
                           title: 'Interest',
-                          lable: authViewModel.singleUserData[0].interest!),
+                          lable: authViewModel.userData[0].interest!),
                       SizedBox(
                         height: 80.h,
                       ),

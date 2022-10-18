@@ -106,7 +106,7 @@ class _ExploreScreenState extends ConsumerState<ExploreScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final apiUserdata = ref.watch(authViewModelProvider).userData;
+   
 
     return SafeArea(
       child: Scaffold(
@@ -130,7 +130,7 @@ class _ExploreScreenState extends ConsumerState<ExploreScreen> {
                       ReusesableAppbarButton(
                         iconButton: IconButton(
                           onPressed: () {
-                            print(apiUserdata[0].email);
+                            
                           },
                           icon: const Icon(
                             Icons.notifications_on_outlined,
