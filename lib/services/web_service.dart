@@ -14,29 +14,29 @@ class WebServices {
 
 //handles post requests
   static Future sendPostRequest(String url, Object body, context) async {
-
+    final token = UserPreferences.getToken();
     bool isConnected = await SimpleConnectionChecker.isConnectedToInternet();
     final header = <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
+      'Accept': 'application/json',
+      'Authorization': 'Bearer $token',
     };
-
 
     if (isConnected) {
       try {
         final response = await Dio().post(url,
             data: jsonEncode(body), options: Options(headers: header));
-            
-        if (response.statusCode == 200 ) {
-          
-          return Success(code: SUCCESS, response: response.data);
-        }
-         else if (response.statusCode == 201 ) {
-          return Success(code: SUCCESS, response: response.data);
+
+        if (response.statusCode == 200) {
+          return Success(code: response.statusCode, response: response.data);
+        } else if (response.statusCode == 201) {
+          return Success(code: response.statusCode, response: response.data);
         }
       } on DioError catch (error) {
         // Handle error and display on snackbar
-        
-        CustomWidgets.buildErrorSnackbar(context,error.response!.data.toString());
+
+        CustomWidgets.buildErrorSnackbar(
+            context, error.response!.data.toString());
         return Failure(
             code: error.response!.statusCode,
             errorResponse: {'error': error.response!.data.toString()});
@@ -50,11 +50,7 @@ class WebServices {
   }
 
 //handles get requests
-  static Future sendGetRequest(
-    String url,
-    context,
-     
-  ) async {
+  static Future sendGetRequest(String url, context) async {
     final token = UserPreferences.getToken();
     bool isConnected = await SimpleConnectionChecker.isConnectedToInternet();
     final header = <String, String>{
@@ -68,11 +64,12 @@ class WebServices {
             await Dio().get(url, options: Options(headers: header));
 
         if (response.statusCode == 200) {
-          return Success(code: SUCCESS, response: response.data);
+          return Success(code: response.statusCode, response: response.data);
         }
       } on DioError catch (error) {
         // Handle error
-        CustomWidgets.buildErrorSnackbar(context,error.response!.data.toString());
+        CustomWidgets.buildErrorSnackbar(
+            context, error.response!.data.toString());
         return Failure(
             code: error.response!.statusCode,
             errorResponse: {'error': error.response!.data.toString()});
@@ -86,33 +83,34 @@ class WebServices {
   }
 
 
+  
 
 //handles patch requests
   static Future sendPatchRequest(String url, Object body, context) async {
     final token = UserPreferences.getToken();
 
     bool isConnected = await SimpleConnectionChecker.isConnectedToInternet();
-      final header = <String, String>{
+    final header = <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
       'Accept': 'application/json',
       'Authorization': 'Bearer $token',
-    };;
-
+    };
+    ;
 
     if (isConnected) {
       try {
         final response = await Dio().patch(url,
             data: jsonEncode(body), options: Options(headers: header));
 
-        if (response.statusCode == 200 ) {
-          return Success(code: SUCCESS, response: response.data);
-        }
-         else if (response.statusCode == 201 ) {
-          return Success(code: SUCCESS, response: response.data);
+        if (response.statusCode == 200) {
+          return Success(code: response.statusCode, response: response.data);
+        } else if (response.statusCode == 201) {
+          return Success(code: response.statusCode, response: response.data);
         }
       } on DioError catch (error) {
         // Handle error
-        CustomWidgets.buildErrorSnackbar(context,error.response!.data.toString());
+        CustomWidgets.buildErrorSnackbar(
+            context, error.response!.data.toString());
         return Failure(
             code: error.response!.statusCode,
             errorResponse: {'error': error.response!.data.toString()});
@@ -124,7 +122,6 @@ class WebServices {
           code: NO_INTERNET, errorResponse: {'error': 'No Internet'});
     }
   }
-
 }
 
 
@@ -214,4 +211,3 @@ class WebServices {
   //     return Failure(
   //         code: NO_INTERNET, errorResponse: {'error': 'No Internet'});
   //   }
-  // }

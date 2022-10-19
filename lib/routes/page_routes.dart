@@ -11,6 +11,10 @@ import 'package:findate/view/profile_set_ups/profile_setup_screen.dart';
 import 'package:findate/widgets/reusesable_widget/complete_screen.dart';
 import 'package:flutter/material.dart';
 
+
+
+
+
 pushToNoInternetPage(BuildContext context) async {
   Navigator.push(
     context,

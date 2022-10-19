@@ -15,8 +15,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 class ConfirmEmailScreen extends ConsumerStatefulWidget {
-  final String email;
-  const ConfirmEmailScreen({Key? key, required this.email}) : super(key: key);
+  final String? email;
+  const ConfirmEmailScreen({Key? key, this.email}) : super(key: key);
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
@@ -39,40 +39,40 @@ class _ConfirmEmailScreenState extends ConsumerState<ConfirmEmailScreen> {
   //form key
   final _key = GlobalKey<FormState>();
 
-  // int secondsRemaining = 30;
+  int secondsRemaining = 30;
   bool enableResend = false;
-  // late Timer timer;
+  late Timer timer;
 
-  // @override
-  // initState() {
-  //   super.initState();
-  //   timer = Timer.periodic(Duration(seconds: 1), (_) {
-  //     if (secondsRemaining != 0) {
-  //       setState(() {
-  //         secondsRemaining--;
-  //       });
-  //     } else {
-  //       setState(() {
-  //         enableResend = true;
-  //       });
-  //     }
-  //   });
-  // }
+  @override
+  initState() {
+    super.initState();
+    timer = Timer.periodic(const Duration(seconds: 1), (_) {
+      if (secondsRemaining != 0) {
+        setState(() {
+          secondsRemaining--;
+        });
+      } else {
+        setState(() {
+          enableResend = true;
+        });
+      }
+    });
+  }
 
-  // _resenCode(AuthViewModel auth) {
-  //   auth.resendOTP(widget.email, context);
-  //   //other code here
-  //   setState(() {
-  //     secondsRemaining = 30;
-  //     enableResend = false;
-  //   });
-  // }
+  _resendCode(AuthViewModel auth) {
+    auth.resendOTP({"email": widget.email}, context);
+    //other code here
+    setState(() {
+      secondsRemaining = 30;
+      enableResend = false;
+    });
+  }
 
-  // @override
-  // dispose() {
-  //   timer.cancel();
-  //   super.dispose();
-  // }
+  @override
+  dispose() {
+    timer.cancel();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -219,20 +219,20 @@ class _ConfirmEmailScreenState extends ConsumerState<ConfirmEmailScreen> {
                 const SizedBox(
                   height: 30,
                 ),
-                // Text(
-                //   !enableResend
-                //       ? 'Please resend code after $secondsRemaining seconds'
-                //       : '',
-                //   style:
-                //       const TextStyle(color: AppColor.mainColor, fontSize: 12),
-                // ),
+                Text(
+                  !enableResend
+                      ? 'Please resend code after $secondsRemaining seconds'
+                      : '',
+                  style:
+                      const TextStyle(color: AppColor.mainColor, fontSize: 12),
+                ),
                 // Show same texts with different colors
                 TextButton(
                   onPressed: () {
-                    authViewModel.resendOTP({"email": widget.email}, context);
-                  },
-                  // onPressed: enableResend ? _resendCode(authViewModel) : null,
+                    // authViewModel.resendOTP({"email": widget.email}, context);
 
+                    enableResend ? _resendCode(authViewModel) : null;
+                  },
                   child: RichText(
                     text: TextSpan(
                       style: TextStyle(
