@@ -1,6 +1,7 @@
 import 'package:findate/constants/appColor.dart';
 import 'package:findate/constants/shared_preferences.dart';
 import 'package:findate/routes/page_routes.dart';
+import 'package:findate/view/others/about_app_screen.dart';
 import 'package:findate/widgets/reusesable_widget/normal_text.dart';
 import 'package:findate/widgets/reusesable_widget/reuseable_appbar_button.dart';
 import 'package:findate/widgets/reusesable_widget/reuseable_button.dart';
@@ -55,7 +56,6 @@ class _SettingsState extends State<Settings> {
                             onPressed: () {
                               UserPreferences.resetSharedPref();
                               logout(context);
-                           
                             }),
                         SizedBox(
                           height: 20.h,
@@ -268,7 +268,14 @@ class _SettingsState extends State<Settings> {
                     ),
                     IconButton(
                         //add onpressed function
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const AboutApp(),
+                            ),
+                          );
+                        },
                         icon: const Icon(
                           Icons.arrow_forward_ios_rounded,
                           size: 16,

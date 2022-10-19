@@ -4,6 +4,7 @@ import 'package:findate/constants/shared_preferences.dart';
 import 'package:findate/view/on_bording/explore/explore_widgets.dart';
 import 'package:findate/view/on_bording/explore/hot_or_not_screen.dart';
 import 'package:findate/view/on_bording/matches/matches_details_screen.dart';
+import 'package:findate/view/others/notifications_screen.dart';
 import 'package:findate/widgets/reusesable_widget/normal_text.dart';
 import 'package:findate/widgets/reusesable_widget/reuseable_appbar_button.dart';
 import 'package:findate/widgets/reusesable_widget/reuseable_button.dart';
@@ -28,14 +29,14 @@ class _ExploreScreenState extends ConsumerState<ExploreScreen> {
 //call modal sheet function
     Future.delayed(Duration.zero, () {
       //if key wasnt set means its null, call modalsheet fuction else do nothing
-      initialized == null ? modalBottomSheetMenu() : null;
+      initialized == null ? locationModalBottomSheetMenu() : null;
     });
     //set key to true to init dont call modalshet again aftr first call
     UserPreferences.setInitialized(true);
   }
 
 //show location modal function
-  void modalBottomSheetMenu() {
+  void locationModalBottomSheetMenu() {
     showDialog(
         barrierDismissible: false,
         context: context,
@@ -70,7 +71,7 @@ class _ExploreScreenState extends ConsumerState<ExploreScreen> {
                         textAlign: TextAlign.center,
                         text:
                             "Findate Needs access to your location to provide a betterexperience by helping you find friends nearby",
-                        fontWeight: FontWeight.w600,
+                        fontWeight: FontWeight.w300,
                         size: 16),
                   ),
                   SizedBox(
@@ -83,7 +84,7 @@ class _ExploreScreenState extends ConsumerState<ExploreScreen> {
                         width: 128.w,
                         text: 'Skip',
                         onPressed: () {
-                        Navigator.pop(context);
+                          Navigator.pop(context);
                         },
                         backGroundColor: const Color(0xffF5F5F5),
                         textColor: AppColor.mainColor,
@@ -104,10 +105,140 @@ class _ExploreScreenState extends ConsumerState<ExploreScreen> {
         });
   }
 
+//show location modal function
+  void searchModalBottomSheetMenu() {
+    showModalBottomSheet(
+        isDismissible: true,
+        context: context,
+        builder: (builder) {
+          return Container(
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(20.r),
+            ),
+            height: 400.h,
+            width: 375.w,
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                   const SizedBox(
+                      width: 40,
+                    ),
+                    NormalText(text: 'Preference'),
+                    IconButton(
+                        onPressed: () {},
+                        icon: const Icon(
+                          Icons.close,
+                          color: Colors.red,
+                          size: 24,
+                        ))
+                  ],
+                ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    NormalText(text: 'Preference'),
+                    SizedBox(
+                      height: 10.h,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        ReuseableButton(
+                          margin: 0,
+                          radius: 2.r,
+                          text: 'Male',
+                          onPressed: () {},
+                          height: 32.4,
+                          width: 110.w,
+                          backGroundColor: const Color(0xffCCCCCC),
+                        ),
+                        ReuseableButton(
+                          margin: 0,
+                          radius: 2.r,
+                          text: 'Female',
+                          onPressed: () {},
+                          height: 32.4,
+                          width: 110.w,
+                          backGroundColor: AppColor.secondaryMain,
+                        ),
+                        ReuseableButton(
+                          margin: 0,
+                          radius: 2.r,
+                          text: 'Others',
+                          onPressed: () {},
+                          height: 32.4,
+                          width: 110.w,
+                          backGroundColor: const Color(0xffCCCCCC),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    NormalText(
+                      text: 'Location',
+                      size: 14.sp,
+                      fontWeight: FontWeight.w500,
+                    ),
+                    SizedBox(
+                      height: 8.h,
+                    ),
+                    Container(
+                      width: 343.w,
+                      height: 55.h,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        border: Border.all(width: 0.5, color: AppColor.grey400),
+                        borderRadius: BorderRadius.circular(5.r),
+                      ),
+                      child: TextFormField(
+                        cursorColor: AppColor.grey400,
+                        decoration: InputDecoration(
+                          labelText: 'FCT Abuja',
+                          border: InputBorder.none,
+                          contentPadding: EdgeInsets.all(16.w),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    NormalText(
+                      text: 'Location',
+                      size: 14.sp,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ],
+                ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    NormalText(
+                      text: 'Distance',
+                      size: 14.sp,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          );
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
-   
-
     return SafeArea(
       child: Scaffold(
         body: Padding(
@@ -130,7 +261,12 @@ class _ExploreScreenState extends ConsumerState<ExploreScreen> {
                       ReusesableAppbarButton(
                         iconButton: IconButton(
                           onPressed: () {
-                            
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const NotificationPage(),
+                              ),
+                            );
                           },
                           icon: const Icon(
                             Icons.notifications_on_outlined,
@@ -200,7 +336,9 @@ class _ExploreScreenState extends ConsumerState<ExploreScreen> {
                                 Icons.search,
                                 size: 20,
                               ),
-                              onPressed: () {},
+                              onPressed: () {
+                                searchModalBottomSheetMenu();
+                              },
                             ),
                             focusedBorder: OutlineInputBorder(
                               borderSide: BorderSide(
@@ -217,7 +355,9 @@ class _ExploreScreenState extends ConsumerState<ExploreScreen> {
                       ),
                       ReusesableAppbarButton(
                         iconButton: IconButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            searchModalBottomSheetMenu();
+                          },
                           icon: Icon(
                             Icons.tune,
                             color: AppColor.mainColor,

@@ -34,6 +34,13 @@ class AuthViewModel extends ChangeNotifier {
     _loginError = loginError;
   }
 
+
+
+
+
+
+
+
 // login view model function
   Future loginUser(String url, body, context) async {
     setLoading(true);
@@ -64,6 +71,9 @@ class AuthViewModel extends ChangeNotifier {
     setLoading(false);
   }
 
+
+
+
   // Register view model function
   Future regisUser(String url, body, String email, context) async {
     setLoading(true);
@@ -85,6 +95,9 @@ class AuthViewModel extends ChangeNotifier {
 
     setLoading(false);
   }
+
+
+
 
   // Confrim email view model function
   Future confrimEmail(String url, body, email, context) async {
@@ -108,6 +121,9 @@ class AuthViewModel extends ChangeNotifier {
     setLoading(false);
   }
 
+
+
+
   //Function that get all users data from API
   Future getAllUsers(context) async {
     var response = await WebServices.sendGetRequest(
@@ -129,6 +145,9 @@ class AuthViewModel extends ChangeNotifier {
     }
   }
 
+
+
+
   // resend otp for registration view model function
   Future resendOTP(email, context) async {
     setLoading(true);
@@ -149,6 +168,9 @@ class AuthViewModel extends ChangeNotifier {
 
     setLoading(false);
   }
+
+
+
 
   // Update users profile view model function
   Future updateProfile(body, context) async {
@@ -175,6 +197,10 @@ class AuthViewModel extends ChangeNotifier {
     setLoading(false);
   }
 
+
+
+
+
   // Update users profile view model function
   Future getLoginUserData(body, context) async {
    
@@ -189,8 +215,6 @@ class AuthViewModel extends ChangeNotifier {
       userData.add(UserModel.fromJson(result));
 
       notifyListeners();
-
-      // pushLoginAfterProfileSetup(context);
 
       setLoading(false);
     } else {

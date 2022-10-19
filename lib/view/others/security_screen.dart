@@ -1,5 +1,8 @@
 import 'package:findate/constants/appColor.dart';
 import 'package:findate/routes/page_routes.dart';
+import 'package:findate/view/others/change_password_screen.dart';
+import 'package:findate/view/others/delete_account_screen.dart';
+import 'package:findate/view/others/update_screen.dart';
 import 'package:findate/widgets/reusesable_widget/normal_text.dart';
 import 'package:findate/widgets/reusesable_widget/reuseable_appbar_button.dart';
 import 'package:flutter/material.dart';
@@ -90,7 +93,14 @@ class _SecurityState extends State<Security> {
                     ),
                     IconButton(
                         //add onpressed function
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const ChangePassword(),
+                            ),
+                          );
+                        },
                         icon: const Icon(
                           Icons.arrow_forward_ios_rounded,
                           size: 16,
@@ -197,7 +207,14 @@ class _SecurityState extends State<Security> {
                     ),
                     IconButton(
                         //add onpressed function
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const AppUpdate(),
+                            ),
+                          );
+                        },
                         icon: const Icon(
                           Icons.arrow_forward_ios_rounded,
                           size: 16,
@@ -253,7 +270,14 @@ class _SecurityState extends State<Security> {
                     ),
                     IconButton(
                         //add on pressed function
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const DeleteAccount(),
+                            ),
+                          );
+                        },
                         icon: const Icon(
                           Icons.arrow_forward_ios_rounded,
                           size: 16,

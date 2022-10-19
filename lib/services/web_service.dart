@@ -12,6 +12,9 @@ import '../constants/status_codes copy.dart';
 class WebServices {
   final dio = Dio();
 
+
+  
+
 //handles post requests
   static Future sendPostRequest(String url, Object body, context) async {
     final token = UserPreferences.getToken();
@@ -49,6 +52,10 @@ class WebServices {
     }
   }
 
+
+
+
+
 //handles get requests
   static Future sendGetRequest(String url, context) async {
     final token = UserPreferences.getToken();
@@ -83,7 +90,7 @@ class WebServices {
   }
 
 
-  
+
 
 //handles patch requests
   static Future sendPatchRequest(String url, Object body, context) async {
@@ -211,3 +218,4 @@ class WebServices {
   //     return Failure(
   //         code: NO_INTERNET, errorResponse: {'error': 'No Internet'});
   //   }
+  // }
