@@ -112,6 +112,7 @@ class _ExploreScreenState extends ConsumerState<ExploreScreen> {
         context: context,
         builder: (builder) {
           return Container(
+            margin: EdgeInsets.all(15.h),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(20.r),
@@ -121,12 +122,16 @@ class _ExploreScreenState extends ConsumerState<ExploreScreen> {
             child: Column(
               children: [
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                   const SizedBox(
-                      width: 40,
+                    const SizedBox(
+                      width: 50,
                     ),
-                    NormalText(text: 'Preference'),
+                    NormalText(
+                      text: 'Filter',
+                      fontWeight: FontWeight.bold,
+                      size: 24,
+                    ),
                     IconButton(
                         onPressed: () {},
                         icon: const Icon(
@@ -140,7 +145,10 @@ class _ExploreScreenState extends ConsumerState<ExploreScreen> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    NormalText(text: 'Preference'),
+                    NormalText(
+                      text: 'Preference',
+                      fontWeight: FontWeight.w500,
+                    ),
                     SizedBox(
                       height: 10.h,
                     ),
@@ -178,6 +186,9 @@ class _ExploreScreenState extends ConsumerState<ExploreScreen> {
                     ),
                   ],
                 ),
+                SizedBox(
+                  height: 15.h,
+                ),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -209,28 +220,60 @@ class _ExploreScreenState extends ConsumerState<ExploreScreen> {
                     ),
                   ],
                 ),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    NormalText(
-                      text: 'Location',
-                      size: 14.sp,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ],
+                SizedBox(
+                  height: 16.h,
                 ),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     NormalText(
                       text: 'Distance',
                       size: 14.sp,
                       fontWeight: FontWeight.w500,
                     ),
+                    NormalText(
+                      text: '24km',
+                      size: 14.sp,
+                      fontWeight: FontWeight.w500,
+                    ),
                   ],
                 ),
+                Slider(
+                  min: 0,
+                  max: 50,
+                  value: 40,
+                  thumbColor: Colors.red,
+                  onChanged: (val) {},
+                  activeColor: Colors.blue,
+                  inactiveColor: Colors.grey,
+                ),
+                SizedBox(
+                  height: 16.h,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    NormalText(
+                      text: 'Age Range',
+                      size: 14.sp,
+                      fontWeight: FontWeight.w500,
+                    ),
+                    NormalText(
+                      text: '19-24',
+                      size: 14.sp,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ],
+                ),
+                Slider(
+                  min: 0,
+                  max: 50,
+                  value: 40,
+                  thumbColor: Colors.red,
+                  onChanged: (val) {},
+                  activeColor: Colors.blue,
+                  inactiveColor: Colors.grey,
+                )
               ],
             ),
           );
@@ -323,33 +366,24 @@ class _ExploreScreenState extends ConsumerState<ExploreScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      SizedBox(
-                        height: 40.h,
-                        width: 262.w,
-                        child: TextFormField(
-                          decoration: InputDecoration(
-                            labelText: 'Search Dates and friends',
-                            labelStyle: TextStyle(
-                                color: Colors.black54, fontSize: 16.sp),
-                            prefixIcon: IconButton(
-                              icon: const Icon(
-                                Icons.search,
-                                size: 20,
-                              ),
-                              onPressed: () {
-                                searchModalBottomSheetMenu();
-                              },
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: AppColor.mainColor, width: 1.0.w),
-                              borderRadius: BorderRadius.circular(55),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: AppColor.mainColor, width: 1.0.w),
-                              borderRadius: BorderRadius.circular(55),
-                            ),
+                      InkWell(
+                        onTap: (){
+                           searchModalBottomSheetMenu();
+                        },
+                        child: Container(
+                          padding: EdgeInsets.only(left: 10.w),
+                          alignment: Alignment.centerLeft,
+                          width: 262.w,
+                          height: 45.h,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            border:
+                                Border.all(width: 0.5, color: AppColor.grey400),
+                            borderRadius: BorderRadius.circular(25.r),
+                          ),
+                          child: const Icon(
+                            Icons.search,
+                            size: 26,
                           ),
                         ),
                       ),
