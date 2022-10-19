@@ -126,12 +126,13 @@ class AuthViewModel extends ChangeNotifier {
   }
 
   // resend otp for registration view model function
-  Future resendOTP(String email, context) async {
+  Future resendOTP(email, context) async {
+    print('object');
     setLoading(true);
 
     var response = await WebServices.sendPostRequest(
         "$baseUrl/otp/resend", email, context);
-
+    
     if (response.code == 200) {
       setLoading(false);
     } else {

@@ -118,7 +118,8 @@ class _ConfirmEmailScreenState extends ConsumerState<ConfirmEmailScreen> {
                       text: TextSpan(
                         children: <TextSpan>[
                           TextSpan(
-                            text: 'A verification code was sent to \n',
+                            text:
+                                'A verification code was sent to \n ${widget.email}',
                             style: GoogleFonts.nunito(
                               color: AppColor.grey400,
                               fontSize: 14.sp,
@@ -227,8 +228,11 @@ class _ConfirmEmailScreenState extends ConsumerState<ConfirmEmailScreen> {
                 // ),
                 // Show same texts with different colors
                 TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    authViewModel.resendOTP({"email": widget.email}, context);
+                  },
                   // onPressed: enableResend ? _resendCode(authViewModel) : null,
+
                   child: RichText(
                     text: TextSpan(
                       style: TextStyle(

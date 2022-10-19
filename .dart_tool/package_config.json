@@ -230,6 +230,12 @@
       "languageVersion": "2.17"
     },
     {
+      "name": "jwt_decoder",
+      "rootUri": "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/jwt_decoder-2.0.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "lints",
       "rootUri": "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/lints-2.0.0",
       "packageUri": "lib/",
@@ -506,7 +512,7 @@
       "languageVersion": "2.17"
     }
   ],
-  "generated": "2022-10-18T09:57:48.669876Z",
+  "generated": "2022-10-19T10:36:25.909799Z",
   "generator": "pub",
   "generatorVersion": "2.17.6"
 }
