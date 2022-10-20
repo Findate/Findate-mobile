@@ -148,7 +148,7 @@ class _MatchGridState extends State<MatchGrid> {
           ),
         ),
         Positioned(
-          bottom: 10,
+          bottom: 20,
           left: 10,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,

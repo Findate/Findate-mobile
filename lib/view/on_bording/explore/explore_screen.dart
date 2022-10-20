@@ -134,7 +134,9 @@ class _ExploreScreenState extends ConsumerState<ExploreScreen> {
                       size: 24,
                     ),
                     IconButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
                         icon: const Icon(
                           Icons.close,
                           color: Colors.red,
