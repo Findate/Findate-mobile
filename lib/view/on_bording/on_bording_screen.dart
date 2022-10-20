@@ -1,6 +1,7 @@
 // ignore_for_file: library_private_types_in_public_api
 
 import 'package:findate/constants/appColor.dart';
+import 'package:findate/view/on_bording/matches/match_screen.dart';
 import 'package:findate/view/on_bording/profile/profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -25,7 +26,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
   final screens = [
     const ExploreScreen(),
     const NearbyDates(),
-    const PopularMatches(),
+    const MatchScreen(),
     const ChatsScreen(),
     const ProfileScreen()
   ];

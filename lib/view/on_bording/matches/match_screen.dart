@@ -314,10 +314,11 @@ class _MatchScreenState extends ConsumerState<MatchScreen> {
                   height: 50.h,
                 ),
                 ReuseableButton(text: 'Send Request', onPressed: () {}),
+                SizedBox(height: 10.h,),
                 ReuseableButton(
                   text: 'Cancel',
                   onPressed: () {},
-                  backGroundColor: Colors.white,
+                  backGroundColor:const Color(0xffF5F5F5),
                   textColor: AppColor.mainColor,
                 ),
                 SizedBox(height: 20.h,),
