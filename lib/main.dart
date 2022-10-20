@@ -11,6 +11,7 @@ import 'package:flutter/services.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 
 import 'constants/shared_preferences.dart';
+import 'view/on_bording/matches/match_screen.dart';
 
 void main() async {
   // add these lines
@@ -64,9 +65,10 @@ class _MyAppState extends State<MyApp> {
                 primaryColor: Colors.pink[50],
                 primarySwatch: Colors.pink,
                 unselectedWidgetColor: AppColor.mainColor),
-            home: token.length < 5 || expired
-                ? const LoginScreen()
-                : const OnBoardingScreen(),
+            home: MatchScreen(),
+            // token.length < 5 || expired
+            //     ? const LoginScreen()
+            //     : const OnBoardingScreen(),
             routes: {LoginScreen.id: (context) => const LoginScreen()});
       },
     );

@@ -19,7 +19,7 @@ class _NearbyDatesState extends State<NearbyDates> {
     return SafeArea(
       child: Scaffold(
         body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 12.0),
+          padding: const EdgeInsets.all(12.0),
           child: SingleChildScrollView(
             child: SizedBox(
               height: 900,
@@ -29,21 +29,21 @@ class _NearbyDatesState extends State<NearbyDates> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      ReusesableAppbarButton(
-                          iconButton: IconButton(
-                        //Onpressed function null
-                        onPressed: () {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (context) => const OnBoardingScreen(),
-                            ),
-                          );
-                        },
-                        icon: const Icon(
-                          Icons.arrow_back_ios_new_rounded,
-                          color: AppColor.mainColor,
-                        ),
-                      )),
+                      // ReusesableAppbarButton(
+                      //     iconButton: IconButton(
+                      //   //Onpressed function null
+                      //   onPressed: () {
+                      //     Navigator.of(context).push(
+                      //       MaterialPageRoute(
+                      //         builder: (context) => const OnBoardingScreen(),
+                      //       ),
+                      //     );
+                      //   },
+                      //   icon: const Icon(
+                      //     Icons.arrow_back_ios_new_rounded,
+                      //     color: AppColor.mainColor,
+                      //   ),
+                      // )),
                       NormalText(
                         text: 'Nearby Dates',
                         size: 22.sp,
@@ -54,14 +54,14 @@ class _NearbyDatesState extends State<NearbyDates> {
                           //on pressed function null
                           onPressed: () {},
                           icon: Icon(
-                            Icons.format_list_bulleted_rounded,
+                            Icons.tune,
                             color: AppColor.mainColor,
                             size: 30.h,
                           ),
                         ),
                       )
                     ],
-                  ),
+                  ),SizedBox(height: 20.h,),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -93,29 +93,26 @@ class _NearbyDatesState extends State<NearbyDates> {
                           text: 'london',
                           size: 12.sp,
                           fontWeight: FontWeight.w600,
-                          color: AppColor.grey400,
+                          color: Colors.black,
                         ),
                       ),
                     ],
                   ),
                   const SizedBox(
-                    height: 10,
+                    height: 20,
                   ),
                   Expanded(
                     child: SizedBox(
                       width: 375.w,
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 10.0),
-                        child: GridView.builder(
-                          itemCount: 10,
-                          gridDelegate:
-                              const SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: 2),
-                          itemBuilder: (BuildContext context, int index) {
-                            //Grid view of Nearby Dates
-                            return const MatchGrid();
-                          },
-                        ),
+                      child: GridView.builder(
+                        itemCount: 10,
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 2),
+                        itemBuilder: (BuildContext context, int index) {
+                          //Grid view of Nearby Dates
+                          return const MatchGrid();
+                        },
                       ),
                     ),
                   ),

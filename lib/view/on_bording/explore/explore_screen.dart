@@ -4,6 +4,7 @@ import 'package:findate/constants/shared_preferences.dart';
 import 'package:findate/view/on_bording/explore/explore_widgets.dart';
 import 'package:findate/view/on_bording/explore/hot_or_not_screen.dart';
 import 'package:findate/view/on_bording/matches/matches_details_screen.dart';
+import 'package:findate/view/on_bording/matches/matches_screen.dart';
 import 'package:findate/view/others/notifications_screen.dart';
 import 'package:findate/widgets/reusesable_widget/normal_text.dart';
 import 'package:findate/widgets/reusesable_widget/reuseable_appbar_button.dart';
@@ -284,6 +285,55 @@ class _ExploreScreenState extends ConsumerState<ExploreScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        appBar: PreferredSize(
+          preferredSize: Size.fromHeight(180.h),
+          child: Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    NormalText(
+                      text: 'Explore',
+                      size: 22.sp,
+                      fontWeight: FontWeight.w600,
+                    ),
+                    ReusesableAppbarButton(
+                      iconButton: IconButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const NotificationPage(),
+                            ),
+                          );
+                        },
+                        icon: const Icon(
+                          Icons.notifications_on_outlined,
+                          color: AppColor.mainColor,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 100.h,
+                  width: 375.w,
+                  child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: 12,
+                      itemBuilder: (context, int i) {
+                        return const ExploreImageStoryCard(
+                          name: 'jane',
+                          imageUrl: 'assets/homeImage1.png',
+                        );
+                      }),
+                ),
+              ],
+            ),
+          ),
+        ),
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 12.0),
           child: SingleChildScrollView(
@@ -293,45 +343,6 @@ class _ExploreScreenState extends ConsumerState<ExploreScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      NormalText(
-                        text: 'Explore',
-                        size: 22.sp,
-                        fontWeight: FontWeight.w600,
-                      ),
-                      ReusesableAppbarButton(
-                        iconButton: IconButton(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const NotificationPage(),
-                              ),
-                            );
-                          },
-                          icon: const Icon(
-                            Icons.notifications_on_outlined,
-                            color: AppColor.mainColor,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 110.h,
-                    width: 375.w,
-                    child: ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        itemCount: 12,
-                        itemBuilder: (context, int i) {
-                          return const ExploreImageStoryCard(
-                            name: 'jane',
-                            imageUrl: 'assets/homeImage1.png',
-                          );
-                        }),
-                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -357,18 +368,26 @@ class _ExploreScreenState extends ConsumerState<ExploreScreen> {
                       ),
                     ],
                   ),
-                  //reusesable card for horizontal image card in explore screen
-                  const ExploreHorizontalImageCard(
-                    imageUrl: 'assets/homeImage1.png',
-                    name: 'Joel Tiana',
-                    location: 'Lagos',
+                  SizedBox(
+                    height: 270.h,
+                    width: 375.w,
+                    child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: 5,
+                        itemBuilder: (context, int i) {
+                          return const ExploreHorizontalImageCard(
+                            imageUrl: 'assets/homeImage1.png',
+                            name: 'Joel Tiana',
+                            location: 'Lagos',
+                          );
+                        }),
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       InkWell(
-                        onTap: (){
-                           searchModalBottomSheetMenu();
+                        onTap: () {
+                          searchModalBottomSheetMenu();
                         },
                         child: Container(
                           padding: EdgeInsets.only(left: 10.w),
@@ -414,7 +433,7 @@ class _ExploreScreenState extends ConsumerState<ExploreScreen> {
                         onPressed: () {
                           Navigator.of(context).push(
                             MaterialPageRoute(
-                              builder: ((context) => const MatchUserInfo()),
+                              builder: ((context) => const PopularMatches()),
                             ),
                           );
                         },
@@ -431,6 +450,7 @@ class _ExploreScreenState extends ConsumerState<ExploreScreen> {
                     height: 10.h,
                   ),
                   // scrolable image cards
+
                   Expanded(
                     child: SizedBox(
                       width: 375.w,
@@ -442,10 +462,20 @@ class _ExploreScreenState extends ConsumerState<ExploreScreen> {
                               const SliverGridDelegateWithFixedCrossAxisCount(
                                   crossAxisCount: 2),
                           itemBuilder: (BuildContext context, int index) {
-                            return const ExploreSquareImageCard(
-                              imageUrl: 'assets/homeImage3.png',
-                              name: 'Joel Tiana',
-                              location: 'Lagos',
+                            return InkWell(
+                              onTap: () {
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: ((context) =>
+                                        const MatchUserInfo()),
+                                  ),
+                                );
+                              },
+                              child: const ExploreSquareImageCard(
+                                imageUrl: 'assets/homeImage3.png',
+                                name: 'Joel Tiana',
+                                location: 'Lagos',
+                              ),
                             );
                           },
                         ),

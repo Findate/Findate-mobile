@@ -18,7 +18,7 @@ class _PopularMatchesState extends State<PopularMatches> {
     return SafeArea(
       child: Scaffold(
           body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 12.0),
+        padding: const EdgeInsets.all(12.0),
         child: SingleChildScrollView(
           child: SizedBox(
             height: 900,
