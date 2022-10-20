@@ -19,7 +19,7 @@ class _MatchScreenState extends ConsumerState<MatchScreen> {
       child: Scaffold(
         body: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal:15.0, vertical: 20),
+            padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 20),
             child: Column(
               children: [
                 Row(
@@ -32,7 +32,9 @@ class _MatchScreenState extends ConsumerState<MatchScreen> {
                     ),
                   ],
                 ),
-                SizedBox(height: 15.h,),
+                SizedBox(
+                  height: 15.h,
+                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -49,6 +51,10 @@ class _MatchScreenState extends ConsumerState<MatchScreen> {
                 //will hold images
                 SizedBox(
                   height: 260.h,
+                  child: transformImage(),
+                ),
+                SizedBox(
+                  height: 20.h,
                 ),
                 //  full card
                 SizedBox(
@@ -265,8 +271,9 @@ class _MatchScreenState extends ConsumerState<MatchScreen> {
                         decoration: BoxDecoration(
                           gradient: AppColor.mixedColorgradient,
                           borderRadius: BorderRadius.only(
-                              bottomLeft: Radius.circular(20.r),
-                              bottomRight: Radius.circular(20.r)),
+                            bottomLeft: Radius.circular(20.r),
+                            bottomRight: Radius.circular(20.r),
+                          ),
                         ),
                         child: Center(
                           child: NormalText(
@@ -314,14 +321,18 @@ class _MatchScreenState extends ConsumerState<MatchScreen> {
                   height: 50.h,
                 ),
                 ReuseableButton(text: 'Send Request', onPressed: () {}),
-                SizedBox(height: 10.h,),
+                SizedBox(
+                  height: 10.h,
+                ),
                 ReuseableButton(
                   text: 'Cancel',
                   onPressed: () {},
-                  backGroundColor:const Color(0xffF5F5F5),
+                  backGroundColor: const Color(0xffF5F5F5),
                   textColor: AppColor.mainColor,
                 ),
-                SizedBox(height: 20.h,),
+                SizedBox(
+                  height: 20.h,
+                ),
               ],
             ),
           ),
@@ -329,4 +340,66 @@ class _MatchScreenState extends ConsumerState<MatchScreen> {
       ),
     );
   }
+}
+
+Widget transformImage() {
+  return Row(
+    mainAxisAlignment: MainAxisAlignment.center,
+    children: [
+      Transform.rotate(
+        angle: -0.2,
+        child: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(30.r),
+            ),
+            color: const Color(0xff857EFF),
+          ),
+          height: 220.h,
+          width: 128.w,
+          child: Padding(
+            padding:
+                const EdgeInsets.only(top: 40, left: 5, right: 5, bottom: 10),
+            child: Container(
+              height: 167.h,
+              width: 118.w,
+              decoration: const BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage('assets/homeImage3.png'),
+                  fit: BoxFit.fill,
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+      Transform.rotate(
+        angle: 0.2,
+        child: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.only(
+              topRight: Radius.circular(30.r),
+            ),
+            color: const Color(0xffFF8099),
+          ),
+          height: 220.h,
+          width: 128.w,
+          child: Padding(
+            padding:
+                const EdgeInsets.only(top: 40, left: 5, right: 5, bottom: 10),
+            child: Container(
+              height: 167.h,
+              width: 118.w,
+              decoration: const BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage('assets/photo.png'),
+                  fit: BoxFit.fill,
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    ],
+  );
 }
