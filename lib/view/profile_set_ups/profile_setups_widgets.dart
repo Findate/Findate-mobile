@@ -618,6 +618,55 @@ class _ThirdSetupScreenState extends ConsumerState<ThirdSetupScreen> {
     return data;
   }
 
+  List interest = [
+    'swimming',
+    "table tennis",
+    "hiking",
+    "bowling",
+    "juggling",
+    "kickboxing",
+    "jazzercise/aerobics",
+    "skiing",
+    "jet skiing",
+    "weight lifting",
+    "scuba diving",
+    "wind surfing",
+    "kickboxing",
+    "sky diving",
+    "boxing",
+    "board games",
+    "brewery games",
+    "wimming",
+    "ice skating",
+    "roller skating",
+    "figure skating",
+    "rugby",
+    "darts",
+    "football",
+    "barre",
+    "tai chi",
+    "stretching",
+    "bowling",
+    "ice hockey",
+    'surfing',
+    "tennis",
+    "baseball",
+    "gymnastics",
+    "rock climbing",
+    "dancing",
+    "gardening",
+    "karate",
+    "horse racing",
+    "snowboarding",
+    "skateboarding",
+    "cycling",
+    "cheerleading",
+    "archery",
+    "fishing",
+    'taekwondo',
+    "fencing",
+    "water skiing",
+  ];
   bool clicked = false;
 
   @override
@@ -676,7 +725,7 @@ class _ThirdSetupScreenState extends ConsumerState<ThirdSetupScreen> {
                               mainAxisExtent: 70,
                             ),
                             itemBuilder: (BuildContext context, int index) {
-                              return const Cards(message: 'Cooking');
+                              return  Cards(message: interest[index]);
                             },
                           ),
                         ),
@@ -731,35 +780,12 @@ class _ThirdSetupScreenState extends ConsumerState<ThirdSetupScreen> {
     );
   }
 
-//individual cards for third set up screen
-
-//   Widget cards(String message) {
-//     return Padding(
-//       padding: const EdgeInsets.all(7.5),
-//       child: Container(
-//         width: 164.w,
-//         height: 12.h,
-//         decoration: BoxDecoration(
-//           color: Colors.white,
-//           border: Border.all(width: 1.0, color: AppColor.secondaryMain),
-//           borderRadius: BorderRadius.circular(5.r),
-//         ),
-//         child: Center(
-//           child: NormalText(
-//             text: message,
-//             color: AppColor.secondaryMain,
-//             size: 14.sp,
-//           ),
-//         ),
-//       ),
-//     );
-//   }
 }
 
 class Cards extends StatefulWidget {
   final String message;
 
-  const Cards({
+  Cards({
     Key? key,
     required this.message,
   }) : super(key: key);
