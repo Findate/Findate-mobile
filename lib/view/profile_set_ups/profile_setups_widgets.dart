@@ -17,6 +17,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:flutter/services.dart';
 import 'package:path/path.dart' as PAth;
 import 'dart:convert' as convert;
+import 'package:date_time_picker/date_time_picker.dart';
 
 //First Setup Screen
 class FirstSetupScreen extends StatefulWidget {
@@ -52,7 +53,7 @@ class _FirstSetupScreenState extends State<FirstSetupScreen> {
       // final imageTemporary = File(image.path);
       final imagePamanent = await savePicture(image.path);
 
-        List<int> photoAsBytes = await imagePamanent.readAsBytes();
+      List<int> photoAsBytes = await imagePamanent.readAsBytes();
       String photoAsBase64 = convert.base64Encode(photoAsBytes);
       print(photoAsBase64);
       print('kdkdkdkd');
@@ -71,7 +72,7 @@ class _FirstSetupScreenState extends State<FirstSetupScreen> {
 
       if (image == null) return;
       final imagePamanent = File(image.path);
-         List<int> photoAsBytes = await imagePamanent.readAsBytes();
+      List<int> photoAsBytes = await imagePamanent.readAsBytes();
       String photoAsBase64 = convert.base64Encode(photoAsBytes);
       setState(() => this.image = photoAsBase64);
     } on PlatformException catch (e) {
@@ -352,7 +353,6 @@ class _FirstSetupScreenState extends State<FirstSetupScreen> {
                     ),
                     ReuseableButton(
                       onPressed: () {
-                        print('jjejeje');
                         widget.pageController.nextPage(
                             duration: const Duration(milliseconds: 500),
                             curve: Curves.easeOut);
@@ -406,12 +406,10 @@ class SecondSetupScreen extends StatefulWidget {
 class _SecondSetupScreenState extends State<SecondSetupScreen> {
   final TextEditingController occupationController = TextEditingController();
   final TextEditingController locationController = TextEditingController();
-  CalendarFormat format = CalendarFormat.month;
+  String? dateOfBirth;
 
   @override
-  Widget build(
-    BuildContext context,
-  ) {
+  Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         body: SingleChildScrollView(
@@ -440,28 +438,53 @@ class _SecondSetupScreenState extends State<SecondSetupScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(
-                      height: 16.h,
+                      height: 30.h,
                     ),
                     NormalText(
                       text: 'Choose your birthday',
-                      size: 16.sp,
+                      size: 14.sp,
                       fontWeight: FontWeight.w600,
                     ),
                     SizedBox(
-                      height: 450.h,
-                      child:
-                          // showDatePicker(context: context, initialDate: DateTime.now(), firstDate: DateTime(1990), lastDate: DateTime(2050))
-                          TableCalendar(
-                        firstDay: DateTime(1990),
-                        focusedDay: DateTime.now(),
-                        lastDay: DateTime(2050),
-                        calendarFormat: format,
-                        onFormatChanged: (CalendarFormat _format) {
-                          setState(() {
-                            format = _format;
-                          });
-                        },
+                      height: 16.h,
+                    ),
+                    Container(
+                      width: 343.w,
+                      height: 55.h,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        border: Border.all(width: 0.5, color: AppColor.grey400),
+                        borderRadius: BorderRadius.circular(5.r),
                       ),
+                      child: Theme(
+                        data: ThemeData(
+                          inputDecorationTheme: const InputDecorationTheme(
+                            border: InputBorder.none,
+                          ),
+                        ),
+                        child: DateTimePicker(
+                          type: DateTimePickerType.date,
+                          initialValue: '', //DateTime.now().toString(),
+                          firstDate: DateTime(2000),
+                          lastDate: DateTime(2100),
+                          icon: const Padding(
+                            padding: EdgeInsets.only(left: 10.0, right: 10),
+                            child: Icon(
+                              Icons.event,
+                              color: AppColor.secondaryMain,
+                              size: 24,
+                            ),
+                          ),
+                          onChanged: (val) {
+                            setState(() {
+                              dateOfBirth = val;
+                            });
+                          },
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 46.h,
                     ),
                     NormalText(
                       text: 'Your Occupation',
@@ -534,6 +557,7 @@ class _SecondSetupScreenState extends State<SecondSetupScreen> {
                               occupation: occupationController.text.trim(),
                               location: occupationController.text.trim(),
                               header: widget.image,
+                              doB: dateOfBirth,
                             ),
                           ),
                         );
@@ -560,6 +584,7 @@ class ThirdSetupScreen extends ConsumerStatefulWidget {
   final String? location;
   final String? occupation;
   final String? header;
+  final String? doB;
   const ThirdSetupScreen(
       {Key? key,
       required this.pageController,
@@ -568,7 +593,8 @@ class ThirdSetupScreen extends ConsumerStatefulWidget {
       this.surname,
       this.location,
       this.occupation,
-      this.header})
+      this.header,
+      this.doB})
       : super(key: key);
 
   @override
@@ -587,7 +613,7 @@ class _ThirdSetupScreenState extends ConsumerState<ThirdSetupScreen> {
       "gender": widget.gender,
       "occupation": widget.occupation,
       "interest": interestController.text.trim(),
-      
+      "dob": widget.doB,
     };
     return data;
   }
@@ -618,10 +644,10 @@ class _ThirdSetupScreenState extends ConsumerState<ThirdSetupScreen> {
                           dotHeight: 10.h,
                           activeDotColor: AppColor.secondaryMain,
                           dotColor: Colors.black12),
-                      onDotClicked: (index) => widget.pageController.animateToPage(
-                          index,
-                          duration: const Duration(milliseconds: 500),
-                          curve: Curves.easeOut),
+                      onDotClicked: (index) => widget.pageController
+                          .animateToPage(index,
+                              duration: const Duration(milliseconds: 500),
+                              curve: Curves.easeOut),
                     ),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -661,16 +687,19 @@ class _ThirdSetupScreenState extends ConsumerState<ThirdSetupScreen> {
                               cursorColor: AppColor.grey400,
                               decoration: const InputDecoration(
                                 hintText: 'Type interst here',
-                                hintStyle:
-                                    TextStyle(color: AppColor.grey400, fontSize: 12),
+                                hintStyle: TextStyle(
+                                    color: AppColor.grey400, fontSize: 12),
                                 enabledBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(color: AppColor.grey400),
+                                  borderSide:
+                                      BorderSide(color: AppColor.grey400),
                                 ),
                                 focusedBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(color: AppColor.grey400),
+                                  borderSide:
+                                      BorderSide(color: AppColor.grey400),
                                 ),
                                 border: UnderlineInputBorder(
-                                  borderSide: BorderSide(color: AppColor.grey400),
+                                  borderSide:
+                                      BorderSide(color: AppColor.grey400),
                                 ),
                               )),
                         ),
@@ -687,8 +716,7 @@ class _ThirdSetupScreenState extends ConsumerState<ThirdSetupScreen> {
                     ),
                   ],
                 ),
-                  Positioned(
-
+                Positioned(
                   child: authViewModel.loading
                       ? const ProgressDialog(
                           message: 'Loading....',

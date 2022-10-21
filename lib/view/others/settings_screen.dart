@@ -120,49 +120,54 @@ class _SettingsState extends State<Settings> {
               left: 16,
               right: 16,
             ),
-            child: Container(
-              decoration: BoxDecoration(
-                color: Colors.white,
-                border: Border.all(width: 0.5, color: AppColor.grey400),
-                borderRadius: BorderRadius.circular(5.r),
-              ),
-              height: 56,
-              width: 343,
-              child: Padding(
-                padding: const EdgeInsets.only(left: 19, right: 22),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
-                      children: [
-                        const Icon(
-                          //replace with right Icon
-                          Icons.shield,
-                          size: 20,
-                          color: AppColor.secondaryMain,
-                        ),
-                        const SizedBox(
-                          width: 11,
-                        ),
-                        NormalText(
-                          text: 'Security',
-                          fontWeight: FontWeight.w600,
-                          color: AppColor.grey400,
-                          size: 16,
-                        ),
-                      ],
-                    ),
-                    IconButton(
-                        //add on pressed function
-                        onPressed: () {
-                          pushSecurityScreen(context);
-                        },
-                        icon: const Icon(
-                          Icons.arrow_forward_ios_rounded,
-                          size: 16,
-                          color: AppColor.mainColor,
-                        ))
-                  ],
+            child: InkWell(
+              onTap: () {
+                pushSecurityScreen(context);
+              },
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  border: Border.all(width: 0.5, color: AppColor.grey400),
+                  borderRadius: BorderRadius.circular(5.r),
+                ),
+                height: 56,
+                width: 343,
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 19, right: 22),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        children: [
+                          const Icon(
+                            //replace with right Icon
+                            Icons.shield,
+                            size: 20,
+                            color: AppColor.secondaryMain,
+                          ),
+                          const SizedBox(
+                            width: 11,
+                          ),
+                          NormalText(
+                            text: 'Security',
+                            fontWeight: FontWeight.w600,
+                            color: AppColor.grey400,
+                            size: 16,
+                          ),
+                        ],
+                      ),
+                      IconButton(
+                          //add on pressed function
+                          onPressed: () {
+                            pushSecurityScreen(context);
+                          },
+                          icon: const Icon(
+                            Icons.arrow_forward_ios_rounded,
+                            size: 16,
+                            color: AppColor.mainColor,
+                          ))
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -182,45 +187,50 @@ class _SettingsState extends State<Settings> {
               ),
               height: 56,
               width: 341,
-              child: Padding(
-                padding: const EdgeInsets.only(left: 19, right: 22),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
-                      children: [
-                        const Icon(
-                          Icons.notifications_none_rounded,
-                          size: 20,
-                          color: AppColor.secondaryMain,
-                        ),
-                        const SizedBox(
-                          width: 11,
-                        ),
-                        InkWell(
-                          onTap: () {
-                            !toggled ? null : pushNotiicatioScreen(context);
-                          },
-                          child: NormalText(
-                            text: 'Notifications',
-                            fontWeight: FontWeight.w600,
-                            color: AppColor.grey400,
-                            size: 16,
+              child: InkWell(
+                onTap: () {
+                  !toggled ? null : pushNotiicatioScreen(context);
+                },
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 19, right: 22),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        children: [
+                          const Icon(
+                            Icons.notifications_none_rounded,
+                            size: 20,
+                            color: AppColor.secondaryMain,
                           ),
-                        ),
-                      ],
-                    ),
-                    Switch(
-                      activeColor:
-                          toggled ? AppColor.mainColor : AppColor.grey400,
-                      value: toggled,
-                      onChanged: (bool value) {
-                        setState(() {
-                          toggled = value;
-                        });
-                      },
-                    )
-                  ],
+                          const SizedBox(
+                            width: 11,
+                          ),
+                          InkWell(
+                            onTap: () {
+                              !toggled ? null : pushNotiicatioScreen(context);
+                            },
+                            child: NormalText(
+                              text: 'Notifications',
+                              fontWeight: FontWeight.w600,
+                              color: AppColor.grey400,
+                              size: 16,
+                            ),
+                          ),
+                        ],
+                      ),
+                      Switch(
+                        activeColor:
+                            toggled ? AppColor.mainColor : AppColor.grey400,
+                        value: toggled,
+                        onChanged: (bool value) {
+                          setState(() {
+                            toggled = value;
+                          });
+                        },
+                      )
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -235,53 +245,63 @@ class _SettingsState extends State<Settings> {
               left: 16,
               right: 16,
             ),
-            child: Container(
-              decoration: BoxDecoration(
-                color: Colors.white,
-                border: Border.all(width: 0.5, color: AppColor.grey400),
-                borderRadius: BorderRadius.circular(5.r),
-              ),
-              height: 56,
-              width: 343,
-              child: Padding(
-                padding: const EdgeInsets.only(left: 19, right: 22),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
-                      children: [
-                        const Icon(
-                          Icons.info_outline,
-                          size: 20,
-                          color: AppColor.secondaryMain,
-                        ),
-                        const SizedBox(
-                          width: 11,
-                        ),
-                        NormalText(
-                          text: 'About App',
-                          fontWeight: FontWeight.w600,
-                          color: AppColor.grey400,
-                          size: 16,
-                        ),
-                      ],
-                    ),
-                    IconButton(
-                        //add onpressed function
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const AboutApp(),
-                            ),
-                          );
-                        },
-                        icon: const Icon(
-                          Icons.arrow_forward_ios_rounded,
-                          size: 16,
-                          color: AppColor.mainColor,
-                        ))
-                  ],
+            child: InkWell(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const AboutApp(),
+                  ),
+                );
+              },
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  border: Border.all(width: 0.5, color: AppColor.grey400),
+                  borderRadius: BorderRadius.circular(5.r),
+                ),
+                height: 56,
+                width: 343,
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 19, right: 22),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        children: [
+                          const Icon(
+                            Icons.info_outline,
+                            size: 20,
+                            color: AppColor.secondaryMain,
+                          ),
+                          const SizedBox(
+                            width: 11,
+                          ),
+                          NormalText(
+                            text: 'About App',
+                            fontWeight: FontWeight.w600,
+                            color: AppColor.grey400,
+                            size: 16,
+                          ),
+                        ],
+                      ),
+                      IconButton(
+                          //add onpressed function
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const AboutApp(),
+                              ),
+                            );
+                          },
+                          icon: const Icon(
+                            Icons.arrow_forward_ios_rounded,
+                            size: 16,
+                            color: AppColor.mainColor,
+                          ))
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -289,53 +309,58 @@ class _SettingsState extends State<Settings> {
           SizedBox(
             height: 24.h,
           ),
-          Padding(
-            padding: const EdgeInsets.only(
-              left: 16,
-              right: 16,
-            ),
-            child: Container(
-              decoration: BoxDecoration(
-                color: Colors.white,
-                border: Border.all(width: 0.5, color: AppColor.grey400),
-                borderRadius: BorderRadius.circular(5.r),
+          InkWell(
+            onTap: (){
+              _modalBottomSheetMenu();
+            },
+            child: Padding(
+              padding: const EdgeInsets.only(
+                left: 16,
+                right: 16,
               ),
-              height: 56,
-              width: 343,
-              child: Padding(
-                padding: const EdgeInsets.only(left: 19, right: 22),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
-                      children: [
-                        const Icon(
-                          Icons.info_outline,
-                          size: 20,
-                          color: AppColor.secondaryMain,
-                        ),
-                        const SizedBox(
-                          width: 11,
-                        ),
-                        NormalText(
-                          text: 'Log Out',
-                          fontWeight: FontWeight.w600,
-                          color: AppColor.grey400,
-                          size: 16,
-                        ),
-                      ],
-                    ),
-                    IconButton(
-                        //add onpressed function
-                        onPressed: () {
-                          _modalBottomSheetMenu();
-                        },
-                        icon: const Icon(
-                          Icons.arrow_forward_ios_rounded,
-                          size: 16,
-                          color: AppColor.mainColor,
-                        ))
-                  ],
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  border: Border.all(width: 0.5, color: AppColor.grey400),
+                  borderRadius: BorderRadius.circular(5.r),
+                ),
+                height: 56,
+                width: 343,
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 19, right: 22),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        children: [
+                          const Icon(
+                            Icons.info_outline,
+                            size: 20,
+                            color: AppColor.secondaryMain,
+                          ),
+                          const SizedBox(
+                            width: 11,
+                          ),
+                          NormalText(
+                            text: 'Log Out',
+                            fontWeight: FontWeight.w600,
+                            color: AppColor.grey400,
+                            size: 16,
+                          ),
+                        ],
+                      ),
+                      IconButton(
+                          //add onpressed function
+                          onPressed: () {
+                            _modalBottomSheetMenu();
+                          },
+                          icon: const Icon(
+                            Icons.arrow_forward_ios_rounded,
+                            size: 16,
+                            color: AppColor.mainColor,
+                          ))
+                    ],
+                  ),
                 ),
               ),
             ),

@@ -118,10 +118,21 @@ class FirstChatList extends StatefulWidget {
 }
 
 class _FirstChatListState extends State<FirstChatList> {
+  List<ChatMessage> messages = [
+    ChatMessage(
+        messageContent:
+            "I think we should link up, I like you and \n I want us to meet",
+        messageType: "receiver"),
+    ChatMessage(
+        messageContent: "Wow, that's crazy but am in anyways",
+        messageType: "sender"),
+  ];
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        
+      },
       child: SizedBox(
         height: 85.h,
         width: 375,
@@ -175,10 +186,13 @@ class _FirstChatListState extends State<FirstChatList> {
                             color: AppColor.grey400,
                             fontWeight: FontWeight.w400),
                       ),
-                        SizedBox(
-                            height: 10,
-                          ),
-                      Icon(Icons.check, size: 14,),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Icon(
+                        Icons.check,
+                        size: 14,
+                      ),
                     ],
                   ),
                 )
@@ -194,3 +208,21 @@ class _FirstChatListState extends State<FirstChatList> {
     );
   }
 }
+
+class ChatMessage {
+  String messageContent;
+  String messageType;
+  ChatMessage({required this.messageContent, required this.messageType});
+}
+
+
+
+
+// Add below code to FirstChatList to navigate to chat page
+
+// GestureDetector(
+// onTap: (){
+// Navigator.push(context, MaterialPageRoute(builder: (context){
+// return ChatDetailPage();
+// }));
+// },
