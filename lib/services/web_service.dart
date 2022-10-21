@@ -94,7 +94,7 @@ class WebServices {
       'Accept': 'application/json',
       'Authorization': 'Bearer $token',
     };
-    ;
+    
 
     if (isConnected) {
       try {
@@ -128,10 +128,9 @@ class WebServices {
 
     bool isConnected = await SimpleConnectionChecker.isConnectedToInternet();
     final header = <String, String>{
-      'Content-Type': 'application/json; charset=UTF-8',
-      "Access-Control-Allow-Origin: *"
-          "Content-Type: application/json; charset=utf-8"
-          'Authorization': 'Bearer $token',
+       'Content-Type': 'application/json; charset=UTF-8',
+      'Accept': 'application/json',
+      'Authorization': 'Bearer $token',
     };
     FormData formData = FormData.fromMap({
       "photo": image,
