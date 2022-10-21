@@ -1,6 +1,7 @@
 // ignore_for_file: depend_on_referenced_packages
 
 import 'dart:convert';
+import 'dart:io';
 import 'package:findate/constants/shared_preferences.dart';
 import 'package:findate/routes/page_routes.dart';
 import 'package:findate/widgets/utils/snack_bar.dart';
@@ -8,12 +9,10 @@ import 'package:simple_connection_checker/simple_connection_checker.dart';
 import 'package:dio/dio.dart';
 
 import '../constants/status_codes copy.dart';
+import 'package:http/http.dart' as http;
 
 class WebServices {
   final dio = Dio();
-
-
-  
 
 //handles post requests
   static Future sendPostRequest(String url, Object body, context) async {
@@ -52,10 +51,6 @@ class WebServices {
     }
   }
 
-
-
-
-
 //handles get requests
   static Future sendGetRequest(String url, context) async {
     final token = UserPreferences.getToken();
@@ -89,9 +84,6 @@ class WebServices {
     }
   }
 
-
-
-
 //handles patch requests
   static Future sendPatchRequest(String url, Object body, context) async {
     final token = UserPreferences.getToken();
@@ -121,6 +113,46 @@ class WebServices {
         return Failure(
             code: error.response!.statusCode,
             errorResponse: {'error': error.response!.data.toString()});
+      }
+      //push to no internet screen if isConnected is false
+    } else {
+      pushToNoInternetPage(context);
+      return Failure(
+          code: NO_INTERNET, errorResponse: {'error': 'No Internet'});
+    }
+  }
+
+  //handles patch requests
+  static Future uploadImageToApi(String url, File? image, context) async {
+    final token = UserPreferences.getToken();
+
+    bool isConnected = await SimpleConnectionChecker.isConnectedToInternet();
+    final header = <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+      "Access-Control-Allow-Origin: *"
+          "Content-Type: application/json; charset=utf-8"
+          'Authorization': 'Bearer $token',
+    };
+    FormData formData = FormData.fromMap({
+      "photo": image,
+    });
+
+    if (isConnected) {
+      try {
+        final response = await Dio()
+            .patch(url, data: formData, options: Options(headers: header));
+        print(response.data);
+
+        if (response.statusCode == 200) {
+          return Success(
+              code: response.statusCode, response: response.statusCode);
+        } else if (response.statusCode == 201) {
+          return Success(
+              code: response.statusCode, response: response.statusCode);
+        }
+      } on HttpException catch (error) {
+        // Handle error
+        CustomWidgets.buildErrorSnackbar(context, error.toString());
       }
       //push to no internet screen if isConnected is false
     } else {

@@ -67,10 +67,9 @@ class _MyAppState extends State<MyApp> {
                 primaryColor: Colors.pink[50],
                 primarySwatch: Colors.pink,
                 unselectedWidgetColor: AppColor.mainColor),
-            home: const ProfileSetupScreen(),
-            // token.length < 5 || expired
-            //     ? const LoginScreen()
-            //     : const OnBoardingScreen(),
+            home: token.length < 5 || expired
+                ? const LoginScreen()
+                : const OnBoardingScreen(),
             routes: {LoginScreen.id: (context) => const LoginScreen()});
       },
     );

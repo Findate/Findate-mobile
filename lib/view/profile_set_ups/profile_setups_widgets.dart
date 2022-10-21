@@ -1,9 +1,10 @@
-// ignore_for_file: no_leading_underscores_for_local_identifiers
+// ignore_for_file: no_leading_underscores_for_local_identifiers, use_build_context_synchronously
 
 import 'dart:io';
 
 import 'package:findate/constants/appColor.dart';
 import 'package:findate/constants/app_state_constants.dart';
+import 'package:findate/view/auth/auth_view_models/auth_view_model.dart';
 import 'package:findate/widgets/reusesable_widget/normal_text.dart';
 import 'package:findate/widgets/reusesable_widget/reuseable_button.dart';
 import 'package:findate/widgets/utils/progress_bar.dart';
@@ -32,7 +33,7 @@ class FirstSetupScreen extends StatefulWidget {
 class _FirstSetupScreenState extends State<FirstSetupScreen> {
   final TextEditingController nameController = TextEditingController();
   final TextEditingController surnameController = TextEditingController();
-  String? image;
+  File? profilePic;
 
   // Initial Selected Value
   String dropdownvalue = 'Male';
@@ -46,21 +47,16 @@ class _FirstSetupScreenState extends State<FirstSetupScreen> {
 
   Future pickGalaryImage() async {
     try {
-      final image = await ImagePicker().pickImage(source: ImageSource.gallery);
+      final image = await ImagePicker().pickImage(source: ImageSource.gallery, imageQuality: 80);
 
       if (image == null) return;
 
-      // final imageTemporary = File(image.path);
-      final imagePamanent = await savePicture(image.path);
-
-      List<int> photoAsBytes = await imagePamanent.readAsBytes();
-      String photoAsBase64 = convert.base64Encode(photoAsBytes);
-      print(photoAsBase64);
-      print('kdkdkdkd');
-
+      final imagePath = await savePicture(image.path);
       setState(() {
-        this.image = photoAsBase64;
+        profilePic = imagePath;
       });
+
+      await AuthViewModel().updateProfilePix(imagePath, context);
     } on PlatformException catch (e) {
       print('Failed to pick image: $e');
     }
@@ -72,9 +68,10 @@ class _FirstSetupScreenState extends State<FirstSetupScreen> {
 
       if (image == null) return;
       final imagePamanent = File(image.path);
-      List<int> photoAsBytes = await imagePamanent.readAsBytes();
-      String photoAsBase64 = convert.base64Encode(photoAsBytes);
-      setState(() => this.image = photoAsBase64);
+
+      // List<int> photoAsBytes = await imagePamanent.readAsBytes();
+      // String photoAsBase64 = convert.base64Encode(photoAsBytes);
+      // setState(() => this.image = photoAsBase64);
     } on PlatformException catch (e) {
       print('Failed to pick image: $e');
     }
@@ -363,7 +360,6 @@ class _FirstSetupScreenState extends State<FirstSetupScreen> {
                               name: nameController.text.trim(),
                               surname: surnameController.text.trim(),
                               gender: dropdownvalue.trim(),
-                              image: image,
                             ),
                           ),
                         );
@@ -388,16 +384,14 @@ class SecondSetupScreen extends StatefulWidget {
   final String? name;
   final String? surname;
   final String? gender;
-  final String? image;
 
-  const SecondSetupScreen(
-      {Key? key,
-      required this.pageController,
-      this.name,
-      this.gender,
-      this.surname,
-      this.image})
-      : super(key: key);
+  const SecondSetupScreen({
+    Key? key,
+    required this.pageController,
+    this.name,
+    this.gender,
+    this.surname,
+  }) : super(key: key);
 
   @override
   State<SecondSetupScreen> createState() => _SecondSetupScreenState();
@@ -556,7 +550,6 @@ class _SecondSetupScreenState extends State<SecondSetupScreen> {
                               gender: widget.gender,
                               occupation: occupationController.text.trim(),
                               location: occupationController.text.trim(),
-                              header: widget.image,
                               doB: dateOfBirth,
                             ),
                           ),
@@ -583,7 +576,6 @@ class ThirdSetupScreen extends ConsumerStatefulWidget {
   final String? gender;
   final String? location;
   final String? occupation;
-  final String? header;
   final String? doB;
   const ThirdSetupScreen(
       {Key? key,
@@ -593,7 +585,6 @@ class ThirdSetupScreen extends ConsumerStatefulWidget {
       this.surname,
       this.location,
       this.occupation,
-      this.header,
       this.doB})
       : super(key: key);
 
@@ -725,7 +716,7 @@ class _ThirdSetupScreenState extends ConsumerState<ThirdSetupScreen> {
                               mainAxisExtent: 70,
                             ),
                             itemBuilder: (BuildContext context, int index) {
-                              return  Cards(message: interest[index]);
+                              return Cards(message: interest[index]);
                             },
                           ),
                         ),
@@ -758,6 +749,7 @@ class _ThirdSetupScreenState extends ConsumerState<ThirdSetupScreen> {
                         ReuseableButton(
                           onPressed: () {
                             authViewModel.updateProfile(getData(), context);
+                            print(getData());
                           },
                           text: 'Setup',
                         )
@@ -779,7 +771,6 @@ class _ThirdSetupScreenState extends ConsumerState<ThirdSetupScreen> {
       ),
     );
   }
-
 }
 
 class Cards extends StatefulWidget {

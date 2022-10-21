@@ -39,7 +39,7 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> {
     return SafeArea(
       child: Scaffold(
         body: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: const EdgeInsets.all(20.0),
           child: PageView(
             controller: _pageController,
             onPageChanged: (index) {

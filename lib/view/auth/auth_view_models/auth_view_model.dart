@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:findate/constants/app_state_constants.dart';
 import 'package:findate/constants/shared_preferences.dart';
@@ -9,6 +10,7 @@ import 'package:findate/routes/page_routes.dart';
 import 'package:findate/services/web_service.dart';
 import 'package:findate/view/auth/views/confirm_email.dart';
 import 'package:findate/view/profile_set_ups/profile_setup_screen.dart';
+import 'package:findate/view/profile_set_ups/purpose_for_signup_screen.dart';
 import 'package:findate/widgets/utils/snack_bar.dart';
 import 'package:flutter/material.dart';
 
@@ -34,13 +36,6 @@ class AuthViewModel extends ChangeNotifier {
     _loginError = loginError;
   }
 
-
-
-
-
-
-
-
 // login view model function
   Future loginUser(String url, body, context) async {
     setLoading(true);
@@ -56,8 +51,14 @@ class AuthViewModel extends ChangeNotifier {
         "username": body["username"],
       }, context);
 
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) => PurposeForSignup(),
+        ),
+      );
+
       //navigate to onbording screen
-      pushOnBoardingScreen(context);
+      // pushOnBoardingScreen(context);
 
       setLoading(false);
     } else {
@@ -70,9 +71,6 @@ class AuthViewModel extends ChangeNotifier {
     }
     setLoading(false);
   }
-
-
-
 
   // Register view model function
   Future regisUser(String url, body, String email, context) async {
@@ -96,9 +94,6 @@ class AuthViewModel extends ChangeNotifier {
     setLoading(false);
   }
 
-
-
-
   // Confrim email view model function
   Future confrimEmail(String url, body, email, context) async {
     setLoading(true);
@@ -121,9 +116,6 @@ class AuthViewModel extends ChangeNotifier {
     setLoading(false);
   }
 
-
-
-
   //Function that get all users data from API
   Future getAllUsers(context) async {
     var response = await WebServices.sendGetRequest(
@@ -144,9 +136,6 @@ class AuthViewModel extends ChangeNotifier {
           code: UNKNOWN_ERROR, errorResponse: {'error': 'Unknown Error'});
     }
   }
-
-
-
 
   // resend otp for registration view model function
   Future resendOTP(email, context) async {
@@ -169,9 +158,6 @@ class AuthViewModel extends ChangeNotifier {
     setLoading(false);
   }
 
-
-
-
   // Update users profile view model function
   Future updateProfile(body, context) async {
     setLoading(true);
@@ -181,8 +167,39 @@ class AuthViewModel extends ChangeNotifier {
 
     if (response.response['statusCode'] == SUCCESS) {
       final result = response.response['data'];
+      print(result);
 
-      userData.add(UserModel.fromJson(result));
+      // userData.add(UserModel.fromJson(result));
+
+      // notifyListeners();
+
+      // pushLoginAfterProfileSetup(context);
+
+      setLoading(false);
+    } else {
+      setLoginError(true);
+      setLoading(false);
+    }
+
+    setLoading(false);
+  }
+
+
+
+
+
+//Update profile Picture
+  Future updateProfilePix(File? image, context) async {
+    setLoading(true);
+
+    var response = await WebServices.uploadImageToApi(
+        '$baseUrl/profile-picture', image, context);
+
+    if (response.response['statusCode'] == 200) {
+      final pictureUrl = response.response['data'];
+      print(pictureUrl);
+
+      userData.add(UserModel.fromJson(pictureUrl));
 
       notifyListeners();
 
@@ -201,16 +218,15 @@ class AuthViewModel extends ChangeNotifier {
 
 
 
+
   // Update users profile view model function
   Future getLoginUserData(body, context) async {
-   
     setLoading(true);
 
     var response = await WebServices.sendPostRequest(baseUrl, body, context);
 
     if (response.response['statusCode'] == SUCCESS) {
       final result = response.response['data'];
-     
 
       userData.add(UserModel.fromJson(result));
 
