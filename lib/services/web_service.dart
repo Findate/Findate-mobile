@@ -94,7 +94,6 @@ class WebServices {
       'Accept': 'application/json',
       'Authorization': 'Bearer $token',
     };
-    
 
     if (isConnected) {
       try {
@@ -124,11 +123,13 @@ class WebServices {
 
   //handles patch requests
   static Future uploadImageToApi(String url, File? image, context) async {
+    print(image);
+
     final token = UserPreferences.getToken();
 
     bool isConnected = await SimpleConnectionChecker.isConnectedToInternet();
     final header = <String, String>{
-       'Content-Type': 'application/json; charset=UTF-8',
+      'Content-Type': 'application/json; charset=UTF-8',
       'Accept': 'application/json',
       'Authorization': 'Bearer $token',
     };
@@ -140,18 +141,20 @@ class WebServices {
       try {
         final response = await Dio()
             .patch(url, data: formData, options: Options(headers: header));
-        print(response.data);
+      
 
         if (response.statusCode == 200) {
-          return Success(
-              code: response.statusCode, response: response.statusCode);
+          return Success(code: response.statusCode, response: response.data);
         } else if (response.statusCode == 201) {
-          return Success(
-              code: response.statusCode, response: response.statusCode);
+          return Success(code: response.statusCode, response: response.data);
         }
-      } on HttpException catch (error) {
+      } on DioError catch (error) {
         // Handle error
-        CustomWidgets.buildErrorSnackbar(context, error.toString());
+        CustomWidgets.buildErrorSnackbar(
+            context, error.response!.data.toString());
+        return Failure(
+            code: error.response!.statusCode,
+            errorResponse: {'error': error.response!.data.toString()});
       }
       //push to no internet screen if isConnected is false
     } else {

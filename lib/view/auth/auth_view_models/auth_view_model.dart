@@ -184,16 +184,12 @@ class AuthViewModel extends ChangeNotifier {
     setLoading(false);
   }
 
-
-
-
-
 //Update profile Picture
   Future updateProfilePix(File? image, context) async {
     setLoading(true);
 
     var response = await WebServices.uploadImageToApi(
-        '$baseUrl/profile-picture', image, context);
+        '$baseUrl/profile-picture', image, context);  
 
     if (response.response['statusCode'] == 200) {
       final pictureUrl = response.response['data'];
@@ -213,11 +209,6 @@ class AuthViewModel extends ChangeNotifier {
 
     setLoading(false);
   }
-
-
-
-
-
 
   // Update users profile view model function
   Future getLoginUserData(body, context) async {

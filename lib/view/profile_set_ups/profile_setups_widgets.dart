@@ -56,7 +56,8 @@ class _FirstSetupScreenState extends State<FirstSetupScreen> {
         profilePic = imagePath;
       });
 
-      await AuthViewModel().updateProfilePix(imagePath, context);
+      await AuthViewModel().updateProfilePix(profilePic, context);
+
     } on PlatformException catch (e) {
       print('Failed to pick image: $e');
     }
