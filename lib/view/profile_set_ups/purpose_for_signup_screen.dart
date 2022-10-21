@@ -22,115 +22,112 @@ class _PurposeForSignupState extends State<PurposeForSignup> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: Padding(
-          padding: const EdgeInsets.symmetric(vertical:12.0),
-          child: Column(
-            children: <Widget>[
-              Row(
-                children: [
-                  ReusesableAppbarButton(
-                    iconButton: IconButton(
-                        onPressed: () {},
-                        icon: const Icon(
-                          Icons.keyboard_arrow_left_outlined,
-                          color: AppColor.mainColor,
-                        )),
-                  ),
-                  SizedBox(width: 40.w),
-                  NormalText(
-                    text: 'Purpose For Sign Up',
-                    color: AppColor.mainColor,
-                    size: 20.sp,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SizedBox(
-                    width: 30.w,
-                  ),
-                  RichText(
-                    text: TextSpan(
-                      text: 'Hi Jeean! Why are you Here?',
-                      style: GoogleFonts.nunito(
-                        color: AppColor.grey400,
-                        fontSize: 14.sp,
+        body: SingleChildScrollView(
+          child: SizedBox(
+            height: 800.h,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 12.0),
+              child: Column(
+                children: <Widget>[
+                  Row(
+                    children: [
+                      ReusesableAppbarButton(
+                        iconButton: IconButton(
+                            onPressed: () {},
+                            icon: const Icon(
+                              Icons.keyboard_arrow_left_outlined,
+                              color: AppColor.mainColor,
+                            )),
                       ),
-                    ),
+                      SizedBox(width: 40.w),
+                      NormalText(
+                        text: '  Purpose For Sign Up',
+                        color: AppColor.mainColor,
+                        size: 20.sp,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ],
                   ),
-                ],
-              ),
-              const Padding(
-                padding: EdgeInsets.all(42.0),
-              ),
-              CheckboxListTile(
-                title: const Text('Ready for a relationship'),
-                subtitle: Text('(Looking for a long term)',
-                    style: GoogleFonts.nunito(
-                      color: AppColor.grey400,
-                      fontSize: 12.sp,
-                    )),
-                value: checked1,
-                onChanged: (bool? value) {
-                  setState(() {
-                    checked1 = value!;
-                  });
-                },
-                checkColor: const Color(0xffFF6685),
-                controlAffinity: ListTileControlAffinity.leading,
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              CheckboxListTile(
-                title: const Text('To find a date'),
-                subtitle:
-                    Text('(To go on date with a person with similar interest)',
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                    
+                      NormalText(
+                        text: 'Hi Jeean! Why are you Here?',
+                        color: AppColor.grey400,
+                        size: 14.sp,
+                      ),
+                    ],
+                  ),
+                 SizedBox(height: 20.h,),
+                  CheckboxListTile(
+                    title: const Text('Ready for a relationship'),
+                    subtitle: Text('(Looking for a long term)',
                         style: GoogleFonts.nunito(
                           color: AppColor.grey400,
                           fontSize: 12.sp,
                         )),
-                value: checked2,
-                onChanged: (bool? value) {
-                  setState(() {
-                    checked2 = value!;
-                  });
-                },
-                checkColor: const Color(0xffFF6685),
-                controlAffinity: ListTileControlAffinity.leading,
+                    value: checked1,
+                    onChanged: (bool? value) {
+                      setState(() {
+                        checked1 = value!;
+                      });
+                    },
+                    checkColor: const Color(0xffFF6685),
+                    controlAffinity: ListTileControlAffinity.leading,
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  CheckboxListTile(
+                    title: const Text('To find a date'),
+                    subtitle:
+                        Text('(To go on date with a person with similar interest)',
+                            style: GoogleFonts.nunito(
+                              color: AppColor.grey400,
+                              fontSize: 12.sp,
+                            )),
+                    value: checked2,
+                    onChanged: (bool? value) {
+                      setState(() {
+                        checked2 = value!;
+                      });
+                    },
+                    checkColor: const Color(0xffFF6685),
+                    controlAffinity: ListTileControlAffinity.leading,
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  CheckboxListTile(
+                    title: const Text('Friendship'),
+                    subtitle: Text('(Just here to talk to some and vibe)',
+                        style: GoogleFonts.nunito(
+                          color: AppColor.grey400,
+                          fontSize: 14.sp,
+                        )),
+                    value: checked3,
+                    onChanged: (bool? value) {
+                      setState(() {
+                        checked3 = value!;
+                      });
+                    },
+                    checkColor: const Color(0xffFF6685),
+                    controlAffinity: ListTileControlAffinity.leading,
+                  ),
+                  const SizedBox(height: 70),
+                  ReuseableButton(
+                      text: 'Continue',
+                      onPressed: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: ((context) => const ProfileSetupScreen()),
+                          ),
+                        );
+                      })
+                ],
               ),
-              const SizedBox(
-                height: 20,
-              ),
-              CheckboxListTile(
-                title: const Text('Friendship'),
-                subtitle: Text('(Just here to talk to some and vibe)',
-                    style: GoogleFonts.nunito(
-                      color: AppColor.grey400,
-                      fontSize: 14.sp,
-                    )),
-                value: checked3,
-                onChanged: (bool? value) {
-                  setState(() {
-                    checked3 = value!;
-                  });
-                },
-                checkColor: const Color(0xffFF6685),
-                controlAffinity: ListTileControlAffinity.leading,
-              ),
-              const SizedBox(height: 30),
-              ReuseableButton(
-                  text: 'Continue',
-                  onPressed: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: ((context) => const ProfileSetupScreen()),
-                      ),
-                    );
-                  })
-            ],
+            ),
           ),
         ),
       ),

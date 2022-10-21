@@ -52,10 +52,10 @@ class AuthViewModel extends ChangeNotifier {
       }, context);
 
       Navigator.of(context).push(
-        MaterialPageRoute(
-          builder: (context) => PurposeForSignup(),
-        ),
-      );
+                MaterialPageRoute(
+                  builder: ((context) => const PurposeForSignup()),
+                ),
+              );
 
       //navigate to onbording screen
       // pushOnBoardingScreen(context);
@@ -167,13 +167,12 @@ class AuthViewModel extends ChangeNotifier {
 
     if (response.response['statusCode'] == SUCCESS) {
       final result = response.response['data'];
-      print(result);
 
-      // userData.add(UserModel.fromJson(result));
+      userData.add(UserModel.fromJson(result));
 
-      // notifyListeners();
+      notifyListeners();
 
-      // pushLoginAfterProfileSetup(context);
+      pushLoginAfterProfileSetup(context);
 
       setLoading(false);
     } else {
@@ -189,17 +188,14 @@ class AuthViewModel extends ChangeNotifier {
     setLoading(true);
 
     var response = await WebServices.uploadImageToApi(
-        '$baseUrl/profile-picture', image, context);  
+        '$baseUrl/profile-picture', image, context);
 
     if (response.response['statusCode'] == 200) {
-      final pictureUrl = response.response['data'];
-      print(pictureUrl);
+      final res = response.response['data'];
 
-      userData.add(UserModel.fromJson(pictureUrl));
+      userData.add(UserModel.fromJson(res));
 
       notifyListeners();
-
-      pushLoginAfterProfileSetup(context);
 
       setLoading(false);
     } else {
@@ -208,6 +204,7 @@ class AuthViewModel extends ChangeNotifier {
     }
 
     setLoading(false);
+    return response;
   }
 
   // Update users profile view model function

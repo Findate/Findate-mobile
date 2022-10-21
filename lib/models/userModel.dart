@@ -5,46 +5,49 @@
 // ignore_for_file: file_names
 
 import 'dart:convert';
+import 'dart:io';
 
-
-UserModel userDataModelFromJson(String str) => UserModel.fromJson(json.decode(str));
+UserModel userDataModelFromJson(String str) =>
+    UserModel.fromJson(json.decode(str));
 
 String userDataModelToJson(UserModel data) => json.encode(data.toJson());
 
 class UserModel {
-    UserModel({
-       this.id,
-        this.email,
-        this.username,
-        this.header,
-        this.role,
-        this.verified,
-        this.active,
-        this.about,
-        this.gender,
-        this.interest,
-        this.location,
-        this.name,
-        this.occupation,
-        this.surname,
-    });
+  UserModel({
+    this.id,
+    this.email,
+    this.username,
+    this.header,
+    this.role,
+    this.verified,
+    this.active,
+    this.about,
+    this.gender,
+    this.interest,
+    this.location,
+    this.name,
+    this.occupation,
+    this.surname,
+    this.photo
+  });
 
-    String? id;
-    String? email;
-    String? username;
-    String? header;
-    String? role;
-    bool? verified;
-    bool? active;
-    String? about;
-    String? gender;
-    String? interest;
-    String? location;
-    String? name;
-    String? occupation;
-    String? surname;
+  String? id;
+  String? email;
+  String? username;
+  String? header;
+  String? role;
+  bool? verified;
+  bool? active;
+  String? about;
+  String? gender;
+  String? interest;
+  String? location;
+  String? name;
+  String? occupation;
+  String? surname;
+  String? photo;
 
-    factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
+  factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
         id: json["_id"],
         email: json["email"],
         username: json["username"],
@@ -59,9 +62,10 @@ class UserModel {
         name: json["name"],
         occupation: json["occupation"],
         surname: json["surname"],
-    );
+        photo: json["photo"],
+      );
 
-    Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => {
         "_id": id,
         "email": email,
         "username": username,
@@ -76,6 +80,6 @@ class UserModel {
         "name": name,
         "occupation": occupation,
         "surname": surname,
-    };
+        "photo": photo,
+      };
 }
-

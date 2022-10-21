@@ -123,8 +123,7 @@ class WebServices {
 
   //handles patch requests
   static Future uploadImageToApi(String url, File? image, context) async {
-    print(image);
-
+   
     final token = UserPreferences.getToken();
 
     bool isConnected = await SimpleConnectionChecker.isConnectedToInternet();
@@ -134,7 +133,7 @@ class WebServices {
       'Authorization': 'Bearer $token',
     };
     FormData formData = FormData.fromMap({
-      "photo": image,
+      "photo": await MultipartFile.fromFile(image!.path, filename: 'photo'),
     });
 
     if (isConnected) {

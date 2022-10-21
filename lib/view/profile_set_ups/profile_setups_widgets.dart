@@ -21,19 +21,23 @@ import 'dart:convert' as convert;
 import 'package:date_time_picker/date_time_picker.dart';
 
 //First Setup Screen
-class FirstSetupScreen extends StatefulWidget {
+class FirstSetupScreen extends ConsumerStatefulWidget {
   final PageController pageController;
   const FirstSetupScreen({Key? key, required this.pageController})
       : super(key: key);
 
   @override
-  State<FirstSetupScreen> createState() => _FirstSetupScreenState();
+  ConsumerState<ConsumerStatefulWidget> createState() =>
+      _FirstSetupScreenState();
 }
 
-class _FirstSetupScreenState extends State<FirstSetupScreen> {
+class _FirstSetupScreenState extends ConsumerState<FirstSetupScreen> {
   final TextEditingController nameController = TextEditingController();
   final TextEditingController surnameController = TextEditingController();
+
   File? profilePic;
+  String pic =
+      'https://cdn.vectorstock.com/i/preview-1x/23/70/man-avatar-icon-flat-vector-19152370.webp';
 
   // Initial Selected Value
   String dropdownvalue = 'Male';
@@ -45,9 +49,12 @@ class _FirstSetupScreenState extends State<FirstSetupScreen> {
     'Others',
   ];
 
+
+// funtion that upload profie pic from gallary
   Future pickGalaryImage() async {
     try {
-      final image = await ImagePicker().pickImage(source: ImageSource.gallery, imageQuality: 80);
+      final image = await ImagePicker()
+          .pickImage(source: ImageSource.gallery, imageQuality: 80);
 
       if (image == null) return;
 
@@ -58,26 +65,35 @@ class _FirstSetupScreenState extends State<FirstSetupScreen> {
 
       await AuthViewModel().updateProfilePix(profilePic, context);
 
+
+      refreshImage();
     } on PlatformException catch (e) {
       print('Failed to pick image: $e');
     }
   }
-
+// funtion that upload profie pic from camera
   Future pickCameraImage() async {
     try {
-      final image = await ImagePicker().pickImage(source: ImageSource.camera);
+      final image = await ImagePicker().pickImage(source: ImageSource.camera, imageQuality: 80);
 
       if (image == null) return;
-      final imagePamanent = File(image.path);
 
-      // List<int> photoAsBytes = await imagePamanent.readAsBytes();
-      // String photoAsBase64 = convert.base64Encode(photoAsBytes);
-      // setState(() => this.image = photoAsBase64);
+      final imagePath = await savePicture(image.path);
+
+      setState(() {
+        profilePic = imagePath;
+      });
+
+      await AuthViewModel().updateProfilePix(profilePic, context);
+
+      refreshImage();
+
     } on PlatformException catch (e) {
       print('Failed to pick image: $e');
     }
   }
 
+//saved picture path before upload
   Future<File> savePicture(String imagePath) async {
     final directory = await getApplicationDocumentsDirectory();
     final name = PAth.basename(imagePath);
@@ -115,6 +131,7 @@ class _FirstSetupScreenState extends State<FirstSetupScreen> {
                             ),
                             onPressed: () {
                               pickCameraImage();
+                              Navigator.pop(context);
                             },
                           ),
                           NormalText(
@@ -134,6 +151,7 @@ class _FirstSetupScreenState extends State<FirstSetupScreen> {
                             ),
                             onPressed: () {
                               pickGalaryImage();
+                              Navigator.pop(context);
                             },
                           ),
                           NormalText(
@@ -148,8 +166,18 @@ class _FirstSetupScreenState extends State<FirstSetupScreen> {
         });
   }
 
+
+//refresh network image
+  refreshImage() {
+    final authViewModel = ref.watch(authViewModelProvider);
+    setState(() {
+      pic = authViewModel.userData[0].photo!;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+
     return SafeArea(
       child: Scaffold(
         body: SingleChildScrollView(
@@ -201,9 +229,12 @@ class _FirstSetupScreenState extends State<FirstSetupScreen> {
                     Stack(
                       children: [
                         SizedBox(
-                          height: 100.h,
+                          height: 120.h,
                           width: 150.w,
-                          child: Image.asset('assets/profileAvatar.png'),
+                          child: FadeInImage(
+                              image: NetworkImage(pic),
+                              placeholder:
+                                  const AssetImage('assets/profileAvatar.png')),
                         ),
                         Positioned(
                           left: 100,
@@ -222,8 +253,7 @@ class _FirstSetupScreenState extends State<FirstSetupScreen> {
                                   color: Colors.white,
                                 ),
                                 onPressed: () {
-                                  // _modalBottomSheetMenu();
-                                  pickGalaryImage();
+                                  _modalBottomSheetMenu();
                                 }),
                           ),
                         ),
@@ -750,7 +780,7 @@ class _ThirdSetupScreenState extends ConsumerState<ThirdSetupScreen> {
                         ReuseableButton(
                           onPressed: () {
                             authViewModel.updateProfile(getData(), context);
-                            print(getData());
+                          
                           },
                           text: 'Setup',
                         )
