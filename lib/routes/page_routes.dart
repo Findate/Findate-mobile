@@ -12,6 +12,8 @@ import 'package:findate/view/profile_set_ups/purpose_for_signup_screen.dart';
 import 'package:findate/widgets/reusesable_widget/complete_screen.dart';
 import 'package:flutter/material.dart';
 
+import '../view/auth/views/recover_account_confirm_email_screen.dart';
+
 
 
 
@@ -45,6 +47,14 @@ pushConfrimEmailScreen(BuildContext context, String email) async {
   Navigator.of(context).push(
     MaterialPageRoute(
       builder: (context) => ConfirmEmailScreen(email: email),
+    ),
+  );
+}
+
+pushRecoverAccountConfrimEmailScreen(BuildContext context, String email) async {
+  Navigator.of(context).push(
+    MaterialPageRoute(
+      builder: (context) => RecoverAccountConfirmEmailScreen(email: email),
     ),
   );
 }

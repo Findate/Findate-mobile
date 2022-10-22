@@ -52,10 +52,10 @@ class AuthViewModel extends ChangeNotifier {
       }, context);
 
       Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: ((context) => const PurposeForSignup()),
-                ),
-              );
+        MaterialPageRoute(
+          builder: ((context) => const PurposeForSignup()),
+        ),
+      );
 
       //navigate to onbording screen
       // pushOnBoardingScreen(context);
@@ -95,7 +95,7 @@ class AuthViewModel extends ChangeNotifier {
   }
 
   // Confrim email view model function
-  Future confrimEmail(String url, body, email, context) async {
+  Future confrimEmail(body, email, context) async {
     setLoading(true);
 
     var response =
@@ -219,6 +219,48 @@ class AuthViewModel extends ChangeNotifier {
       userData.add(UserModel.fromJson(result));
 
       notifyListeners();
+
+      setLoading(false);
+    } else {
+      setLoginError(true);
+      setLoading(false);
+    }
+
+    setLoading(false);
+  }
+
+
+  // reset password fuction
+  Future recoverAccount(Object body, String email, context) async {
+    setLoading(true);
+
+    var response = await WebServices.sendPatchRequest(
+        '$baseUrl/recover-account', body, context);
+
+    if (response.response['statusCode'] == SUCCESS) {
+
+      pushRecoverAccountConfrimEmailScreen(context, email);
+
+      setLoading(false);
+    } else {
+      setLoginError(true);
+      setLoading(false);
+    }
+
+    setLoading(false);
+  }
+
+
+  // reset password fuction
+  Future resetPassword(body, email, context) async {
+    setLoading(true);
+
+    var response = await WebServices.sendPatchRequest(
+        '$baseUrl/reset-password', body, context);
+
+    if (response.response['statusCode'] == SUCCESS) {
+    
+      pushToLoginPage(context);
 
       setLoading(false);
     } else {

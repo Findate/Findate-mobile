@@ -207,13 +207,9 @@ class _ConfirmEmailScreenState extends ConsumerState<ConfirmEmailScreen> {
                     text: 'Verify',
                     onPressed: () {
                       if (_key.currentState!.validate()) {
-                        authViewModel.confrimEmail(
-                            '$baseUrl/verify',
-                            {
-                              "token": pinController.text.trim(),
-                            },
-                            widget.email,
-                            context);
+                        authViewModel.confrimEmail({
+                          "token": pinController.text.trim(),
+                        }, widget.email, context);
                       }
                     }),
                 const SizedBox(
