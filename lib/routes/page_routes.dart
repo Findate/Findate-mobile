@@ -1,4 +1,5 @@
 import 'package:findate/view/auth/views/confirm_email.dart';
+import 'package:findate/view/auth/views/loginAfterReg.dart';
 import 'package:findate/view/auth/views/login_screen.dart';
 import 'package:findate/view/landing_page/no_internet_screen.dart';
 import 'package:findate/view/on_bording/on_bording_screen.dart';
@@ -90,7 +91,7 @@ pushLoginAfterProfileSetup(BuildContext context) {
             navigate: () {
               Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: ((context) => const LoginScreen()),
+                  builder: ((context) => const LoginAfterScreen()),
                 ),
               );
             },

@@ -21,7 +21,7 @@ void main() async {
 
   await UserPreferences.init();
 
-  UserPreferences.resetSharedPref();
+  // UserPreferences.resetSharedPref();
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
 

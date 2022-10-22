@@ -38,6 +38,8 @@ class AuthViewModel extends ChangeNotifier {
 
 // login view model function
   Future loginUser(String url, body, context) async {
+    final token = UserPreferences.getToken();
+
     setLoading(true);
 
     var response = await WebServices.sendPostRequest(url, body, context);
@@ -51,21 +53,40 @@ class AuthViewModel extends ChangeNotifier {
         "username": body["username"],
       }, context);
 
-      Navigator.of(context).push(
-        MaterialPageRoute(
-          builder: ((context) => const PurposeForSignup()),
-        ),
-      );
-
       //navigate to onbording screen
-      // pushOnBoardingScreen(context);
+      pushOnBoardingScreen(context);
 
       setLoading(false);
     } else {
       setLoginError(true);
       setLoading(false);
     }
-    if (response.code != SUCCESS) {
+    if (response.code != 200 || response.code != 201) {
+      setLoginError(true);
+      setLoading(false);
+    }
+    setLoading(false);
+  }
+
+  // login view model function
+  Future loginUserAfterReg(String url, body, context) async {
+    setLoading(true);
+
+    var response = await WebServices.sendPostRequest(url, body, context);
+
+    if (response.code == SUCCESS) {
+      // //set save login user token from api response
+      UserPreferences.setLoginUerToken(response.response['data']['token']);
+
+      //navigate
+      pushProfileSetupAfterReg(context);
+
+      setLoading(false);
+    } else {
+      setLoginError(true);
+      setLoading(false);
+    }
+    if (response.code != 200 || response.code != 201) {
       setLoginError(true);
       setLoading(false);
     }
@@ -78,15 +99,16 @@ class AuthViewModel extends ChangeNotifier {
 
     var response = await WebServices.sendPostRequest(url, body, context);
 
-    if (response.code == 200) {
+    if (response.code == 201 || response.code == 200) {
       //navigate to screen after successful registration
       pushConfrimEmailScreen(context, email);
+
       setLoading(false);
     } else {
       setLoginError(true);
       setLoading(false);
     }
-    if (response.code != 200) {
+    if (response.code != 200 || response.code != 201) {
       setLoginError(true);
       setLoading(false);
     }
@@ -102,10 +124,9 @@ class AuthViewModel extends ChangeNotifier {
         await WebServices.sendPatchRequest('$baseUrl/verify', body, context);
 
     if (response.code == SUCCESS) {
-      print(response);
       //navigate to screen after email confirmation and registration
 
-      pushProfileSetupAfterReg(context);
+      pushLoginAfterProfileSetup(context);
 
       setLoading(false);
     } else {
@@ -144,13 +165,13 @@ class AuthViewModel extends ChangeNotifier {
     var response = await WebServices.sendPostRequest(
         "$baseUrl/otp/resend", email, context);
 
-    if (response.code == 200) {
+    if (response.code == 201 || response.code == 200) {
       setLoading(false);
     } else {
       setLoginError(true);
       setLoading(false);
     }
-    if (response.code != 200) {
+    if (response.code != 200 || response.code != 201) {
       setLoginError(true);
       setLoading(false);
     }
@@ -172,7 +193,7 @@ class AuthViewModel extends ChangeNotifier {
 
       notifyListeners();
 
-      pushLoginAfterProfileSetup(context);
+      pushToLoginPage(context);
 
       setLoading(false);
     } else {
@@ -190,7 +211,8 @@ class AuthViewModel extends ChangeNotifier {
     var response = await WebServices.uploadImageToApi(
         '$baseUrl/profile-picture', image, context);
 
-    if (response.response['statusCode'] == 200) {
+    if (response.response['statusCode'] == 200 ||
+        response.response['statusCode'] == 201) {
       final res = response.response['data'];
 
       userData.add(UserModel.fromJson(res));
@@ -229,7 +251,6 @@ class AuthViewModel extends ChangeNotifier {
     setLoading(false);
   }
 
-
   // reset password fuction
   Future recoverAccount(Object body, String email, context) async {
     setLoading(true);
@@ -238,7 +259,6 @@ class AuthViewModel extends ChangeNotifier {
         '$baseUrl/recover-account', body, context);
 
     if (response.response['statusCode'] == SUCCESS) {
-
       pushRecoverAccountConfrimEmailScreen(context, email);
 
       setLoading(false);
@@ -250,7 +270,6 @@ class AuthViewModel extends ChangeNotifier {
     setLoading(false);
   }
 
-
   // reset password fuction
   Future resetPassword(body, email, context) async {
     setLoading(true);
@@ -259,7 +278,6 @@ class AuthViewModel extends ChangeNotifier {
         '$baseUrl/reset-password', body, context);
 
     if (response.response['statusCode'] == SUCCESS) {
-    
       pushToLoginPage(context);
 
       setLoading(false);

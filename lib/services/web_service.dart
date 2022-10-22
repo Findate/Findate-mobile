@@ -23,11 +23,10 @@ class WebServices {
       'Accept': 'application/json',
       'Authorization': 'Bearer $token',
     };
-
+ 
     if (isConnected) {
       try {
-        final response = await Dio().post(url,
-            data: jsonEncode(body), options: Options(headers: header));
+        final response = await Dio().post(url, data: jsonEncode(body), options: Options(headers: header));
 
         if (response.statusCode == 200) {
           return Success(code: response.statusCode, response: response.data);
@@ -123,7 +122,6 @@ class WebServices {
 
   //handles patch requests
   static Future uploadImageToApi(String url, File? image, context) async {
-   
     final token = UserPreferences.getToken();
 
     bool isConnected = await SimpleConnectionChecker.isConnectedToInternet();
@@ -140,7 +138,6 @@ class WebServices {
       try {
         final response = await Dio()
             .patch(url, data: formData, options: Options(headers: header));
-      
 
         if (response.statusCode == 200) {
           return Success(code: response.statusCode, response: response.data);

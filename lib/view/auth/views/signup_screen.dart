@@ -232,7 +232,10 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                         onPressed: () {
                           if (_formKey.currentState!.validate()) {
                             authViewModel.regisUser(
-                                '$baseUrl/register', getInputedData(), emailController.text, context);
+                                '${baseUrl}register',
+                                getInputedData(),
+                                emailController.text,
+                                context);
                           }
                         }),
                     const SizedBox(
