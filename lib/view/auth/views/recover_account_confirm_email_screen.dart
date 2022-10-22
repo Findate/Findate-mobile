@@ -84,214 +84,223 @@ class _RecoverAccountConfirmEmailScreenState
     final authViewModel = ref.watch(authViewModelProvider);
     return SafeArea(
       child: Scaffold(
-        body: Stack(
-          children: [
-            Column(
+        body: SingleChildScrollView(
+          child: SizedBox(
+            height: 900.h,
+            child: Stack(
               children: [
-                SizedBox(
-                  height: 10.h,
-                ),
-                Row(
-                  children: [
-                    ReusesableAppbarButton(
-                      iconButton: IconButton(
-                          onPressed: () {},
-                          icon: const Icon(
-                            Icons.keyboard_arrow_left_outlined,
-                            color: AppColor.mainColor,
-                          )),
-                    ),
-                    SizedBox(
-                      width: 40.w,
-                    ),
-                    NormalText(
-                      text: 'Email Verification',
-                      color: AppColor.mainColor,
-                      size: 20.sp,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                Column(
                   children: [
                     SizedBox(
-                      width: 30.w,
+                      height: 10.h,
                     ),
-                    // Show same texts with different colors
-                    RichText(
-                      text: TextSpan(
-                        children: <TextSpan>[
-                          TextSpan(
-                            text:
-                                'A verification code was sent to \n ${widget.email}',
-                            style: GoogleFonts.nunito(
-                              color: AppColor.grey400,
-                              fontSize: 14.sp,
-                            ),
-                          ),
-                          TextSpan(
-                            text: '',
-                            style: GoogleFonts.nunito(
-                              color: AppColor.secondaryMain,
-                              fontSize: 14.sp,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-                //Pin text field
-                Padding(
-                  padding: const EdgeInsets.all(40.0),
-                  child: Form(
-                    key: _key,
-                    child: Column(
+                    Row(
                       children: [
-                        PinCodeTextField(
-                          controller: pinController,
-                          appContext: context,
-                          length: 4,
-                          obscureText: true,
-                          obscuringCharacter: '*',
-                          blinkWhenObscuring: true,
-                          animationType: AnimationType.fade,
-                          validator: (v) {
-                            if (v!.length < 4) {
-                              return "Pin Must be 4 digits";
-                            } else {
-                              return null;
-                            }
-                          },
-                          pinTheme: PinTheme(
-                              activeColor: Colors.white,
-                              activeFillColor: Colors.white,
-                              selectedColor: AppColor.mainColor,
-                              inactiveColor: const Color(0xffFF6685),
-                              selectedFillColor: Colors.white,
-                              inactiveFillColor: Colors.white,
-                              shape: PinCodeFieldShape.box,
-                              borderRadius: BorderRadius.circular(5),
-                              fieldHeight: 60.h,
-                              fieldWidth: 60.w,
-                              borderWidth: 0.3),
-                          cursorColor: Colors.black,
-                          animationDuration: const Duration(milliseconds: 300),
-                          enableActiveFill: true,
-                          errorAnimationController: errorController,
-                          keyboardType: TextInputType.number,
-                          boxShadows: const [
-                            BoxShadow(
-                              offset: Offset(0, 1),
-                              color: Colors.black12,
-                              blurRadius: 10,
+                        ReusesableAppbarButton(
+                          iconButton: IconButton(
+                              onPressed: () {},
+                              icon: const Icon(
+                                Icons.keyboard_arrow_left_outlined,
+                                color: AppColor.mainColor,
+                              )),
+                        ),
+                        SizedBox(
+                          width: 40.w,
+                        ),
+                        NormalText(
+                          text: 'Email Verification',
+                          color: AppColor.mainColor,
+                          size: 20.sp,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SizedBox(
+                          width: 30.w,
+                        ),
+                        // Show same texts with different colors
+                        RichText(
+                          text: TextSpan(
+                            children: <TextSpan>[
+                              TextSpan(
+                                text:
+                                    'A verification code was sent to \n ${widget.email}',
+                                style: GoogleFonts.nunito(
+                                  color: AppColor.grey400,
+                                  fontSize: 14.sp,
+                                ),
+                              ),
+                              TextSpan(
+                                text: '',
+                                style: GoogleFonts.nunito(
+                                  color: AppColor.secondaryMain,
+                                  fontSize: 14.sp,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                    //Pin text field
+                    Padding(
+                      padding: const EdgeInsets.all(40.0),
+                      child: Form(
+                        key: _key,
+                        child: Column(
+                          children: [
+                            PinCodeTextField(
+                              controller: pinController,
+                              appContext: context,
+                              length: 4,
+                              obscureText: true,
+                              obscuringCharacter: '*',
+                              blinkWhenObscuring: true,
+                              animationType: AnimationType.fade,
+                              validator: (v) {
+                                if (v!.length < 4) {
+                                  return "Pin Must be 4 digits";
+                                } else {
+                                  return null;
+                                }
+                              },
+                              pinTheme: PinTheme(
+                                  activeColor: Colors.white,
+                                  activeFillColor: Colors.white,
+                                  selectedColor: AppColor.mainColor,
+                                  inactiveColor: const Color(0xffFF6685),
+                                  selectedFillColor: Colors.white,
+                                  inactiveFillColor: Colors.white,
+                                  shape: PinCodeFieldShape.box,
+                                  borderRadius: BorderRadius.circular(5),
+                                  fieldHeight: 60.h,
+                                  fieldWidth: 60.w,
+                                  borderWidth: 0.3),
+                              cursorColor: Colors.black,
+                              animationDuration: const Duration(milliseconds: 300),
+                              enableActiveFill: true,
+                              errorAnimationController: errorController,
+                              keyboardType: TextInputType.number,
+                              boxShadows: const [
+                                BoxShadow(
+                                  offset: Offset(0, 1),
+                                  color: Colors.black12,
+                                  blurRadius: 10,
+                                )
+                              ],
+                              onChanged: (value) {
+                                // debugPrint(value);
+                                setState(() {
+                                  currentText = value;
+                                });
+                              },
+                            ),
+                            SizedBox(
+                              height: 20.h,
+                            ),
+                            MyTextField(
+                              controller: psaaword1Controller,
+                              validator: (val) {
+                                if (val!.isEmpty) {
+                                  return 'Field cannot be empty';
+                                }
+                                return null;
+                              },
+                              isPassword: false,
+                              obcureText: false,
+                              isReadOnly: false,
+                              labelText: 'password',
+                              keyBoardType: TextInputType.text,
+                            ),
+                            SizedBox(
+                              height: 40.h,
+                            ),
+                            MyTextField(
+                              controller: psaaword2Controller,
+                              validator: (val) {
+                                if (val!.isEmpty) {
+                                  return 'Field cannot be empty';
+                                }
+                                return null;
+                              },
+                              isPassword: false,
+                              obcureText: false,
+                              isReadOnly: false,
+                              labelText: 'confirm password',
+                              keyBoardType: TextInputType.text,
                             )
                           ],
-                          onChanged: (value) {
-                            // debugPrint(value);
-                            setState(() {
-                              currentText = value;
-                            });
-                          },
                         ),
-                        MyTextField(
-                          controller: psaaword1Controller,
-                          validator: (val) {
-                            if (val!.isEmpty) {
-                              return 'Field cannot be empty';
-                            }
-                            return null;
-                          },
-                          isPassword: false,
-                          obcureText: false,
-                          isReadOnly: false,
-                          labelText: 'password',
-                          keyBoardType: TextInputType.text,
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        MyTextField(
-                          controller: psaaword2Controller,
-                          validator: (val) {
-                            if (val!.isEmpty) {
-                              return 'Field cannot be empty';
-                            }
-                            return null;
-                          },
-                          isPassword: false,
-                          obcureText: false,
-                          isReadOnly: false,
-                          labelText: 'confirm password',
-                          keyBoardType: TextInputType.text,
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-                ReuseableButton(
-                    text: 'Verify',
-                    onPressed: () {
-                      if (_key.currentState!.validate()) {
-                        authViewModel.resetPassword({
-                          "token": pinController.text.trim(),
-                          "password": psaaword1Controller.text.trim(),
-                          "retypePassword": psaaword2Controller.text.trim()
-                        }, widget.email, context);
-                      }
-                    }),
-                const SizedBox(
-                  height: 30,
-                ),
-                Text(
-                  !enableResend
-                      ? 'Please resend code after $secondsRemaining seconds'
-                      : '',
-                  style:
-                      const TextStyle(color: AppColor.mainColor, fontSize: 12),
-                ),
-                // Show same texts with different colors
-                TextButton(
-                  onPressed: () {
-                    // authViewModel.resendOTP({"email": widget.email}, context);
-
-                    enableResend ? _resendCode(authViewModel) : null;
-                  },
-                  child: RichText(
-                    text: TextSpan(
-                      style: TextStyle(
-                        color: Colors.black87,
-                        fontSize: 16.sp,
                       ),
-                      children: <TextSpan>[
-                        TextSpan(
-                            text: 'I did not receive any code, ',
-                            style: TextStyle(
-                                color: AppColor.dullBlack, fontSize: 15.sp)),
-                        TextSpan(
-                          text: 'Resend Code',
-                          style: TextStyle(
-                              color: !enableResend
-                                  ? Colors.black
-                                  : AppColor.mainColor,
-                              fontWeight: FontWeight.w500,
-                              fontSize: 16.sp),
-                        ),
-                      ],
                     ),
-                  ),
+                    ReuseableButton(
+                      width: 250.w,
+                        text: 'Verify',
+                        onPressed: () {
+                          if (_key.currentState!.validate()) {
+                            authViewModel.resetPassword({
+                              "token": pinController.text.trim(),
+                              "password": psaaword1Controller.text.trim(),
+                              "retypePassword": psaaword2Controller.text.trim()
+                            }, widget.email, context);
+                          }
+                        }),
+                    const SizedBox(
+                      height: 30,
+                    ),
+                    Text(
+                      !enableResend
+                          ? 'Please resend code after $secondsRemaining seconds'
+                          : '',
+                      style:
+                          const TextStyle(color: AppColor.mainColor, fontSize: 12),
+                    ),
+                    // Show same texts with different colors
+                    TextButton(
+                      onPressed: () {
+                        // authViewModel.resendOTP({"email": widget.email}, context);
+        
+                        enableResend ? _resendCode(authViewModel) : null;
+                      },
+                      child: RichText(
+                        text: TextSpan(
+                          style: TextStyle(
+                            color: Colors.black87,
+                            fontSize: 16.sp,
+                          ),
+                          children: <TextSpan>[
+                            TextSpan(
+                                text: 'I did not receive any code, ',
+                                style: TextStyle(
+                                    color: AppColor.dullBlack, fontSize: 15.sp)),
+                            TextSpan(
+                              text: 'Resend Code',
+                              style: TextStyle(
+                                  color: !enableResend
+                                      ? Colors.black
+                                      : AppColor.mainColor,
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 16.sp),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                Positioned(
+                  child: authViewModel.loading
+                      ? const ProgressDialog(
+                          message: 'Loading....',
+                        )
+                      : const SizedBox(),
                 ),
               ],
             ),
-            Positioned(
-              child: authViewModel.loading
-                  ? const ProgressDialog(
-                      message: 'Loading....',
-                    )
-                  : const SizedBox(),
-            ),
-          ],
+          ),
         ),
       ),
     );

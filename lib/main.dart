@@ -1,5 +1,6 @@
 import 'package:findate/constants/appColor.dart';
 import 'package:findate/view/auth/views/confirm_email.dart';
+import 'package:findate/view/auth/views/loginAfterReg.dart';
 import 'package:findate/view/auth/views/login_screen.dart';
 import 'package:findate/view/landing_page/landing_page.dart';
 import 'package:findate/view/on_bording/on_bording_screen.dart';
@@ -21,7 +22,7 @@ void main() async {
 
   await UserPreferences.init();
 
-  // UserPreferences.resetSharedPref();
+  UserPreferences.resetSharedPref();
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
 
@@ -39,20 +40,20 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    bool expired = false;
+    // bool expired = false;
 
-    String? token = UserPreferences.getToken();
+    // String? token = UserPreferences.getToken();
 
-    if (token!.length > 5) {
-      try {
-        bool hasExpired = JwtDecoder.isExpired(token);
-        setState(() {
-          expired = hasExpired;
-        });
-      } catch (e) {
-        expired = true;
-      }
-    }
+    // if (token!.length > 5) {
+    //   try {
+    //     bool hasExpired = JwtDecoder.isExpired(token);
+    //     setState(() {
+    //       expired = hasExpired;
+    //     });
+    //   } catch (e) {
+    //     expired = true;
+    //   }
+    // }
 
     //Set the fit size (Find your UI design, look at the dimensions of the device screen and fill it in,unit in dp)
     return ScreenUtilInit(
@@ -67,9 +68,9 @@ class _MyAppState extends State<MyApp> {
                 primaryColor: Colors.pink[50],
                 primarySwatch: Colors.pink,
                 unselectedWidgetColor: AppColor.mainColor),
-            home: token.length < 5 || expired
-                ? const LoginScreen()
-                : const OnBoardingScreen(),
+            home: 
+              const LoginScreen(),
+          
             routes: {LoginScreen.id: (context) => const LoginScreen()});
       },
     );

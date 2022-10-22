@@ -1,0 +1,19 @@
+
+
+Registration routes
+
+1 SignupScreen => regisUser() => ConfirmEmailScreen => confrimEmail() => LoginAfterScreen => loginUserAfterReg() 
+
+=> PurposeForSignupscreen => ProfileSetupScreen => updateProfile => pushOnBoardingScreen
+
+
+
+
+
+Forgot password routes
+
+1 LoginScreen => ForgotPasswordScreen => recoverAccount() => RecoverAccountConfirmEmailScreen 
+=> resetPassword() => LoginScreen
+ 
+
+

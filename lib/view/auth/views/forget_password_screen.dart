@@ -9,15 +9,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class LoginScreen extends ConsumerStatefulWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+class ForgotPasswordScreen extends ConsumerStatefulWidget {
+  const ForgotPasswordScreen({Key? key}) : super(key: key);
   static const String id = 'login_screen';
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _LoginScreenState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _ForgotPasswordScreenState();
 }
 
-class _LoginScreenState extends ConsumerState<LoginScreen> {
+class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
   final TextEditingController emailController = TextEditingController();
 
   @override
@@ -32,20 +32,22 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     const SizedBox(
                       height: 70,
                     ),
-                    NormalText(
-                      text: 'Reset Code will be sent to that email',
-                      size: 24.sp,
-                      fontWeight: FontWeight.bold,
-                      color: const Color(0xff565656),
+                    Center(
+                      child: NormalText(
+                        text: 'Reset Code will be sent to that email',
+                        size: 16.sp,
+                        fontWeight: FontWeight.bold,
+                        color: const Color(0xff565656),
+                      ),
                     ),
                     const SizedBox(
-                      height: 30,
+                      height: 40,
                     ),
                     MyTextField(
                       controller: emailController,
@@ -63,7 +65,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                       keyBoardType: TextInputType.text,
                     ),
                     const SizedBox(
-                      height: 10,
+                      height: 70,
                     ),
                     ReuseableButton(
                         width: 323.w,

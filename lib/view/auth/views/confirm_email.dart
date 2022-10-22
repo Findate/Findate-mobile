@@ -90,7 +90,9 @@ class _ConfirmEmailScreenState extends ConsumerState<ConfirmEmailScreen> {
                   children: [
                     ReusesableAppbarButton(
                       iconButton: IconButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
                           icon: const Icon(
                             Icons.keyboard_arrow_left_outlined,
                             color: AppColor.mainColor,

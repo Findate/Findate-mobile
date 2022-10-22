@@ -119,6 +119,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     final authViewModel = ref.watch(authViewModelProvider);
+
     return SafeArea(
       child: Scaffold(
         body: SingleChildScrollView(
@@ -134,8 +135,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                   height: 275.h,
                   decoration: BoxDecoration(
                     image: DecorationImage(
-                        image: NetworkImage(authViewModel
-                                    .userData[0].header !=
+                        image: NetworkImage(authViewModel.userData[0].photo ==
                                 null
                             ? authViewModel.userData[0].header!
                             : 'https://res.cloudinary.com/hyghdrogin/image/upload/v1665284795/Findate/findate_m0lrnn.jpg'),
@@ -169,36 +169,39 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                           ],
                         ),
                       ),
-                    authViewModel.userData[0].header == null?   Stack(
-                        children: [
-                          SizedBox(
-                            height: 100.h,
-                            width: 150.w,
-                            child: Image.asset('assets/profileAvatar.png'),
-                          ),
-                          Positioned(
-                            left: 100,
-                            top: 55,
-                            child: Container(
-                              width: 44.w,
-                              height: 44.h,
-                              decoration: const BoxDecoration(
-                                color: AppColor.mainColor,
-                                shape: BoxShape.circle,
-                              ),
-                              child: IconButton(
-                                  icon: Icon(
-                                    Icons.camera_alt_outlined,
-                                    size: 24.h,
-                                    color: Colors.white,
+                      authViewModel.userData[0].header == null
+                          ? Stack(
+                              children: [
+                                SizedBox(
+                                  height: 100.h,
+                                  width: 150.w,
+                                  child:
+                                      Image.asset('assets/profileAvatar.png'),
+                                ),
+                                Positioned(
+                                  left: 100,
+                                  top: 55,
+                                  child: Container(
+                                    width: 44.w,
+                                    height: 44.h,
+                                    decoration: const BoxDecoration(
+                                      color: AppColor.mainColor,
+                                      shape: BoxShape.circle,
+                                    ),
+                                    child: IconButton(
+                                        icon: Icon(
+                                          Icons.camera_alt_outlined,
+                                          size: 24.h,
+                                          color: Colors.white,
+                                        ),
+                                        onPressed: () {
+                                          _modalBottomSheetMenu();
+                                        }),
                                   ),
-                                  onPressed: () {
-                                    _modalBottomSheetMenu();
-                                  }),
-                            ),
-                          ),
-                        ],
-                      ) : const SizedBox() ,
+                                ),
+                              ],
+                            )
+                          : const SizedBox(),
                     ],
                   ),
                 ),

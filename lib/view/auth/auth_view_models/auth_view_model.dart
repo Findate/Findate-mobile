@@ -38,8 +38,6 @@ class AuthViewModel extends ChangeNotifier {
 
 // login view model function
   Future loginUser(String url, body, context) async {
-    final token = UserPreferences.getToken();
-
     setLoading(true);
 
     var response = await WebServices.sendPostRequest(url, body, context);
@@ -68,7 +66,7 @@ class AuthViewModel extends ChangeNotifier {
     setLoading(false);
   }
 
-  // login view model function
+  // login after user first registration
   Future loginUserAfterReg(String url, body, context) async {
     setLoading(true);
 
@@ -76,7 +74,8 @@ class AuthViewModel extends ChangeNotifier {
 
     if (response.code == SUCCESS) {
       // //set save login user token from api response
-      UserPreferences.setLoginUerToken(response.response['data']['token']);
+      await UserPreferences.setLoginUerToken(
+          response.response['data']['token']);
 
       //navigate
       pushProfileSetupAfterReg(context);
@@ -125,8 +124,7 @@ class AuthViewModel extends ChangeNotifier {
 
     if (response.code == SUCCESS) {
       //navigate to screen after email confirmation and registration
-
-      pushLoginAfterProfileSetup(context);
+      pushLoginAfterRegSetup(context);
 
       setLoading(false);
     } else {
@@ -191,9 +189,9 @@ class AuthViewModel extends ChangeNotifier {
 
       userData.add(UserModel.fromJson(result));
 
-      notifyListeners();
+      pushOnBoardingScreen(context);
 
-      pushToLoginPage(context);
+      notifyListeners();
 
       setLoading(false);
     } else {
@@ -214,6 +212,10 @@ class AuthViewModel extends ChangeNotifier {
     if (response.response['statusCode'] == 200 ||
         response.response['statusCode'] == 201) {
       final res = response.response['data'];
+
+      UserPreferences.setUserProfilePix(res['photo']);
+
+      print(res['photo']);
 
       userData.add(UserModel.fromJson(res));
 
@@ -259,6 +261,7 @@ class AuthViewModel extends ChangeNotifier {
         '$baseUrl/recover-account', body, context);
 
     if (response.response['statusCode'] == SUCCESS) {
+      print(response.response['message']);
       pushRecoverAccountConfrimEmailScreen(context, email);
 
       setLoading(false);

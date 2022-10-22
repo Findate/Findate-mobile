@@ -20,6 +20,8 @@ import 'package:path/path.dart' as PAth;
 import 'dart:convert' as convert;
 import 'package:date_time_picker/date_time_picker.dart';
 
+import '../../constants/shared_preferences.dart';
+
 //First Setup Screen
 class FirstSetupScreen extends ConsumerStatefulWidget {
   final PageController pageController;
@@ -36,8 +38,9 @@ class _FirstSetupScreenState extends ConsumerState<FirstSetupScreen> {
   final TextEditingController surnameController = TextEditingController();
 
   File? profilePic;
+
   String pic =
-      'https://cdn.vectorstock.com/i/preview-1x/23/70/man-avatar-icon-flat-vector-19152370.webp';
+      'https://cdn.vectorstock.com/i/1000x1000/23/70/man-avatar-icon-flat-vector-19152370.webp';
 
   // Initial Selected Value
   String dropdownvalue = 'Male';
@@ -48,7 +51,6 @@ class _FirstSetupScreenState extends ConsumerState<FirstSetupScreen> {
     'Female',
     'Others',
   ];
-
 
 // funtion that upload profie pic from gallary
   Future pickGalaryImage() async {
@@ -65,16 +67,17 @@ class _FirstSetupScreenState extends ConsumerState<FirstSetupScreen> {
 
       await AuthViewModel().updateProfilePix(profilePic, context);
 
-
       refreshImage();
     } on PlatformException catch (e) {
       print('Failed to pick image: $e');
     }
   }
+
 // funtion that upload profie pic from camera
   Future pickCameraImage() async {
     try {
-      final image = await ImagePicker().pickImage(source: ImageSource.camera, imageQuality: 80);
+      final image = await ImagePicker()
+          .pickImage(source: ImageSource.camera, imageQuality: 80);
 
       if (image == null) return;
 
@@ -87,7 +90,6 @@ class _FirstSetupScreenState extends ConsumerState<FirstSetupScreen> {
       await AuthViewModel().updateProfilePix(profilePic, context);
 
       refreshImage();
-
     } on PlatformException catch (e) {
       print('Failed to pick image: $e');
     }
@@ -166,18 +168,17 @@ class _FirstSetupScreenState extends ConsumerState<FirstSetupScreen> {
         });
   }
 
-
 //refresh network image
+
   refreshImage() {
-    final authViewModel = ref.watch(authViewModelProvider);
+    var profilePic = UserPreferences.getUserProfilePix();
     setState(() {
-      pic = authViewModel.userData[0].photo!;
+      pic = profilePic!;
     });
   }
 
   @override
   Widget build(BuildContext context) {
-
     return SafeArea(
       child: Scaffold(
         body: SingleChildScrollView(
@@ -234,7 +235,7 @@ class _FirstSetupScreenState extends ConsumerState<FirstSetupScreen> {
                           child: FadeInImage(
                               image: NetworkImage(pic),
                               placeholder:
-                                  const AssetImage('assets/profileAvatar.png')),
+                                  const AssetImage('assets/manAvatar.jpg'),),
                         ),
                         Positioned(
                           left: 100,
@@ -780,7 +781,6 @@ class _ThirdSetupScreenState extends ConsumerState<ThirdSetupScreen> {
                         ReuseableButton(
                           onPressed: () {
                             authViewModel.updateProfile(getData(), context);
-                          
                           },
                           text: 'Setup',
                         )

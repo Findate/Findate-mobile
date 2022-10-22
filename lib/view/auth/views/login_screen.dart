@@ -1,5 +1,6 @@
 import 'package:findate/constants/appColor.dart';
 import 'package:findate/constants/app_state_constants.dart';
+import 'package:findate/view/auth/views/recover_account_confirm_email_screen.dart';
 import 'package:findate/view/auth/views/signup_screen.dart';
 import 'package:findate/widgets/reusesable_widget/normal_text.dart';
 import 'package:findate/widgets/reusesable_widget/reusaable_textformfield.dart';
@@ -8,6 +9,8 @@ import 'package:findate/widgets/utils/progress_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import 'forget_password_screen.dart';
 
 class LoginScreen extends ConsumerStatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -60,48 +63,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                     const SizedBox(
                       height: 30,
                     ),
-                    // Column(
-                    //   mainAxisAlignment: MainAxisAlignment.start,
-                    //   crossAxisAlignment: CrossAxisAlignment.start,
-                    //   children: [
-                    //     Visibility(
-                    //       visible: authViewModel.loginError ,
-                    //       child: Container(
-                    //         decoration: BoxDecoration(
-                    //           color: Colors.pink[100],
-                    //           borderRadius: BorderRadius.circular(20.r),
-                    //         ),
-                    //         height: 70.h,
-                    //         width: 340.w,
-                    //         child: Row(
-                    //           children: [
-                    //             Container(
-                    //                 padding:
-                    //                     EdgeInsets.only(left: 5.w, right: 5.w),
-                    //                 child: Icon(
-                    //                   Icons.error,
-                    //                   color: const Color(0xffD32f2f),
-                    //                   size: 24.w,
-                    //                 )),
-                    //             SizedBox(
-                    //               width: 300.w,
-                    //               child: NormalText(
-                    //                 textAlign: TextAlign.start,
-                    //                 text:
-                    //                     'we didnt recognize that email address or password you can try again or use another login option',
-                    //                 color: Colors.black54,
-                    //                 size: 15.sp,
-                    //               ),
-                    //             ),
-                    //           ],
-                    //         ),
-                    //       ),
-                    //     ),
-                    //     const SizedBox(
-                    //       height: 20,
-                    //     )
-                    //   ],
-                    // ),
                     Form(
                       key: _key,
                       child: Column(
@@ -162,10 +123,20 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                         const SizedBox(
                           width: 40,
                         ),
-                        NormalText(
-                          text: 'Forgot Password',
-                          color: const Color(0xff6D64FF),
-                          size: 16.sp,
+                        InkWell(
+                          onTap: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: ((context) =>
+                                    const ForgotPasswordScreen()),
+                              ),
+                            );
+                          },
+                          child: NormalText(
+                            text: 'Forgot Password',
+                            color: const Color(0xff6D64FF),
+                            size: 16.sp,
+                          ),
                         ),
                       ],
                     ),
@@ -177,14 +148,13 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                         text: 'Login',
                         onPressed: () async {
                           if (_key.currentState!.validate()) {
-                          await  authViewModel.loginUser(
+                            await authViewModel.loginUser(
                                 '$baseUrl/login',
                                 {
                                   "username": usernameController.text.trim(),
                                   "password": passwordController.text.trim()
                                 },
                                 context);
-                            
                           }
                         }),
                     SizedBox(

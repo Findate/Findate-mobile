@@ -15,10 +15,6 @@ import 'package:flutter/material.dart';
 
 import '../view/auth/views/recover_account_confirm_email_screen.dart';
 
-
-
-
-
 pushToNoInternetPage(BuildContext context) async {
   Navigator.push(
     context,
@@ -63,29 +59,37 @@ pushRecoverAccountConfrimEmailScreen(BuildContext context, String email) async {
 pushProfileSetupAfterReg(BuildContext context) {
   Navigator.of(context).push(
     MaterialPageRoute(
-      builder: ((context) => CompleteScreen(
-            bodyMessage:
-                'Congratulations, you have completed your registration, please setup your profile',
-            buttonMessage: 'Profile setup',
-            headerMessage: 'Registration complete',
-            navigate: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: ((context) => const PurposeForSignup()),
-                ),
-              );
-            },
-          )),
+      builder: ((context) => const PurposeForSignup()),
     ),
   );
 }
 
-pushLoginAfterProfileSetup(BuildContext context) {
+// pushProfileSetupAfterReg(BuildContext context) {
+//   Navigator.of(context).push(
+//     MaterialPageRoute(
+//       builder: ((context) => CompleteScreen(
+//             bodyMessage:
+//                 'Welcome, please setup your profile',
+//             buttonMessage: 'Profile setup',
+//             headerMessage: 'Registration complete',
+//             navigate: () {
+//               Navigator.of(context).push(
+//                 MaterialPageRoute(
+//                   builder: ((context) => const PurposeForSignup()),
+//                 ),
+//               );
+//             },
+//           )),
+//     ),
+//   );
+// }
+
+pushLoginAfterRegSetup(BuildContext context) {
   Navigator.of(context).push(
     MaterialPageRoute(
       builder: ((context) => CompleteScreen(
             bodyMessage:
-                'Congratulations, you have completed your Profile Setup, please login ',
+                'Congratulations, you have completed your registration, please login ',
             buttonMessage: 'Login',
             headerMessage: 'Profile Setup complete',
             navigate: () {
@@ -141,8 +145,8 @@ pushBlockedUsersScreen(BuildContext context) {
 }
 
 logout(BuildContext context) async {
-  Navigator.of(context).pushNamedAndRemoveUntil(
-    LoginScreen.id, (Route<dynamic> route) => false);
+  Navigator.of(context)
+      .pushNamedAndRemoveUntil(LoginScreen.id, (Route<dynamic> route) => false);
 }
 
 

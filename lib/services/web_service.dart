@@ -85,7 +85,7 @@ class WebServices {
 
 //handles patch requests
   static Future sendPatchRequest(String url, Object body, context) async {
-    final token = UserPreferences.getToken();
+    final token =  UserPreferences.getToken();
 
     bool isConnected = await SimpleConnectionChecker.isConnectedToInternet();
     final header = <String, String>{
@@ -122,6 +122,8 @@ class WebServices {
 
   //handles patch requests
   static Future uploadImageToApi(String url, File? image, context) async {
+
+
     final token = UserPreferences.getToken();
 
     bool isConnected = await SimpleConnectionChecker.isConnectedToInternet();

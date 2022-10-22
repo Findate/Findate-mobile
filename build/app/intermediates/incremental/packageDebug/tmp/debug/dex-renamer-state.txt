@@ -1,4 +1,4 @@
-#Sat Oct 22 13:14:53 WAT 2022
-base.0=C\:\\Users\\4GUYS ACCOUNT\\Desktop\\flutter\\findate\\Findate-mobile\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
+#Sat Oct 22 23:46:47 WAT 2022
+base.0=C\:\\Users\\HP\\Desktop\\vscode project\\findate\\Findate-mobile\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
 renamed.0=classes.dex
 path.0=classes.dex

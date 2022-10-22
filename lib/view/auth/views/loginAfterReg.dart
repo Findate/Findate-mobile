@@ -14,7 +14,8 @@ class LoginAfterScreen extends ConsumerStatefulWidget {
   static const String id = 'login_screen';
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _LoginAfterScreenState();
+  ConsumerState<ConsumerStatefulWidget> createState() =>
+      _LoginAfterScreenState();
 }
 
 class _LoginAfterScreenState extends ConsumerState<LoginAfterScreen> {
@@ -43,7 +44,7 @@ class _LoginAfterScreenState extends ConsumerState<LoginAfterScreen> {
                       height: 70,
                     ),
                     NormalText(
-                      text: 'Welcome Back',
+                      text: 'Glad to have you here',
                       size: 24.sp,
                       fontWeight: FontWeight.bold,
                       color: const Color(0xff565656),
@@ -52,56 +53,12 @@ class _LoginAfterScreenState extends ConsumerState<LoginAfterScreen> {
                       height: 10,
                     ),
                     NormalText(
-                      text: 'Login to connect with people',
+                      text: 'Please login to continue',
                       size: 14.sp,
                       fontWeight: FontWeight.bold,
                       color: const Color(0xff808080),
                     ),
-                    const SizedBox(
-                      height: 30,
-                    ),
-                    // Column(
-                    //   mainAxisAlignment: MainAxisAlignment.start,
-                    //   crossAxisAlignment: CrossAxisAlignment.start,
-                    //   children: [
-                    //     Visibility(
-                    //       visible: authViewModel.loginError ,
-                    //       child: Container(
-                    //         decoration: BoxDecoration(
-                    //           color: Colors.pink[100],
-                    //           borderRadius: BorderRadius.circular(20.r),
-                    //         ),
-                    //         height: 70.h,
-                    //         width: 340.w,
-                    //         child: Row(
-                    //           children: [
-                    //             Container(
-                    //                 padding:
-                    //                     EdgeInsets.only(left: 5.w, right: 5.w),
-                    //                 child: Icon(
-                    //                   Icons.error,
-                    //                   color: const Color(0xffD32f2f),
-                    //                   size: 24.w,
-                    //                 )),
-                    //             SizedBox(
-                    //               width: 300.w,
-                    //               child: NormalText(
-                    //                 textAlign: TextAlign.start,
-                    //                 text:
-                    //                     'we didnt recognize that email address or password you can try again or use another login option',
-                    //                 color: Colors.black54,
-                    //                 size: 15.sp,
-                    //               ),
-                    //             ),
-                    //           ],
-                    //         ),
-                    //       ),
-                    //     ),
-                    //     const SizedBox(
-                    //       height: 20,
-                    //     )
-                    //   ],
-                    // ),
+                    SizedBox(height: 20.h,),
                     Form(
                       key: _key,
                       child: Column(
@@ -177,104 +134,15 @@ class _LoginAfterScreenState extends ConsumerState<LoginAfterScreen> {
                         text: 'Login',
                         onPressed: () async {
                           if (_key.currentState!.validate()) {
-                          await  authViewModel.loginUserAfterReg(
+                            await authViewModel.loginUserAfterReg(
                                 '$baseUrl/login',
                                 {
                                   "username": usernameController.text.trim(),
                                   "password": passwordController.text.trim()
                                 },
                                 context);
-                            
                           }
                         }),
-                    SizedBox(
-                      height: 26.h,
-                    ),
-                    Center(
-                      child: NormalText(
-                        text: 'Or Sign in with',
-                        size: 16.sp,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    SizedBox(
-                      height: 30.h,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        ElevatedButton(
-                          onPressed: () {},
-                          style: ButtonStyle(
-                            padding: MaterialStateProperty.all(
-                                const EdgeInsets.symmetric(
-                                    horizontal: 65, vertical: 20)),
-                            backgroundColor:
-                                MaterialStateProperty.all(Colors.white),
-                            shape: MaterialStateProperty.all<
-                                RoundedRectangleBorder>(
-                              RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(45.0),
-                              ),
-                            ),
-                          ),
-                          child: Image.asset('assets/facebook.png'),
-                        ),
-                        ElevatedButton(
-                          onPressed: () {},
-                          style: ButtonStyle(
-                            padding: MaterialStateProperty.all(
-                                const EdgeInsets.symmetric(
-                                    horizontal: 65, vertical: 20)),
-                            backgroundColor:
-                                MaterialStateProperty.all(Colors.white),
-                            shape: MaterialStateProperty.all<
-                                RoundedRectangleBorder>(
-                              RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(45.0),
-                              ),
-                            ),
-                          ),
-                          child: Image.asset('assets/google.png'),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    Center(
-                      child: TextButton(
-                        onPressed: () {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: ((context) => const SignUpScreen()),
-                            ),
-                          );
-                        },
-                        child: RichText(
-                          text: TextSpan(
-                            style: TextStyle(
-                              color: Colors.black87,
-                              fontSize: 16.sp,
-                            ),
-                            children: <TextSpan>[
-                              TextSpan(
-                                  text: 'Dont have an account? ',
-                                  style: TextStyle(
-                                      color: AppColor.dullBlack,
-                                      fontSize: 14.sp)),
-                              TextSpan(
-                                text: 'Sign Up',
-                                style: TextStyle(
-                                    color: const Color(0xff6D64FF),
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 16.sp),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
                   ],
                 ),
               ),
