@@ -441,157 +441,160 @@ class _SecondSetupScreenState extends State<SecondSetupScreen> {
         body: SingleChildScrollView(
           child: SizedBox(
             height: 800,
-            child: Column(
-              children: [
-                SizedBox(
-                  height: 25.h,
-                ),
-                SmoothPageIndicator(
-                  controller: widget.pageController,
-                  count: 3,
-                  effect: ExpandingDotsEffect(
-                      spacing: 70,
-                      dotWidth: 10.w,
-                      dotHeight: 10.h,
-                      activeDotColor: AppColor.secondaryMain,
-                      dotColor: Colors.black12),
-                  onDotClicked: (index) => widget.pageController.animateToPage(
-                      index,
-                      duration: const Duration(milliseconds: 500),
-                      curve: Curves.easeOut),
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(
-                      height: 30.h,
-                    ),
-                    NormalText(
-                      text: 'Choose your birthday',
-                      size: 14.sp,
-                      fontWeight: FontWeight.w600,
-                    ),
-                    SizedBox(
-                      height: 16.h,
-                    ),
-                    Container(
-                      width: 343.w,
-                      height: 55.h,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        border: Border.all(width: 0.5, color: AppColor.grey400),
-                        borderRadius: BorderRadius.circular(5.r),
+            child: Padding(
+              padding: const EdgeInsets.all(24.0),
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: 25.h,
+                  ),
+                  SmoothPageIndicator(
+                    controller: widget.pageController,
+                    count: 3,
+                    effect: ExpandingDotsEffect(
+                        spacing: 70,
+                        dotWidth: 10.w,
+                        dotHeight: 10.h,
+                        activeDotColor: AppColor.secondaryMain,
+                        dotColor: Colors.black12),
+                    onDotClicked: (index) => widget.pageController.animateToPage(
+                        index,
+                        duration: const Duration(milliseconds: 500),
+                        curve: Curves.easeOut),
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        height: 30.h,
                       ),
-                      child: Theme(
-                        data: ThemeData(
-                          inputDecorationTheme: const InputDecorationTheme(
+                      NormalText(
+                        text: 'Choose your birthday',
+                        size: 14.sp,
+                        fontWeight: FontWeight.w600,
+                      ),
+                      SizedBox(
+                        height: 16.h,
+                      ),
+                      Container(
+                        width: 343.w,
+                        height: 55.h,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          border: Border.all(width: 0.5, color: AppColor.grey400),
+                          borderRadius: BorderRadius.circular(5.r),
+                        ),
+                        child: Theme(
+                          data: ThemeData(
+                            inputDecorationTheme: const InputDecorationTheme(
+                              border: InputBorder.none,
+                            ),
+                          ),
+                          child: DateTimePicker(
+                            type: DateTimePickerType.date,
+                            initialValue: '', //DateTime.now().toString(),
+                            firstDate: DateTime(2000),
+                            lastDate: DateTime(2100),
+                            icon: const Padding(
+                              padding: EdgeInsets.only(left: 10.0, right: 10),
+                              child: Icon(
+                                Icons.event,
+                                color: AppColor.secondaryMain,
+                                size: 24,
+                              ),
+                            ),
+                            onChanged: (val) {
+                              setState(() {
+                                dateOfBirth = val;
+                              });
+                            },
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 46.h,
+                      ),
+                      NormalText(
+                        text: 'Your Occupation',
+                        size: 14.sp,
+                        fontWeight: FontWeight.w500,
+                      ),
+                      SizedBox(
+                        height: 8.h,
+                      ),
+                      Container(
+                        width: 343.w,
+                        height: 55.h,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          border: Border.all(width: 0.5, color: AppColor.grey400),
+                          borderRadius: BorderRadius.circular(5.r),
+                        ),
+                        child: TextFormField(
+                          controller: occupationController,
+                          cursorColor: AppColor.grey400,
+                          decoration: InputDecoration(
                             border: InputBorder.none,
+                            contentPadding: EdgeInsets.all(16.w),
                           ),
                         ),
-                        child: DateTimePicker(
-                          type: DateTimePickerType.date,
-                          initialValue: '', //DateTime.now().toString(),
-                          firstDate: DateTime(2000),
-                          lastDate: DateTime(2100),
-                          icon: const Padding(
-                            padding: EdgeInsets.only(left: 10.0, right: 10),
-                            child: Icon(
-                              Icons.event,
-                              color: AppColor.secondaryMain,
-                              size: 24,
+                      ),
+                      SizedBox(
+                        height: 46.h,
+                      ),
+                      NormalText(
+                        text: 'Your Location',
+                        size: 14.sp,
+                        fontWeight: FontWeight.w500,
+                      ),
+                      SizedBox(
+                        height: 8.h,
+                      ),
+                      Container(
+                        width: 343.w,
+                        height: 55.h,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          border: Border.all(width: 0.5, color: AppColor.grey400),
+                          borderRadius: BorderRadius.circular(5.r),
+                        ),
+                        child: TextFormField(
+                          controller: locationController,
+                          cursorColor: AppColor.grey400,
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                            contentPadding: EdgeInsets.all(16.w),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 20.h,
+                      ),
+                      ReuseableButton(
+                        onPressed: () {
+                          widget.pageController.nextPage(
+                              duration: const Duration(milliseconds: 500),
+                              curve: Curves.easeOut);
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => ThirdSetupScreen(
+                                pageController: widget.pageController,
+                                name: widget.name,
+                                surname: widget.surname,
+                                gender: widget.gender,
+                                occupation: occupationController.text.trim(),
+                                location: occupationController.text.trim(),
+                                doB: dateOfBirth,
+                              ),
                             ),
-                          ),
-                          onChanged: (val) {
-                            setState(() {
-                              dateOfBirth = val;
-                            });
-                          },
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 46.h,
-                    ),
-                    NormalText(
-                      text: 'Your Occupation',
-                      size: 14.sp,
-                      fontWeight: FontWeight.w500,
-                    ),
-                    SizedBox(
-                      height: 8.h,
-                    ),
-                    Container(
-                      width: 343.w,
-                      height: 55.h,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        border: Border.all(width: 0.5, color: AppColor.grey400),
-                        borderRadius: BorderRadius.circular(5.r),
-                      ),
-                      child: TextFormField(
-                        controller: occupationController,
-                        cursorColor: AppColor.grey400,
-                        decoration: InputDecoration(
-                          border: InputBorder.none,
-                          contentPadding: EdgeInsets.all(16.w),
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 46.h,
-                    ),
-                    NormalText(
-                      text: 'Your Location',
-                      size: 14.sp,
-                      fontWeight: FontWeight.w500,
-                    ),
-                    SizedBox(
-                      height: 8.h,
-                    ),
-                    Container(
-                      width: 343.w,
-                      height: 55.h,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        border: Border.all(width: 0.5, color: AppColor.grey400),
-                        borderRadius: BorderRadius.circular(5.r),
-                      ),
-                      child: TextFormField(
-                        controller: locationController,
-                        cursorColor: AppColor.grey400,
-                        decoration: InputDecoration(
-                          border: InputBorder.none,
-                          contentPadding: EdgeInsets.all(16.w),
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 20.h,
-                    ),
-                    ReuseableButton(
-                      onPressed: () {
-                        widget.pageController.nextPage(
-                            duration: const Duration(milliseconds: 500),
-                            curve: Curves.easeOut);
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (context) => ThirdSetupScreen(
-                              pageController: widget.pageController,
-                              name: widget.name,
-                              surname: widget.surname,
-                              gender: widget.gender,
-                              occupation: occupationController.text.trim(),
-                              location: occupationController.text.trim(),
-                              doB: dateOfBirth,
-                            ),
-                          ),
-                        );
-                      },
-                      text: 'Continue',
-                    )
-                  ],
-                ),
-              ],
+                          );
+                        },
+                        text: 'Continue',
+                      )
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
         ),

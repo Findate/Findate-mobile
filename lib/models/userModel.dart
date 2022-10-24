@@ -28,7 +28,8 @@ class UserModel {
     this.name,
     this.occupation,
     this.surname,
-    this.photo
+    this.photo,
+    this.dob,
   });
 
   String? id;
@@ -46,6 +47,7 @@ class UserModel {
   String? occupation;
   String? surname;
   String? photo;
+  String? dob;
 
   factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
         id: json["_id"],
@@ -63,6 +65,7 @@ class UserModel {
         occupation: json["occupation"],
         surname: json["surname"],
         photo: json["photo"],
+        dob: json["dob"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -81,5 +84,6 @@ class UserModel {
         "occupation": occupation,
         "surname": surname,
         "photo": photo,
+        "dob": dob,
       };
 }

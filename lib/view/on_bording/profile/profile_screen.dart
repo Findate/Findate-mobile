@@ -1,10 +1,12 @@
-// ignore_for_file: must_be_immutable
+// ignore_for_file: must_be_immutable, use_build_context_synchronously
 
 import 'dart:io';
 
 import 'package:findate/constants/appColor.dart';
 import 'package:findate/constants/app_state_constants.dart';
+import 'package:findate/constants/shared_preferences.dart';
 import 'package:findate/routes/page_routes.dart';
+import 'package:findate/view/auth/auth_view_models/auth_view_model.dart';
 import 'package:findate/widgets/reusesable_widget/normal_text.dart';
 import 'package:findate/widgets/reusesable_widget/reuseable_appbar_button.dart';
 import 'package:findate/widgets/reusesable_widget/reuseable_button.dart';
@@ -13,44 +15,73 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:path/path.dart' as PAth;
 
 class ProfileScreen extends ConsumerStatefulWidget {
-  const ProfileScreen({Key? key}) : super(key: key);
+  const ProfileScreen({
+    Key? key,
+  }) : super(key: key);
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _ProfileScreenState();
 }
 
 class _ProfileScreenState extends ConsumerState<ProfileScreen> {
-  File? image;
+  File? profilePic;
 
+
+
+// funtion that upload profie pic from gallary
   Future pickGalaryImage() async {
     try {
-      final image = await ImagePicker().pickImage(source: ImageSource.gallery);
+      final image = await ImagePicker()
+          .pickImage(source: ImageSource.gallery, imageQuality: 80);
 
       if (image == null) return;
 
-      final imageTemporary = File(image.path);
+      final imagePath = await savePicture(image.path);
+      setState(() {
+        profilePic = imagePath;
+      });
+
+      await AuthViewModel().updateProfilePix(profilePic, context);
+
+      pushBlockedUsersScreen(context);
+    } on PlatformException catch (e) {
+      print('Failed to pick image: $e');
+    }
+  }
+  
+
+// funtion that upload profie pic from camera
+  Future pickCameraImage() async {
+    try {
+      final image = await ImagePicker()
+          .pickImage(source: ImageSource.camera, imageQuality: 80);
+
+      if (image == null) return;
+
+      final imagePath = await savePicture(image.path);
 
       setState(() {
-        this.image = imageTemporary;
-        print(image);
+        profilePic = imagePath;
       });
+
+      await AuthViewModel().updateProfilePix(profilePic, context);
+
+      // refreshImage();
     } on PlatformException catch (e) {
       print('Failed to pick image: $e');
     }
   }
 
-  Future pickCameraImage() async {
-    try {
-      final image = await ImagePicker().pickImage(source: ImageSource.camera);
-
-      if (image == null) return;
-      final imageTemp = File(image.path);
-      setState(() => this.image = imageTemp);
-    } on PlatformException catch (e) {
-      print('Failed to pick image: $e');
-    }
+//saved picture path before upload
+  Future<File> savePicture(String imagePath) async {
+    final directory = await getApplicationDocumentsDirectory();
+    final name = PAth.basename(imagePath);
+    final image = File('${directory.path}/$name');
+    return File(imagePath).copy(image.path);
   }
 
   void _modalBottomSheetMenu() {
@@ -83,6 +114,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                             ),
                             onPressed: () {
                               pickCameraImage();
+                              Navigator.pop(context);
                             },
                           ),
                           NormalText(
@@ -102,6 +134,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                             ),
                             onPressed: () {
                               pickGalaryImage();
+                              Navigator.pop(context);
                             },
                           ),
                           NormalText(
@@ -115,6 +148,15 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
           );
         });
   }
+
+//refresh network image
+
+  // refreshImage() {
+  //   final authViewModel = ref.watch(authViewModelProvider);
+  //   setState(() {
+  //     pic = authViewModel.userData[0].photo!;
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -135,6 +177,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                   height: 275.h,
                   decoration: BoxDecoration(
                     image: DecorationImage(
+                        // profile header image
                         image: NetworkImage(authViewModel.userData[0].photo ==
                                 null
                             ? authViewModel.userData[0].header!
@@ -169,39 +212,42 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                           ],
                         ),
                       ),
-                      authViewModel.userData[0].header == null
-                          ? Stack(
-                              children: [
-                                SizedBox(
-                                  height: 100.h,
-                                  width: 150.w,
-                                  child:
-                                      Image.asset('assets/profileAvatar.png'),
-                                ),
-                                Positioned(
-                                  left: 100,
-                                  top: 55,
-                                  child: Container(
-                                    width: 44.w,
-                                    height: 44.h,
-                                    decoration: const BoxDecoration(
-                                      color: AppColor.mainColor,
-                                      shape: BoxShape.circle,
-                                    ),
-                                    child: IconButton(
-                                        icon: Icon(
-                                          Icons.camera_alt_outlined,
-                                          size: 24.h,
-                                          color: Colors.white,
-                                        ),
-                                        onPressed: () {
-                                          _modalBottomSheetMenu();
-                                        }),
+                      Stack(
+                        children: [
+                          Container(
+                            height: 150,
+                            width: 150,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              image: DecorationImage(
+                                image: NetworkImage(authViewModel.userData[0].photo!),
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ),
+                          Positioned(
+                            left: 100,
+                            bottom: 10,
+                            child: Container(
+                              width: 44.w,
+                              height: 44.h,
+                              decoration: const BoxDecoration(
+                                color: AppColor.mainColor,
+                                shape: BoxShape.circle,
+                              ),
+                              child: IconButton(
+                                  icon: Icon(
+                                    Icons.camera_alt_outlined,
+                                    size: 24.h,
+                                    color: Colors.white,
                                   ),
-                                ),
-                              ],
-                            )
-                          : const SizedBox(),
+                                  onPressed: () {
+                                    _modalBottomSheetMenu();
+                                  }),
+                            ),
+                          ),
+                        ],
+                      ),
                     ],
                   ),
                 ),
@@ -211,15 +257,17 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                     child: Column(children: [
                       ProfileCards(
                           title: 'Full Name',
-                          lable: authViewModel.userData[0].name! +
-                              authViewModel.userData[0].surname!),
+                          lable:
+                              "${authViewModel.userData[0].name!} ${authViewModel.userData[0].surname!}"),
                       ProfileCards(
                           title: 'Gender',
                           lable: authViewModel.userData[0].gender!),
                       ProfileCards(
                           title: 'Location',
                           lable: authViewModel.userData[0].location!),
-                      ProfileCards(title: 'Date of birth'),
+                      ProfileCards(
+                          title: 'Date of birth',
+                          lable: authViewModel.userData[0].dob!),
                       ProfileCards(
                           title: 'Occupation',
                           lable: authViewModel.userData[0].occupation!),

@@ -215,11 +215,11 @@ class AuthViewModel extends ChangeNotifier {
 
       UserPreferences.setUserProfilePix(res['photo']);
 
-      print(res['photo']);
-
       userData.add(UserModel.fromJson(res));
 
       notifyListeners();
+
+     
 
       setLoading(false);
     } else {

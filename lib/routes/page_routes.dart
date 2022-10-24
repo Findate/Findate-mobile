@@ -3,6 +3,7 @@ import 'package:findate/view/auth/views/loginAfterReg.dart';
 import 'package:findate/view/auth/views/login_screen.dart';
 import 'package:findate/view/landing_page/no_internet_screen.dart';
 import 'package:findate/view/on_bording/on_bording_screen.dart';
+import 'package:findate/view/on_bording/profile/profile_screen.dart';
 import 'package:findate/view/others/blocked_users_screen.dart';
 import 'package:findate/view/others/notifications_screen.dart';
 import 'package:findate/view/others/privacy_screen.dart';
@@ -140,6 +141,14 @@ pushBlockedUsersScreen(BuildContext context) {
   Navigator.of(context).push(
     MaterialPageRoute(
       builder: ((context) => const BlockedUsers()),
+    ),
+  );
+}
+
+pushProfileScreen(BuildContext context) {
+  Navigator.of(context).push(
+    MaterialPageRoute(
+      builder: ((context) => const ProfileScreen()),
     ),
   );
 }

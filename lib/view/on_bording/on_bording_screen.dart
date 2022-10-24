@@ -28,7 +28,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
     const NearbyDates(),
     const MatchScreen(),
     const ChatsScreen(),
-    const ProfileScreen()
+     ProfileScreen()
   ];
 
   @override
