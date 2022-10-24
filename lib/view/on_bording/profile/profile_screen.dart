@@ -29,8 +29,14 @@ class ProfileScreen extends ConsumerStatefulWidget {
 
 class _ProfileScreenState extends ConsumerState<ProfileScreen> {
   File? profilePic;
-
-
+  bool update = true;
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController surnameController = TextEditingController();
+  final TextEditingController locationController = TextEditingController();
+  final TextEditingController occupationController = TextEditingController();
+  final TextEditingController genderController = TextEditingController();
+  final TextEditingController dobController = TextEditingController();
+  final TextEditingController interestController = TextEditingController();
 
 // funtion that upload profie pic from gallary
   Future pickGalaryImage() async {
@@ -52,7 +58,6 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
       print('Failed to pick image: $e');
     }
   }
-  
 
 // funtion that upload profie pic from camera
   Future pickCameraImage() async {
@@ -158,6 +163,19 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
   //   });
   // }
 
+  getData() {
+    final data = {
+      "name": nameController.text.trim(),
+      "surname": surnameController.text.trim(),
+      "location": locationController.text.trim(),
+      "gender": genderController.text.trim(),
+      "occupation": occupationController.text.trim(),
+      "dob": dobController.text.trim(),
+      "interest": interestController.text.trim(),
+    };
+    return data;
+  }
+
   @override
   Widget build(BuildContext context) {
     final authViewModel = ref.watch(authViewModelProvider);
@@ -191,11 +209,18 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            NormalText(
-                              text: 'Profile',
-                              size: 22.sp,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.white,
+                            InkWell(
+                              onTap: () {
+                                setState(() {
+                                  update = !update;
+                                });
+                              },
+                              child: NormalText(
+                                text: 'Edit',
+                                size: 22.sp,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.white,
+                              ),
                             ),
                             ReusesableAppbarButton(
                               backGroundColor: Colors.white,
@@ -220,7 +245,8 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
                               image: DecorationImage(
-                                image: NetworkImage(authViewModel.userData[0].photo!),
+                                image: NetworkImage(
+                                    authViewModel.userData[0].photo!),
                                 fit: BoxFit.cover,
                               ),
                             ),
@@ -257,21 +283,33 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                     child: Column(children: [
                       ProfileCards(
                           title: 'Full Name',
+                          controller: nameController,
+                          editable: update,
                           lable:
                               "${authViewModel.userData[0].name!} ${authViewModel.userData[0].surname!}"),
                       ProfileCards(
                           title: 'Gender',
+                          controller: genderController,
+                          editable: update,
                           lable: authViewModel.userData[0].gender!),
                       ProfileCards(
+                          controller: locationController,
+                          editable: update,
                           title: 'Location',
                           lable: authViewModel.userData[0].location!),
                       ProfileCards(
+                          controller: dobController,
+                          editable: update,
                           title: 'Date of birth',
                           lable: authViewModel.userData[0].dob!),
                       ProfileCards(
+                          controller: occupationController,
+                          editable: update,
                           title: 'Occupation',
                           lable: authViewModel.userData[0].occupation!),
                       ProfileCards(
+                          controller: interestController,
+                          editable: update,
                           title: 'Interest',
                           lable: authViewModel.userData[0].interest!),
                       SizedBox(
@@ -399,7 +437,14 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                       ),
                     ]),
                   ),
-                )
+                ),
+                !update
+                    ? ReuseableButton(
+                        text: 'Update',
+                        onPressed: () {
+                          authViewModel.updateProfile(getData(), context);
+                        })
+                    : const SizedBox()
               ],
             ),
           ),
@@ -412,8 +457,17 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
 class ProfileCards extends ConsumerStatefulWidget {
   String title;
   String lable;
+  TextEditingController? controller;
+  bool editable = false;
 
-  ProfileCards({Key? key, required this.title, this.lable = ''})
+  ProfileCards(
+      {Key? key,
+      required this.title,
+      this.lable = '',
+      required this.controller,
+      required this.editable
+      
+      })
       : super(key: key);
 
   @override
@@ -444,9 +498,12 @@ class _ProfileCardsState extends ConsumerState<ProfileCards> {
             borderRadius: BorderRadius.circular(5.r),
           ),
           child: TextFormField(
+            readOnly: widget.editable,
+            controller: widget.controller,
             cursorColor: AppColor.grey400,
             decoration: InputDecoration(
-              labelText: widget.lable,
+              hintStyle: !widget.editable ? const TextStyle(color: Colors.white) :const TextStyle(color: Colors.black) ,
+              hintText: widget.lable,
               border: InputBorder.none,
               contentPadding: EdgeInsets.all(16.w),
             ),
