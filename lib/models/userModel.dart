@@ -7,12 +7,14 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:flutter/cupertino.dart';
+
 UserModel userDataModelFromJson(String str) =>
     UserModel.fromJson(json.decode(str));
 
 String userDataModelToJson(UserModel data) => json.encode(data.toJson());
 
-class UserModel {
+class UserModel  extends ChangeNotifier{
   UserModel({
     this.id,
     this.email,

@@ -26,6 +26,8 @@ class AuthViewModel extends ChangeNotifier {
 
   List<UserModel> userData = [];
 
+  UserModel userApiData = UserModel();
+
   bool _loading = false;
   bool get loading => _loading;
 
@@ -39,6 +41,23 @@ class AuthViewModel extends ChangeNotifier {
 
   setLoginError(bool loginError) {
     _loginError = loginError;
+  }
+
+  addUserdata(UserModel newUser) {
+    userApiData.name = newUser.name;
+    userApiData.surname = newUser.surname;
+    userApiData.location = newUser.location;
+    userApiData.dob = newUser.dob;
+    userApiData.occupation = newUser.occupation;
+    userApiData.photo = newUser.photo;
+    userApiData.header = newUser.header;
+    userApiData.email = newUser.email;
+    userApiData.about = newUser.about;
+    userApiData.interest = newUser.interest;
+  }
+
+  addUserPhoto(UserModel newUser) {
+    userApiData.photo = newUser.photo;
   }
 
 // login view model function
@@ -55,7 +74,6 @@ class AuthViewModel extends ChangeNotifier {
       getLoginUserData({
         "username": body["username"],
       }, context);
-    
 
       //navigate to onbording screen
       pushOnBoardingScreen(context);
@@ -218,10 +236,8 @@ class AuthViewModel extends ChangeNotifier {
     if (response.response['statusCode'] == SUCCESS) {
       final result = response.response['data'];
 
+      addUserdata(UserModel.fromJson(result));
       userData.add(UserModel.fromJson(result));
-
-      notifyListeners();
-
 
       setLoading(false);
     } else {
@@ -243,11 +259,7 @@ class AuthViewModel extends ChangeNotifier {
         response.response['statusCode'] == 201) {
       final res = response.response['data'];
 
-      UserPreferences.setUserProfilePix(res['photo']);
-
-      userData.add(UserModel.fromJson(res));
-
-      notifyListeners();
+      addUserPhoto(UserModel.fromJson(res));
 
       setLoading(false);
 

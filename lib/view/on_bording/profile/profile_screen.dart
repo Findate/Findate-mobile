@@ -56,8 +56,6 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
       });
 
       await AuthViewModel.instance.updateProfilePix(profilePic, context);
-
-      pushBlockedUsersScreen(context);
     } on PlatformException catch (e) {
       print('Failed to pick image: $e');
     }
@@ -174,16 +172,21 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     final authViewModel = ref.watch(authViewModelProvider);
-    nameController.text =
-        "${authViewModel.userData[0].name!} ${authViewModel.userData[0].surname!}";
-    locationController.text = authViewModel.userData[0].name!;
-    locationController.text = authViewModel.userData[0].location!;
-    occupationController.text = authViewModel.userData[0].occupation!;
-    dobController.text = authViewModel.userData[0].dob!;
-    genderController.text = authViewModel.userData[0].gender!;
+    final userApiData = ref.watch(provider);
 
-    String pic =
-        "${authViewModel.userData[0].photo!}?t=${DateTime.now().millisecond}";
+    nameController.text =
+        "${userApiData.name ?? authViewModel.userData.first.name!} ${userApiData.surname ?? authViewModel.userData.first.surname!}";
+    locationController.text =
+        userApiData.location ?? authViewModel.userData.first.location!;
+    occupationController.text =
+        userApiData.occupation ?? authViewModel.userData.first.occupation!;
+    dobController.text = userApiData.dob ?? authViewModel.userData.first.dob!;
+    genderController.text =
+        userApiData.dob ?? authViewModel.userData.first.gender!;
+
+
+    String pic = "${userApiData.photo}?t=${DateTime.now().millisecond}";
+ 
 
     return SafeArea(
       child: Scaffold(
@@ -203,11 +206,8 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                       decoration: BoxDecoration(
                         image: DecorationImage(
                             // profile header image
-                            image: NetworkImage(authViewModel
-                                        .userData[0].photo ==
-                                    null
-                                ? authViewModel.userData[0].header!
-                                : 'https://res.cloudinary.com/hyghdrogin/image/upload/v1665284795/Findate/findate_m0lrnn.jpg'),
+                            image: NetworkImage(userApiData.header ??
+                                'https://res.cloudinary.com/hyghdrogin/image/upload/v1665284795/Findate/findate_m0lrnn.jpg'),
                             fit: BoxFit.cover),
                       ),
                       child: Column(
@@ -288,35 +288,6 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                         ],
                       ),
                     ),
-                    // FutureBuilder<List<UserModel>>(
-                    //   future: AuthViewModel().updateProfile(getData(), context),
-                    //   builder: ((context, snapshot) {
-                    //     if (snapshot.connectionState ==
-                    //         ConnectionState.waiting) {
-                    //       return const CircularProgressIndicator.adaptive();
-                    //     } else if (snapshot.hasData) {
-                    //       final user = snapshot.data;
-                    //       print(user);
-                    //       return ListView.builder(
-                    //         itemCount: user!.length,
-                    //         itemBuilder: (context, index) {
-                    //           return SizedBox(
-                    //             height: 1000,
-                    //             width: 300,
-                    //             child: ProfileCards(
-                    //                 title: user[index].name!,
-                    //                 controller: nameController,
-                    //                 editable: update),
-                    //           );
-                    //         },
-                    //       );
-                    //     } else if (snapshot.hasError) {
-                    //       print('erro');
-                    //     }
-
-                    //     return const SizedBox();
-                    //   }),
-                    // ),
                     Padding(
                       padding: const EdgeInsets.all(10.0),
                       child: SizedBox(
@@ -542,7 +513,7 @@ class _ProfileCardsState extends ConsumerState<ProfileCards> {
             cursorColor: AppColor.grey400,
             decoration: InputDecoration(
               hintStyle: const TextStyle(color: Colors.black),
-              hintText: widget.lable,
+              // hintText: widget.lable,
               border: InputBorder.none,
               contentPadding: EdgeInsets.all(16.w),
             ),
