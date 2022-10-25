@@ -5,11 +5,13 @@ import 'dart:io';
 import 'package:findate/constants/appColor.dart';
 import 'package:findate/constants/app_state_constants.dart';
 import 'package:findate/constants/shared_preferences.dart';
+import 'package:findate/models/userModel.dart';
 import 'package:findate/routes/page_routes.dart';
 import 'package:findate/view/auth/auth_view_models/auth_view_model.dart';
 import 'package:findate/widgets/reusesable_widget/normal_text.dart';
 import 'package:findate/widgets/reusesable_widget/reuseable_appbar_button.dart';
 import 'package:findate/widgets/reusesable_widget/reuseable_button.dart';
+import 'package:findate/widgets/utils/progress_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -17,6 +19,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart' as PAth;
+import 'dart:typed_data';
 
 class ProfileScreen extends ConsumerStatefulWidget {
   const ProfileScreen({
@@ -30,6 +33,7 @@ class ProfileScreen extends ConsumerStatefulWidget {
 class _ProfileScreenState extends ConsumerState<ProfileScreen> {
   File? profilePic;
   bool update = true;
+
   final TextEditingController nameController = TextEditingController();
   final TextEditingController surnameController = TextEditingController();
   final TextEditingController locationController = TextEditingController();
@@ -51,7 +55,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
         profilePic = imagePath;
       });
 
-      await AuthViewModel().updateProfilePix(profilePic, context);
+      await AuthViewModel.instance.updateProfilePix(profilePic, context);
 
       pushBlockedUsersScreen(context);
     } on PlatformException catch (e) {
@@ -73,7 +77,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
         profilePic = imagePath;
       });
 
-      await AuthViewModel().updateProfilePix(profilePic, context);
+      await AuthViewModel.instance.updateProfilePix(profilePic, context);
 
       // refreshImage();
     } on PlatformException catch (e) {
@@ -154,15 +158,6 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
         });
   }
 
-//refresh network image
-
-  // refreshImage() {
-  //   final authViewModel = ref.watch(authViewModelProvider);
-  //   setState(() {
-  //     pic = authViewModel.userData[0].photo!;
-  //   });
-  // }
-
   getData() {
     final data = {
       "name": nameController.text.trim(),
@@ -179,275 +174,321 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     final authViewModel = ref.watch(authViewModelProvider);
+    nameController.text =
+        "${authViewModel.userData[0].name!} ${authViewModel.userData[0].surname!}";
+    locationController.text = authViewModel.userData[0].name!;
+    locationController.text = authViewModel.userData[0].location!;
+    occupationController.text = authViewModel.userData[0].occupation!;
+    dobController.text = authViewModel.userData[0].dob!;
+    genderController.text = authViewModel.userData[0].gender!;
+
+    String pic =
+        "${authViewModel.userData[0].photo!}?t=${DateTime.now().millisecond}";
 
     return SafeArea(
       child: Scaffold(
-        body: SingleChildScrollView(
-          child: SizedBox(
-            height: 1300.h,
-            width: 375.w,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  width: 375.w,
-                  height: 275.h,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                        // profile header image
-                        image: NetworkImage(authViewModel.userData[0].photo ==
-                                null
-                            ? authViewModel.userData[0].header!
-                            : 'https://res.cloudinary.com/hyghdrogin/image/upload/v1665284795/Findate/findate_m0lrnn.jpg'),
-                        fit: BoxFit.cover),
-                  ),
-                  child: Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            InkWell(
-                              onTap: () {
-                                setState(() {
-                                  update = !update;
-                                });
-                              },
-                              child: NormalText(
-                                text: 'Edit',
-                                size: 22.sp,
-                                fontWeight: FontWeight.w600,
-                                color: Colors.white,
-                              ),
+        body: Stack(
+          children: [
+            SingleChildScrollView(
+              child: SizedBox(
+                height: 1300.h,
+                width: 375.w,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      width: 375.w,
+                      height: 275.h,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                            // profile header image
+                            image: NetworkImage(authViewModel
+                                        .userData[0].photo ==
+                                    null
+                                ? authViewModel.userData[0].header!
+                                : 'https://res.cloudinary.com/hyghdrogin/image/upload/v1665284795/Findate/findate_m0lrnn.jpg'),
+                            fit: BoxFit.cover),
+                      ),
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                InkWell(
+                                  onTap: () {
+                                    setState(() {
+                                      update = !update;
+                                    });
+                                    if (update) {
+                                      authViewModel.updateProfile(
+                                          getData(), context);
+                                    }
+                                  },
+                                  child: NormalText(
+                                    text: update ? 'Edit' : 'Save',
+                                    size: 22.sp,
+                                    fontWeight: FontWeight.w600,
+                                    color: AppColor.mainColor,
+                                  ),
+                                ),
+                                ReusesableAppbarButton(
+                                  backGroundColor: Colors.white,
+                                  iconButton: IconButton(
+                                    onPressed: () {
+                                      pushSettingsScreen(context);
+                                    },
+                                    icon: const Icon(
+                                      Icons.settings,
+                                      color: AppColor.mainColor,
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
-                            ReusesableAppbarButton(
-                              backGroundColor: Colors.white,
-                              iconButton: IconButton(
-                                onPressed: () {
-                                  pushSettingsScreen(context);
-                                },
-                                icon: const Icon(
-                                  Icons.settings,
-                                  color: AppColor.mainColor,
+                          ),
+                          Stack(
+                            children: [
+                              Container(
+                                height: 150,
+                                width: 150,
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  image: DecorationImage(
+                                    image: NetworkImage(pic),
+                                    fit: BoxFit.cover,
+                                  ),
                                 ),
                               ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Stack(
-                        children: [
-                          Container(
-                            height: 150,
-                            width: 150,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              image: DecorationImage(
-                                image: NetworkImage(
-                                    authViewModel.userData[0].photo!),
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                          ),
-                          Positioned(
-                            left: 100,
-                            bottom: 10,
-                            child: Container(
-                              width: 44.w,
-                              height: 44.h,
-                              decoration: const BoxDecoration(
-                                color: AppColor.mainColor,
-                                shape: BoxShape.circle,
-                              ),
-                              child: IconButton(
-                                  icon: Icon(
-                                    Icons.camera_alt_outlined,
-                                    size: 24.h,
-                                    color: Colors.white,
+                              Positioned(
+                                left: 100,
+                                bottom: 10,
+                                child: Container(
+                                  width: 44.w,
+                                  height: 44.h,
+                                  decoration: const BoxDecoration(
+                                    color: AppColor.mainColor,
+                                    shape: BoxShape.circle,
                                   ),
-                                  onPressed: () {
-                                    _modalBottomSheetMenu();
-                                  }),
-                            ),
+                                  child: IconButton(
+                                      icon: Icon(
+                                        Icons.camera_alt_outlined,
+                                        size: 24.h,
+                                        color: Colors.white,
+                                      ),
+                                      onPressed: () {
+                                        _modalBottomSheetMenu();
+                                      }),
+                                ),
+                              ),
+                            ],
                           ),
                         ],
                       ),
-                    ],
-                  ),
+                    ),
+                    // FutureBuilder<List<UserModel>>(
+                    //   future: AuthViewModel().updateProfile(getData(), context),
+                    //   builder: ((context, snapshot) {
+                    //     if (snapshot.connectionState ==
+                    //         ConnectionState.waiting) {
+                    //       return const CircularProgressIndicator.adaptive();
+                    //     } else if (snapshot.hasData) {
+                    //       final user = snapshot.data;
+                    //       print(user);
+                    //       return ListView.builder(
+                    //         itemCount: user!.length,
+                    //         itemBuilder: (context, index) {
+                    //           return SizedBox(
+                    //             height: 1000,
+                    //             width: 300,
+                    //             child: ProfileCards(
+                    //                 title: user[index].name!,
+                    //                 controller: nameController,
+                    //                 editable: update),
+                    //           );
+                    //         },
+                    //       );
+                    //     } else if (snapshot.hasError) {
+                    //       print('erro');
+                    //     }
+
+                    //     return const SizedBox();
+                    //   }),
+                    // ),
+                    Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: SizedBox(
+                        child: Column(children: [
+                          ProfileCards(
+                            title: 'Full Name',
+                            controller: nameController,
+                            editable: update,
+                          ),
+                          ProfileCards(
+                            title: 'Gender',
+                            controller: genderController,
+                            editable: update,
+                          ),
+                          ProfileCards(
+                            controller: locationController,
+                            editable: update,
+                            title: 'Location',
+                          ),
+                          ProfileCards(
+                            controller: dobController,
+                            editable: update,
+                            title: 'Date of birth',
+                          ),
+                          ProfileCards(
+                            controller: occupationController,
+                            editable: update,
+                            title: 'Occupation',
+                          ),
+                          ProfileCards(
+                            controller: interestController,
+                            editable: update,
+                            title: 'Interest',
+                          ),
+                          SizedBox(
+                            height: 80.h,
+                          ),
+                          NormalText(text: 'Interests (Max 3 allowed)'),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(right: 10.0),
+                                child: ReuseableButton(
+                                  margin: 0,
+                                  radius: 2.r,
+                                  text: '+',
+                                  onPressed: () {},
+                                  height: 32.h,
+                                  width: 32.w,
+                                  backGroundColor: AppColor.mainColor,
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(5.0),
+                                child: ReuseableButton(
+                                  margin: 0,
+                                  radius: 2.r,
+                                  text: 'Pet',
+                                  onPressed: () {},
+                                  height: 32.4,
+                                  width: 90.w,
+                                  backGroundColor: AppColor.secondaryMain,
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(5.0),
+                                child: ReuseableButton(
+                                  margin: 0,
+                                  radius: 2.r,
+                                  text: 'Cooking',
+                                  onPressed: () {},
+                                  height: 32.4,
+                                  width: 90.w,
+                                  backGroundColor: AppColor.secondaryMain,
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(5.0),
+                                child: ReuseableButton(
+                                  margin: 0,
+                                  radius: 2.r,
+                                  text: 'Art',
+                                  onPressed: () {},
+                                  height: 32.4,
+                                  width: 90.w,
+                                  backGroundColor: AppColor.secondaryMain,
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 30.h,
+                          ),
+                          NormalText(text: 'Preference'),
+                          SizedBox(
+                            height: 10.h,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              ReuseableButton(
+                                margin: 0,
+                                radius: 2.r,
+                                text: 'Male',
+                                onPressed: () {},
+                                height: 32.4,
+                                width: 110.w,
+                                backGroundColor: const Color(0xffCCCCCC),
+                              ),
+                              ReuseableButton(
+                                margin: 0,
+                                radius: 2.r,
+                                text: 'Female',
+                                onPressed: () {},
+                                height: 32.4,
+                                width: 110.w,
+                                backGroundColor: AppColor.secondaryMain,
+                              ),
+                              ReuseableButton(
+                                margin: 0,
+                                radius: 2.r,
+                                text: 'Others',
+                                onPressed: () {},
+                                height: 32.4,
+                                width: 110.w,
+                                backGroundColor: const Color(0xffCCCCCC),
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 20.h,
+                          ),
+                          NormalText(text: 'Photo Gallery'),
+                          SizedBox(
+                            height: 10.h,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              SizedBox(
+                                width: 103.w,
+                                height: 124.h,
+                                child: Image.asset('assets/profileImage.png'),
+                              ),
+                              SizedBox(
+                                width: 103.w,
+                                height: 124.h,
+                                child: Image.asset('assets/profileImage1.png'),
+                              ),
+                              SizedBox(
+                                width: 103.w,
+                                height: 124.h,
+                                child: Image.asset('assets/profileImage2.png'),
+                              ),
+                            ],
+                          ),
+                        ]),
+                      ),
+                    ),
+                  ],
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: SizedBox(
-                    child: Column(children: [
-                      ProfileCards(
-                          title: 'Full Name',
-                          controller: nameController,
-                          editable: update,
-                          lable:
-                              "${authViewModel.userData[0].name!} ${authViewModel.userData[0].surname!}"),
-                      ProfileCards(
-                          title: 'Gender',
-                          controller: genderController,
-                          editable: update,
-                          lable: authViewModel.userData[0].gender!),
-                      ProfileCards(
-                          controller: locationController,
-                          editable: update,
-                          title: 'Location',
-                          lable: authViewModel.userData[0].location!),
-                      ProfileCards(
-                          controller: dobController,
-                          editable: update,
-                          title: 'Date of birth',
-                          lable: authViewModel.userData[0].dob!),
-                      ProfileCards(
-                          controller: occupationController,
-                          editable: update,
-                          title: 'Occupation',
-                          lable: authViewModel.userData[0].occupation!),
-                      ProfileCards(
-                          controller: interestController,
-                          editable: update,
-                          title: 'Interest',
-                          lable: authViewModel.userData[0].interest!),
-                      SizedBox(
-                        height: 80.h,
-                      ),
-                      NormalText(text: 'Interests (Max 3 allowed)'),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(right: 10.0),
-                            child: ReuseableButton(
-                              margin: 0,
-                              radius: 2.r,
-                              text: '+',
-                              onPressed: () {},
-                              height: 32.h,
-                              width: 32.w,
-                              backGroundColor: AppColor.mainColor,
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(5.0),
-                            child: ReuseableButton(
-                              margin: 0,
-                              radius: 2.r,
-                              text: 'Pet',
-                              onPressed: () {},
-                              height: 32.4,
-                              width: 90.w,
-                              backGroundColor: AppColor.secondaryMain,
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(5.0),
-                            child: ReuseableButton(
-                              margin: 0,
-                              radius: 2.r,
-                              text: 'Cooking',
-                              onPressed: () {},
-                              height: 32.4,
-                              width: 90.w,
-                              backGroundColor: AppColor.secondaryMain,
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(5.0),
-                            child: ReuseableButton(
-                              margin: 0,
-                              radius: 2.r,
-                              text: 'Art',
-                              onPressed: () {},
-                              height: 32.4,
-                              width: 90.w,
-                              backGroundColor: AppColor.secondaryMain,
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 30.h,
-                      ),
-                      NormalText(text: 'Preference'),
-                      SizedBox(
-                        height: 10.h,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          ReuseableButton(
-                            margin: 0,
-                            radius: 2.r,
-                            text: 'Male',
-                            onPressed: () {},
-                            height: 32.4,
-                            width: 110.w,
-                            backGroundColor: const Color(0xffCCCCCC),
-                          ),
-                          ReuseableButton(
-                            margin: 0,
-                            radius: 2.r,
-                            text: 'Female',
-                            onPressed: () {},
-                            height: 32.4,
-                            width: 110.w,
-                            backGroundColor: AppColor.secondaryMain,
-                          ),
-                          ReuseableButton(
-                            margin: 0,
-                            radius: 2.r,
-                            text: 'Others',
-                            onPressed: () {},
-                            height: 32.4,
-                            width: 110.w,
-                            backGroundColor: const Color(0xffCCCCCC),
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 20.h,
-                      ),
-                      NormalText(text: 'Photo Gallery'),
-                      SizedBox(
-                        height: 10.h,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          SizedBox(
-                            width: 103.w,
-                            height: 124.h,
-                            child: Image.asset('assets/profileImage.png'),
-                          ),
-                          SizedBox(
-                            width: 103.w,
-                            height: 124.h,
-                            child: Image.asset('assets/profileImage1.png'),
-                          ),
-                          SizedBox(
-                            width: 103.w,
-                            height: 124.h,
-                            child: Image.asset('assets/profileImage2.png'),
-                          ),
-                        ],
-                      ),
-                    ]),
-                  ),
-                ),
-                !update
-                    ? ReuseableButton(
-                        text: 'Update',
-                        onPressed: () {
-                          authViewModel.updateProfile(getData(), context);
-                        })
-                    : const SizedBox()
-              ],
+              ),
             ),
-          ),
+            Positioned(
+              child: authViewModel.loading
+                  ? const ProgressDialog(
+                      message: 'Loading....',
+                    )
+                  : const SizedBox(),
+            ),
+          ],
         ),
       ),
     );
@@ -465,9 +506,7 @@ class ProfileCards extends ConsumerStatefulWidget {
       required this.title,
       this.lable = '',
       required this.controller,
-      required this.editable
-      
-      })
+      required this.editable})
       : super(key: key);
 
   @override
@@ -502,7 +541,7 @@ class _ProfileCardsState extends ConsumerState<ProfileCards> {
             controller: widget.controller,
             cursorColor: AppColor.grey400,
             decoration: InputDecoration(
-              hintStyle: !widget.editable ? const TextStyle(color: Colors.white) :const TextStyle(color: Colors.black) ,
+              hintStyle: const TextStyle(color: Colors.black),
               hintText: widget.lable,
               border: InputBorder.none,
               contentPadding: EdgeInsets.all(16.w),

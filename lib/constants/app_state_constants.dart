@@ -12,9 +12,11 @@ const String baseUrl = 'https://findate.herokuapp.com/api/v1/users/';
 
 
 
-final authViewModelProvider = ChangeNotifierProvider<AuthViewModel>((ref) {
-  return AuthViewModel();
+final authViewModelProvider = ChangeNotifierProvider.autoDispose<AuthViewModel>((ref) {
+  return AuthViewModel.instance;
 });
+
+
 
 
 

@@ -65,7 +65,7 @@ class _FirstSetupScreenState extends ConsumerState<FirstSetupScreen> {
         profilePic = imagePath;
       });
 
-      await AuthViewModel().updateProfilePix(profilePic, context);
+      await AuthViewModel.instance.updateProfilePix(profilePic, context);
 
       refreshImage();
     } on PlatformException catch (e) {
@@ -87,7 +87,7 @@ class _FirstSetupScreenState extends ConsumerState<FirstSetupScreen> {
         profilePic = imagePath;
       });
 
-      await AuthViewModel().updateProfilePix(profilePic, context);
+      await AuthViewModel.instance.updateProfilePix(profilePic, context);
 
       refreshImage();
     } on PlatformException catch (e) {
@@ -783,7 +783,7 @@ class _ThirdSetupScreenState extends ConsumerState<ThirdSetupScreen> {
                         ),
                         ReuseableButton(
                           onPressed: () {
-                            authViewModel.updateProfile(getData(), context);
+                            authViewModel.setProfile(getData(), context);
                           },
                           text: 'Setup',
                         )

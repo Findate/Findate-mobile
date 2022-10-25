@@ -15,7 +15,12 @@ import 'package:findate/widgets/utils/snack_bar.dart';
 import 'package:flutter/material.dart';
 
 class AuthViewModel extends ChangeNotifier {
-  AuthViewModel();
+  static final AuthViewModel _instance = AuthViewModel._();
+  AuthViewModel._();
+
+  static AuthViewModel get instance {
+    return _instance;
+  }
 
 //storing all user data rom api
 
@@ -50,6 +55,7 @@ class AuthViewModel extends ChangeNotifier {
       getLoginUserData({
         "username": body["username"],
       }, context);
+    
 
       //navigate to onbording screen
       pushOnBoardingScreen(context);
@@ -67,7 +73,7 @@ class AuthViewModel extends ChangeNotifier {
   }
 
   // login after user first registration
-  Future loginUserAfterReg(String url, body, context) async {
+  Future<void> loginUserAfterReg(String url, body, context) async {
     setLoading(true);
 
     var response = await WebServices.sendPostRequest(url, body, context);
@@ -178,7 +184,7 @@ class AuthViewModel extends ChangeNotifier {
   }
 
   // Update users profile view model function
-  Future updateProfile(body, context) async {
+  Future setProfile(body, context) async {
     setLoading(true);
 
     var response =
@@ -192,6 +198,30 @@ class AuthViewModel extends ChangeNotifier {
       pushOnBoardingScreen(context);
 
       notifyListeners();
+
+      setLoading(false);
+    } else {
+      setLoginError(true);
+      setLoading(false);
+    }
+
+    setLoading(false);
+  }
+
+  // Update users profile view model function
+  Future updateProfile(body, context) async {
+    setLoading(true);
+
+    var response =
+        await WebServices.sendPatchRequest('$baseUrl/update', body, context);
+
+    if (response.response['statusCode'] == SUCCESS) {
+      final result = response.response['data'];
+
+      userData.add(UserModel.fromJson(result));
+
+      notifyListeners();
+
 
       setLoading(false);
     } else {
@@ -219,9 +249,9 @@ class AuthViewModel extends ChangeNotifier {
 
       notifyListeners();
 
-     
-
       setLoading(false);
+
+      return res['photo'];
     } else {
       setLoginError(true);
       setLoading(false);
@@ -262,6 +292,7 @@ class AuthViewModel extends ChangeNotifier {
 
     if (response.response['statusCode'] == SUCCESS) {
       print(response.response['message']);
+
       pushRecoverAccountConfrimEmailScreen(context, email);
 
       setLoading(false);
