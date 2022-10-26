@@ -24,10 +24,7 @@ class _MatchUserInfoState extends State<MatchUserInfo> {
           height: 900.h,
           width: 343.w,
           child: Column(
-            children: [
-              const SizedBox(
-                height: 20,
-              ),
+            children: [     
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -117,7 +114,7 @@ class _MatchCardState extends State<MatchCard> {
                     children: [
                       //sized box to push info content downwards
                       SizedBox(
-                        height: 120.h,
+                        height: 110.h,
                       ),
                       NormalText(
                         text: 'Tiana Joel',
@@ -241,9 +238,3 @@ class _MatchCardState extends State<MatchCard> {
     );
   }
 }
-//   decoration: BoxDecoration(
-//             color: Color.alphaBlend(
-//               const Color(0xffFF6685),
-//               const Color(0xff6D64FF),
-//             ),
-          // ),

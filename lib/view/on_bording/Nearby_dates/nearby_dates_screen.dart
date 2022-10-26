@@ -1,5 +1,5 @@
 import 'package:findate/constants/appColor.dart';
-import 'package:findate/view/on_bording/matches/matches_screen.dart';
+import 'package:findate/view/on_bording/explore/explore_widgets.dart';
 import 'package:findate/view/on_bording/on_bording_screen.dart';
 import 'package:findate/widgets/reusesable_widget/normal_text.dart';
 import 'package:findate/widgets/reusesable_widget/reuseable_appbar_button.dart';
@@ -15,7 +15,7 @@ class NearbyDates extends StatefulWidget {
 }
 
 class _NearbyDatesState extends State<NearbyDates> {
-  //show location modal function
+//show location modal function
   void searchModalBottomSheetMenu() {
     showModalBottomSheet(
         isDismissible: true,
@@ -196,96 +196,116 @@ class _NearbyDatesState extends State<NearbyDates> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: PreferredSize(
-          preferredSize: Size.fromHeight(100.h),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 12.0),
-            child: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    NormalText(
-                      text: 'Nearby Dates',
-                      size: 22.sp,
-                      fontWeight: FontWeight.w600,
-                    ),
-                    ReusesableAppbarButton(
-                      iconButton: IconButton(
-                        //on pressed function null
+        body: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 12.0),
+          child: SingleChildScrollView(
+            child: SizedBox(
+              height: 900,
+              width: 375,
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      ReusesableAppbarButton(
+                          iconButton: IconButton(
+                        //Onpressed function null
                         onPressed: () {
-                          searchModalBottomSheetMenu();
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => const OnBoardingScreen(),
+                            ),
+                          );
                         },
-                        icon: Icon(
-                          Icons.tune,
+                        icon: const Icon(
+                          Icons.arrow_back_ios_new_rounded,
                           color: AppColor.mainColor,
-                          size: 30.h,
+                        ),
+                      )),
+                      NormalText(
+                        text: 'Nearby Dates',
+                        size: 22.sp,
+                        fontWeight: FontWeight.w600,
+                      ),
+                      ReusesableAppbarButton(
+                        iconButton: IconButton(
+                          //on pressed function null
+                          onPressed: () {
+                            searchModalBottomSheetMenu();
+                          },
+                          icon: Icon(
+                            Icons.tune_rounded,
+                            color: AppColor.mainColor,
+                            size: 30.h,
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                  SizedBox(
+                    height: 25.h,
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(left: 10.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            const Icon(
+                              Icons.location_on_outlined,
+                              size: 26,
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 10.0),
+                              child: NormalText(
+                                text: 'Your Location',
+                                size: 16.sp,
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
-                    )
-                  ],
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        const Icon(
-                          Icons.location_on,
-                          color: Colors.black,
-                          size: 18,
+                      Padding(
+                        padding: const EdgeInsets.only(left: 50.0),
+                        child: NormalText(
+                          text: 'london',
+                          size: 12.sp,
+                          fontWeight: FontWeight.w600,
+                          color: AppColor.grey400,
                         ),
-                        NormalText(
-                          text: 'Your Location',
-                          size: 16.sp,
-                          fontWeight: FontWeight.w400,
-                          color: Colors.black,
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Expanded(
+                    child: SizedBox(
+                      width: 375.w,
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 10.0),
+                        child: GridView.builder(
+                          itemCount: 10,
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 2),
+                          itemBuilder: (BuildContext context, int index) {
+                            //Grid view of Nearby Dates
+                            return const ExploreSquareImageCard(
+                              imageUrl: 'assets/homeImage3.png',
+                              name: 'Joel Tiana',
+                              location: 'Lagos',
+                            );
+                          },
                         ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 5.h,
-                    ),
-                    NormalText(
-                      text: '   London',
-                      size: 12.sp,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.black,
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-        ),
-        body: Padding(
-          padding: const EdgeInsets.all(12.0),
-          child: SizedBox(
-            height: 900,
-            width: 375,
-            child: Column(
-              children: [
-                const SizedBox(
-                  height: 20,
-                ),
-                Expanded(
-                  child: SizedBox(
-                    height: 500.h,
-                    width: 375.w,
-                    child: GridView.builder(
-                      itemCount: 10,
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2),
-                      itemBuilder: (BuildContext context, int index) {
-                        //Grid view of Nearby Dates
-                        return const MatchGrid();
-                      },
+                      ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),

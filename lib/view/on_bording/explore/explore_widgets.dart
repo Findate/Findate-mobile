@@ -142,7 +142,7 @@ class _ExploreSquareImageCardState extends State<ExploreSquareImageCard> {
         ),
          //position the bottom icons
         Positioned(
-          bottom: 10,
+          bottom: 20,
           left: 10,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,

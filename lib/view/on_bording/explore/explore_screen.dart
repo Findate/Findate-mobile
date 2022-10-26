@@ -4,7 +4,7 @@ import 'package:findate/constants/shared_preferences.dart';
 import 'package:findate/view/on_bording/explore/explore_widgets.dart';
 import 'package:findate/view/on_bording/explore/hot_or_not_screen.dart';
 import 'package:findate/view/on_bording/matches/matches_details_screen.dart';
-import 'package:findate/view/on_bording/matches/matches_screen.dart';
+import 'package:findate/view/on_bording/matches/popular_screen.dart';
 import 'package:findate/view/others/notifications_screen.dart';
 import 'package:findate/widgets/reusesable_widget/normal_text.dart';
 import 'package:findate/widgets/reusesable_widget/reuseable_appbar_button.dart';

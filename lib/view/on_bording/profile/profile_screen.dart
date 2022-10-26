@@ -185,7 +185,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
         userApiData.dob ?? authViewModel.userData.first.gender!;
 
 
-    String pic = "${userApiData.photo}?t=${DateTime.now().millisecond}";
+     String pic = userApiData.photo ?? authViewModel.userData.first.photo!;
  
 
     return SafeArea(
