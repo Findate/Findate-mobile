@@ -493,7 +493,7 @@ class _SecondSetupScreenState extends State<SecondSetupScreen> {
                           child: DateTimePicker(
                             type: DateTimePickerType.date,
                             initialValue: '', //DateTime.now().toString(),
-                            firstDate: DateTime(2000),
+                            firstDate: DateTime(1800),
                             lastDate: DateTime(2100),
                             icon: const Padding(
                               padding: EdgeInsets.only(left: 10.0, right: 10),

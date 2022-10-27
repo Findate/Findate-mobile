@@ -174,15 +174,15 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
     final authViewModel = ref.watch(authViewModelProvider);
     final userApiData = ref.watch(provider);
 
-    nameController.text =
-        "${userApiData.name ?? authViewModel.userData.first.name!} ${userApiData.surname ?? authViewModel.userData.first.surname!}";
-    locationController.text =
-        userApiData.location ?? authViewModel.userData.first.location!;
-    occupationController.text =
-        userApiData.occupation ?? authViewModel.userData.first.occupation!;
+    nameController.text = "${userApiData.name ?? authViewModel.userData.first.name!} ${userApiData.surname ?? authViewModel.userData.first.surname!}";
+
+    locationController.text = userApiData.location ?? authViewModel.userData.first.location!;
+
+    occupationController.text = userApiData.occupation ?? authViewModel.userData.first.occupation!;
+
     dobController.text = userApiData.dob ?? authViewModel.userData.first.dob!;
-    genderController.text =
-        userApiData.dob ?? authViewModel.userData.first.gender!;
+
+    genderController.text = userApiData.gender ?? authViewModel.userData.first.gender!;
 
 
      String pic = userApiData.photo ?? authViewModel.userData.first.photo!;

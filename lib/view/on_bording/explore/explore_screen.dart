@@ -452,7 +452,6 @@ class _ExploreScreenState extends ConsumerState<ExploreScreen> {
                     height: 10.h,
                   ),
                   // scrolable image cards
-
                   Expanded(
                     child: SizedBox(
                       width: 375.w,
