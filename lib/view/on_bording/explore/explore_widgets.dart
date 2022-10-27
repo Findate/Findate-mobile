@@ -40,7 +40,7 @@ class _ExploreHorizontalImageCardState
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20.r),
                     image: DecorationImage(
-                        image: AssetImage(widget.imageUrl), fit: BoxFit.cover),
+                        image: NetworkImage(widget.imageUrl), fit: BoxFit.cover),
                   ),
                 ),
                 SizedBox(
@@ -137,7 +137,7 @@ class _ExploreSquareImageCardState extends State<ExploreSquareImageCard> {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20.r),
             image: DecorationImage(
-                image: AssetImage(widget.imageUrl), fit: BoxFit.cover),
+                image: NetworkImage(widget.imageUrl), fit: BoxFit.cover),
           ),
         ),
          //position the bottom icons
@@ -221,7 +221,7 @@ class ExploreImageStoryCard extends StatelessWidget {
             decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 image: DecorationImage(
-                    image: AssetImage(imageUrl), fit: BoxFit.cover)),
+                    image: NetworkImage(imageUrl), fit: BoxFit.cover)),
           ),
           NormalText(
             text: name,

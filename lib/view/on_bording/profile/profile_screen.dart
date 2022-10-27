@@ -172,21 +172,22 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     final authViewModel = ref.watch(authViewModelProvider);
-    final userApiData = ref.watch(provider);
 
-    nameController.text = "${userApiData.name ?? authViewModel.userData.first.name!} ${userApiData.surname ?? authViewModel.userData.first.surname!}";
+    final userApiData = ref.watch(userProvider);
 
-    locationController.text = userApiData.location ?? authViewModel.userData.first.location!;
+    nameController.text = userApiData.name! ;
 
-    occupationController.text = userApiData.occupation ?? authViewModel.userData.first.occupation!;
+    locationController.text = userApiData.location!;
 
-    dobController.text = userApiData.dob ?? authViewModel.userData.first.dob!;
+    occupationController.text = userApiData.occupation!;
 
-    genderController.text = userApiData.gender ?? authViewModel.userData.first.gender!;
+    dobController.text = userApiData.dob!;
 
+    genderController.text = userApiData.gender!;
 
-     String pic = userApiData.photo ?? authViewModel.userData.first.photo!;
- 
+    String pic = userApiData.photo!;
+
+    nameController.text = "${userApiData.name!} ${userApiData.surname!}";
 
     return SafeArea(
       child: Scaffold(

@@ -26,6 +26,8 @@ class AuthViewModel extends ChangeNotifier {
 
   List<UserModel> userData = [];
 
+  List<UserModel> allUsersData = [];
+
   UserModel userApiData = UserModel();
 
   bool _loading = false;
@@ -54,6 +56,7 @@ class AuthViewModel extends ChangeNotifier {
     userApiData.email = newUser.email;
     userApiData.about = newUser.about;
     userApiData.interest = newUser.interest;
+    userApiData.gender = newUser.gender;
   }
 
   addUserPhoto(UserModel newUser) {
@@ -75,8 +78,13 @@ class AuthViewModel extends ChangeNotifier {
         "username": body["username"],
       }, context);
 
-      //navigate to onbording screen
-      pushOnBoardingScreen(context);
+      //get all users from data base
+      await getAllUsers(context);
+
+      Future.delayed(const Duration(milliseconds: 500), () {
+        //navigate to onbording screen after 30 seconds
+        pushOnBoardingScreen(context);
+      });
 
       setLoading(false);
     } else {
@@ -282,7 +290,8 @@ class AuthViewModel extends ChangeNotifier {
     if (response.response['statusCode'] == SUCCESS) {
       final result = response.response['data'];
 
-      userData.add(UserModel.fromJson(result));
+      addUserdata(UserModel.fromJson(result));
+      // userData.add(UserModel.fromJson(result));
 
       notifyListeners();
 

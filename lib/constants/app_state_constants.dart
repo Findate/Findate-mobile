@@ -18,11 +18,15 @@ final authViewModelProvider = ChangeNotifierProvider.autoDispose<AuthViewModel>(
 });
 
 
-//provider for user api data
-final provider = Provider<UserModel>((ref) {
+//provider for logged in user api data
+final userProvider = Provider<UserModel>((ref) {
   return AuthViewModel.instance.userApiData;
 });
 
+//provider for all users api data
+final aLLUsersProvider = Provider<List<UserModel>>((ref) {
+  return AuthViewModel.instance.allUsersData;
+});
 
 
 

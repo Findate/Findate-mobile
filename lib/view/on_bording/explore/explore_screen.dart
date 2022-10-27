@@ -285,6 +285,8 @@ class _ExploreScreenState extends ConsumerState<ExploreScreen> {
 
   @override
   Widget build(BuildContext context) {
+    
+    final allUser = ref.watch(authViewModelProvider);
     return SafeArea(
       child: Scaffold(
         appBar: PreferredSize(
@@ -324,11 +326,11 @@ class _ExploreScreenState extends ConsumerState<ExploreScreen> {
                   width: 375.w,
                   child: ListView.builder(
                       scrollDirection: Axis.horizontal,
-                      itemCount: 12,
+                      itemCount: allUser.userData.length,
                       itemBuilder: (context, int i) {
-                        return const ExploreImageStoryCard(
-                          name: 'jane',
-                          imageUrl: 'assets/homeImage1.png',
+                        return ExploreImageStoryCard(
+                          name: allUser.userData[i].name!,
+                          imageUrl: allUser.userData[i].photo!,
                         );
                       }),
                 ),
@@ -377,10 +379,10 @@ class _ExploreScreenState extends ConsumerState<ExploreScreen> {
                         scrollDirection: Axis.horizontal,
                         itemCount: 5,
                         itemBuilder: (context, int i) {
-                          return const ExploreHorizontalImageCard(
-                            imageUrl: 'assets/homeImage1.png',
-                            name: 'Joel Tiana',
-                            location: 'Lagos',
+                          return ExploreHorizontalImageCard(
+                            imageUrl: allUser.userData[i].photo!,
+                            name: allUser.userData[i].name!,
+                            location: allUser.userData[i].location!,
                           );
                         }),
                   ),
@@ -458,11 +460,11 @@ class _ExploreScreenState extends ConsumerState<ExploreScreen> {
                       child: Padding(
                         padding: const EdgeInsets.only(left: 10.0),
                         child: GridView.builder(
-                          itemCount: 10,
+                          itemCount: allUser.userData.length,
                           gridDelegate:
                               const SliverGridDelegateWithFixedCrossAxisCount(
                                   crossAxisCount: 2),
-                          itemBuilder: (BuildContext context, int index) {
+                          itemBuilder: (BuildContext context, int i) {
                             return InkWell(
                               onTap: () {
                                 Navigator.of(context).push(
@@ -472,10 +474,10 @@ class _ExploreScreenState extends ConsumerState<ExploreScreen> {
                                   ),
                                 );
                               },
-                              child: const ExploreSquareImageCard(
-                                imageUrl: 'assets/homeImage3.png',
-                                name: 'Joel Tiana',
-                                location: 'Lagos',
+                              child: ExploreSquareImageCard(
+                                imageUrl: allUser.userData[i].photo!,
+                                name: allUser.userData[i].name!,
+                                location: allUser.userData[i].location!,
                               ),
                             );
                           },

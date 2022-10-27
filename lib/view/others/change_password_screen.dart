@@ -1,20 +1,29 @@
 import 'package:findate/constants/appColor.dart';
+import 'package:findate/constants/app_state_constants.dart';
 import 'package:findate/widgets/reusesable_widget/normal_text.dart';
 import 'package:findate/widgets/reusesable_widget/reuseable_appbar_button.dart';
 import 'package:findate/widgets/reusesable_widget/reuseable_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class ChangePassword extends StatefulWidget {
+class ChangePassword extends ConsumerStatefulWidget {
   const ChangePassword({Key? key}) : super(key: key);
 
   @override
-  State<ChangePassword> createState() => _ChangePasswordState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _ChangePasswordState();
 }
 
-class _ChangePasswordState extends State<ChangePassword> {
+class _ChangePasswordState extends ConsumerState<ChangePassword> {
+  final oldPasswordController = TextEditingController();
+  final newPasswordController = TextEditingController();
+  final confirmPasswordController = TextEditingController();
+
+  final _key = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
+    final authViewModel = ref.watch(authViewModelProvider);
     return SafeArea(
         child: Scaffold(
       body: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
@@ -51,60 +60,79 @@ class _ChangePasswordState extends State<ChangePassword> {
           height: 450,
           child: Padding(
             padding: const EdgeInsets.only(left: 16, right: 16),
-            child: ListView(
-                physics: const NeverScrollableScrollPhysics(),
-                children: [
-                  OldPassword(),
-                  const SizedBox(height: 16),
-                  NewPassword(),
-                  const SizedBox(height: 16),
-                  ConfirmPassword(),
-                ]),
+            child: Form(
+              key: _key,
+              child: Column(children: [
+                TextFormField(
+                    controller: oldPasswordController,
+                    validator: (val) {
+                      if (val!.isEmpty) {
+                        return 'Field cannot be empty';
+                      }
+                      return null;
+                    },
+                    decoration: const InputDecoration(
+                      prefixIcon: Icon(
+                        Icons.lock,
+                        size: 15,
+                      ),
+                      hintText: 'Input Old Password',
+                      border: OutlineInputBorder(),
+                    )),
+                const SizedBox(height: 16),
+                TextFormField(
+                    controller: newPasswordController,
+                    validator: (val) {
+                      if (val!.isEmpty) {
+                        return 'Field cannot be empty';
+                      }
+                      return null;
+                    },
+                    decoration: const InputDecoration(
+                      prefixIcon: Icon(
+                        Icons.lock,
+                        size: 15,
+                      ),
+                      hintText: 'Input New Password',
+                      border: OutlineInputBorder(),
+                    )),
+                const SizedBox(height: 16),
+                TextFormField(
+                    controller: confirmPasswordController,
+                    validator: (val) {
+                      if (val!.isEmpty) {
+                        return 'Field cannot be empty';
+                      }
+                      return null;
+                    },
+                    decoration: const InputDecoration(
+                      prefixIcon: Icon(
+                        Icons.lock,
+                        size: 15,
+                      ),
+                      hintText: 'Confirm Password',
+                      border: OutlineInputBorder(),
+                    )),
+              ]),
+            ),
           ),
         ),
         //Sizedbox not effective as expected
         const SizedBox(
           height: 80,
         ),
-        ReuseableButton(text: 'Change Password', onPressed: () {}),
+        ReuseableButton(
+            text: 'Change Password',
+            onPressed: () {
+              if (_key.currentState!.validate()) {
+                // authViewModel.resetPassword({
+                //   "token": oldPasswordController.text.trim(),
+                //   "password": oldPasswordController.text.trim(),
+                //   "retypePassword": newPasswordController.text.trim()
+                // }, '', context);
+              }
+            }),
       ]),
     ));
   }
-}
-
-//TEXT FORM FIELD WIDGETS FOR PASSWORDS
-Widget OldPassword() {
-  return TextFormField(
-      decoration: const InputDecoration(
-    prefixIcon: Icon(
-      Icons.lock,
-      size: 15,
-    ),
-    hintText: 'Input Old Password',
-    border: OutlineInputBorder(),
-  ));
-}
-
-Widget NewPassword() {
-  return TextFormField(
-      decoration: const InputDecoration(
-    prefixIcon: Icon(
-      Icons.lock,
-      size: 15,
-    ),
-    hintText: 'Input New Password',
-    border: OutlineInputBorder(),
-  ));
-}
-
-Widget ConfirmPassword() {
-  return TextFormField(
-      decoration: const InputDecoration(
-    prefixIcon: Icon(
-      Icons.lock,
-      size: 15,
-    ),
-    hintText: 'Confirm New Password',
-    border: OutlineInputBorder(),
-  ));
 }
