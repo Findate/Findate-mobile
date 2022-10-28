@@ -125,11 +125,11 @@ class _ChangePasswordState extends ConsumerState<ChangePassword> {
             text: 'Change Password',
             onPressed: () {
               if (_key.currentState!.validate()) {
-                // authViewModel.resetPassword({
-                //   "token": oldPasswordController.text.trim(),
-                //   "password": oldPasswordController.text.trim(),
-                //   "retypePassword": newPasswordController.text.trim()
-                // }, '', context);
+                authViewModel.changePassword({
+                  "oldPassword": oldPasswordController.text.trim(),
+                  "newPassword": newPasswordController.text.trim(),
+                  "retypeNewPassword": confirmPasswordController.text.trim()
+                }, context);
               }
             }),
       ]),

@@ -5,10 +5,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomWidgets {
  CustomWidgets._();
- static buildErrorSnackbar(BuildContext context, String message) {
+
+ static buildErrorSnackbar(BuildContext context, String message, Color color) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        backgroundColor: Colors.pink[100],
+        backgroundColor: color,
         duration: const Duration(seconds: 2),
         content: SizedBox(
           height: 40.h,

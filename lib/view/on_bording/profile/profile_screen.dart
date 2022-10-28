@@ -301,7 +301,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                           ProfileCards(
                             title: 'Gender',
                             controller: genderController,
-                            editable: update,
+                            editable: false,
                           ),
                           ProfileCards(
                             controller: locationController,

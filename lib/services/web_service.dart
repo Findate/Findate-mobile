@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:findate/constants/shared_preferences.dart';
 import 'package:findate/routes/page_routes.dart';
 import 'package:findate/widgets/utils/snack_bar.dart';
+import 'package:flutter/material.dart';
 import 'package:simple_connection_checker/simple_connection_checker.dart';
 import 'package:dio/dio.dart';
 
@@ -37,7 +38,7 @@ class WebServices {
         // Handle error and display on snackbar
 
         CustomWidgets.buildErrorSnackbar(
-            context, error.response!.data.toString());
+            context, error.response!.data.toString(), Colors.pink[100]!);
         return Failure(
             code: error.response!.statusCode,
             errorResponse: {'error': error.response!.data.toString()});
@@ -70,7 +71,7 @@ class WebServices {
       } on DioError catch (error) {
         // Handle error
         CustomWidgets.buildErrorSnackbar(
-            context, error.response!.data.toString());
+            context, error.response!.data.toString(), Colors.pink[100]!);
         return Failure(
             code: error.response!.statusCode,
             errorResponse: {'error': error.response!.data.toString()});
@@ -107,10 +108,10 @@ class WebServices {
       } on DioError catch (error) {
         // Handle error
         CustomWidgets.buildErrorSnackbar(
-            context, error.response!.data.toString());
+            context, error.response!.data.toString(), Colors.pink[100]!);
         return Failure(
             code: error.response!.statusCode,
-            errorResponse: {'error': error.response!.data.toString()});
+            errorResponse: {'error': error.response!.data.toString(),});
       }
       //push to no internet screen if isConnected is false
     } else {
@@ -149,7 +150,7 @@ class WebServices {
       } on DioError catch (error) {
         // Handle error
         CustomWidgets.buildErrorSnackbar(
-            context, error.response!.data.toString());
+            context, error.response!.data.toString(), Colors.pink[100]!);
         return Failure(
             code: error.response!.statusCode,
             errorResponse: {'error': error.response!.data.toString()});

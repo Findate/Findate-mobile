@@ -343,4 +343,24 @@ class AuthViewModel extends ChangeNotifier {
 
     setLoading(false);
   }
+
+  // reset password fuction
+  Future changePassword(body, context) async {
+    setLoading(true);
+
+    var response = await WebServices.sendPatchRequest(
+        '$baseUrl/reset-password-login', body, context);
+
+    if (response.response['statusCode'] == SUCCESS) {
+      CustomWidgets.buildErrorSnackbar(
+          context, 'Password Reset was Successful', Colors.green[100]!);
+
+      setLoading(false);
+    } else {
+      setLoginError(true);
+      setLoading(false);
+    }
+
+    setLoading(false);
+  }
 }
