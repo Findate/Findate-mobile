@@ -24,8 +24,16 @@ static SharedPreferences? _preferences;
 
   //set usertoken
   static Future setUserProfilePix(String token) async => await _preferences!.setString('profilePic', token);
+
   // get token
   static String? getUserProfilePix() => _preferences!.getString('profilePic');
+
+
+    //set usertoken
+  static Future setUsername(String username) async => await _preferences!.setString('username', username);
+  
+  // get token
+  static String? getUsername() => _preferences!.getString('username');
  
  static  resetSharedPref() => _preferences!.clear();
 

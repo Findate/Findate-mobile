@@ -1,6 +1,9 @@
+
+
+// ignore_for_file: file_names
+
 import 'package:findate/constants/appColor.dart';
 import 'package:findate/constants/app_state_constants.dart';
-import 'package:findate/view/auth/views/signup_screen.dart';
 import 'package:findate/widgets/reusesable_widget/normal_text.dart';
 import 'package:findate/widgets/reusesable_widget/reusaable_textformfield.dart';
 import 'package:findate/widgets/reusesable_widget/reuseable_button.dart';

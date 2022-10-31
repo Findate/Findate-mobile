@@ -1,11 +1,9 @@
-// ignore_for_file: must_be_immutable, use_build_context_synchronously
+// ignore_for_file: must_be_immutable, use_build_context_synchronously, empty_catches
 
 import 'dart:io';
 
 import 'package:findate/constants/appColor.dart';
 import 'package:findate/constants/app_state_constants.dart';
-import 'package:findate/constants/shared_preferences.dart';
-import 'package:findate/models/userModel.dart';
 import 'package:findate/routes/page_routes.dart';
 import 'package:findate/view/auth/auth_view_models/auth_view_model.dart';
 import 'package:findate/widgets/reusesable_widget/normal_text.dart';
@@ -18,8 +16,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:path/path.dart' as PAth;
-import 'dart:typed_data';
+// ignore: library_prefixes, depend_on_referenced_packages
+import 'package:path/path.dart' as Path;
+
 
 class ProfileScreen extends ConsumerStatefulWidget {
   const ProfileScreen({
@@ -56,8 +55,8 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
       });
 
       await AuthViewModel.instance.updateProfilePix(profilePic, context);
-    } on PlatformException catch (e) {
-      print('Failed to pick image: $e');
+    } on PlatformException {
+   
     }
   }
 
@@ -78,15 +77,15 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
       await AuthViewModel.instance.updateProfilePix(profilePic, context);
 
       // refreshImage();
-    } on PlatformException catch (e) {
-      print('Failed to pick image: $e');
+    } on PlatformException {
+
     }
   }
 
 //saved picture path before upload
   Future<File> savePicture(String imagePath) async {
     final directory = await getApplicationDocumentsDirectory();
-    final name = PAth.basename(imagePath);
+    final name = Path.basename(imagePath);
     final image = File('${directory.path}/$name');
     return File(imagePath).copy(image.path);
   }

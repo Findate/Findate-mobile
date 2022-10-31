@@ -25,6 +25,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
   bool _isObscure1 = true;
   final TextEditingController userNameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
+    final TextEditingController phoneController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController retypePasswordController =
       TextEditingController();
@@ -36,6 +37,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
     final body = {
       "username": userNameController.text.trim(),
       "email": emailController.text.trim(),
+      "phone" : phoneController.text.trim(),
       "password": passwordController.text.trim(),
       "retypePassword": retypePasswordController.text.trim(),
     };
@@ -115,6 +117,22 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                             height: 20,
                           ),
                           MyTextField(
+                              controller: phoneController,
+                                validator: (val) {
+                                if (val!.isEmpty) {
+                                  return 'Field cannot be empty';
+                                }
+                                return null;
+                              },
+                              isPassword: false,
+                              obcureText: false,
+                              isReadOnly: false,
+                              labelText: 'phone Number',
+                              keyBoardType: TextInputType.number),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                              MyTextField(
                               controller: emailController,
                               validator: (value) =>
                                   EmailValidator.validate(value!)

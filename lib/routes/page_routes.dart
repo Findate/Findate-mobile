@@ -9,7 +9,6 @@ import 'package:findate/view/others/notifications_screen.dart';
 import 'package:findate/view/others/privacy_screen.dart';
 import 'package:findate/view/others/security_screen.dart';
 import 'package:findate/view/others/settings_screen.dart';
-import 'package:findate/view/profile_set_ups/profile_setup_screen.dart';
 import 'package:findate/view/profile_set_ups/purpose_for_signup_screen.dart';
 import 'package:findate/widgets/reusesable_widget/complete_screen.dart';
 import 'package:flutter/material.dart';

@@ -8,7 +8,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'Nearby_dates/nearby_dates_screen.dart';
 import 'chats/chats_screen.dart';
 import 'explore/explore_screen.dart';
-import 'matches/popular_screen.dart';
+
 
 class OnBoardingScreen extends StatefulWidget {
   static String id = 'onBordingScreens';
@@ -28,7 +28,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
     const NearbyDates(),
     const MatchScreen(),
     const ChatsScreen(),
-     ProfileScreen()
+    const ProfileScreen()
   ];
 
   @override

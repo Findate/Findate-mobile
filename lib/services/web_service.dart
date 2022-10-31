@@ -10,7 +10,7 @@ import 'package:simple_connection_checker/simple_connection_checker.dart';
 import 'package:dio/dio.dart';
 
 import '../constants/status_codes copy.dart';
-import 'package:http/http.dart' as http;
+
 
 class WebServices {
   final dio = Dio();

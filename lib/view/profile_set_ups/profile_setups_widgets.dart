@@ -1,4 +1,4 @@
-// ignore_for_file: no_leading_underscores_for_local_identifiers, use_build_context_synchronously
+// ignore_for_file: no_leading_underscores_for_local_identifiers, use_build_context_synchronously, depend_on_referenced_packages, empty_catches, unused_catch_clause
 
 import 'dart:io';
 
@@ -13,11 +13,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-import 'package:table_calendar/table_calendar.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter/services.dart';
-import 'package:path/path.dart' as PAth;
-import 'dart:convert' as convert;
+// ignore: library_prefixes
+import 'package:path/path.dart' as Path;
+
 import 'package:date_time_picker/date_time_picker.dart';
 
 import '../../constants/shared_preferences.dart';
@@ -69,7 +69,7 @@ class _FirstSetupScreenState extends ConsumerState<FirstSetupScreen> {
 
       refreshImage();
     } on PlatformException catch (e) {
-      print('Failed to pick image: $e');
+
     }
   }
 
@@ -90,15 +90,14 @@ class _FirstSetupScreenState extends ConsumerState<FirstSetupScreen> {
       await AuthViewModel.instance.updateProfilePix(profilePic, context);
 
       refreshImage();
-    } on PlatformException catch (e) {
-      print('Failed to pick image: $e');
+    } on PlatformException {
     }
   }
 
 //saved picture path before upload
   Future<File> savePicture(String imagePath) async {
     final directory = await getApplicationDocumentsDirectory();
-    final name = PAth.basename(imagePath);
+    final name = Path.basename(imagePath);
     final image = File('${directory.path}/$name');
     return File(imagePath).copy(image.path);
   }
@@ -810,7 +809,7 @@ class _ThirdSetupScreenState extends ConsumerState<ThirdSetupScreen> {
 class Cards extends StatefulWidget {
   final String message;
 
-  Cards({
+ const Cards({
     Key? key,
     required this.message,
   }) : super(key: key);

@@ -1,16 +1,12 @@
-import 'dart:convert';
+
 import 'dart:io';
 
 import 'package:findate/constants/app_state_constants.dart';
 import 'package:findate/constants/shared_preferences.dart';
 import 'package:findate/constants/status_codes.dart';
-import 'package:findate/models/allUsersDataModel.dart';
 import 'package:findate/models/userModel.dart';
 import 'package:findate/routes/page_routes.dart';
 import 'package:findate/services/web_service.dart';
-import 'package:findate/view/auth/views/confirm_email.dart';
-import 'package:findate/view/profile_set_ups/profile_setup_screen.dart';
-import 'package:findate/view/profile_set_ups/purpose_for_signup_screen.dart';
 import 'package:findate/widgets/utils/snack_bar.dart';
 import 'package:flutter/material.dart';
 
@@ -73,8 +69,11 @@ class AuthViewModel extends ChangeNotifier {
       // //set save login user token from api response
       UserPreferences.setLoginUerToken(response.response['data']['token']);
 
+      //set save login username from api response
+      UserPreferences.setUsername(body["username"]);
+
       //get Loged in user details
-      getLoginUserData({
+      await getLoginUserData({
         "username": body["username"],
       }, context);
 
@@ -290,7 +289,7 @@ class AuthViewModel extends ChangeNotifier {
     if (response.response['statusCode'] == SUCCESS) {
       final result = response.response['data'];
 
-      addUserdata(UserModel.fromJson(result));
+      await addUserdata(UserModel.fromJson(result));
       // userData.add(UserModel.fromJson(result));
 
       notifyListeners();
@@ -312,7 +311,6 @@ class AuthViewModel extends ChangeNotifier {
         '$baseUrl/recover-account', body, context);
 
     if (response.response['statusCode'] == SUCCESS) {
-      print(response.response['message']);
 
       pushRecoverAccountConfrimEmailScreen(context, email);
 

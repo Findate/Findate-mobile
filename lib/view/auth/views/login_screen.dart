@@ -1,6 +1,5 @@
 import 'package:findate/constants/appColor.dart';
 import 'package:findate/constants/app_state_constants.dart';
-import 'package:findate/view/auth/views/recover_account_confirm_email_screen.dart';
 import 'package:findate/view/auth/views/signup_screen.dart';
 import 'package:findate/widgets/reusesable_widget/normal_text.dart';
 import 'package:findate/widgets/reusesable_widget/reusaable_textformfield.dart';
@@ -147,12 +146,14 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                         width: 323.w,
                         text: 'Login',
                         onPressed: () async {
+           
                           if (_key.currentState!.validate()) {
                             await authViewModel.loginUser(
                                 '$baseUrl/login',
                                 {
                                   "username": usernameController.text.trim(),
-                                  "password": passwordController.text.trim()
+                                  "password": passwordController.text.trim(),
+                                  'remember': check,
                                 },
                                 context);
                           }

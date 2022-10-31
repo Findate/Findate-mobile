@@ -377,7 +377,7 @@ class _ExploreScreenState extends ConsumerState<ExploreScreen> {
                     width: 375.w,
                     child: ListView.builder(
                         scrollDirection: Axis.horizontal,
-                        itemCount: 5,
+                        itemCount: allUser.userData.length,
                         itemBuilder: (context, int i) {
                           return ExploreHorizontalImageCard(
                             imageUrl: allUser.userData[i].photo!,
