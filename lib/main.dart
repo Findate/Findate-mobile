@@ -1,6 +1,7 @@
 import 'package:findate/constants/appColor.dart';
 import 'package:findate/view/auth/auth_view_models/auth_view_model.dart';
 import 'package:findate/view/auth/views/login_screen.dart';
+import 'package:findate/view/landing_page/landing_page.dart';
 import 'package:findate/view/on_bording/on_bording_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -8,7 +9,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/services.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'constants/shared_preferences.dart';
-
 
 void main() async {
   // add these lines
@@ -37,13 +37,6 @@ class _MyAppState extends State<MyApp> {
     final auth = AuthViewModel.instance;
 
     final username = UserPreferences.getUsername();
-  
-
-    auth.getLoginUserData({
-      "username": username,
-    }, context);
-
-    auth.getAllUsers(context);
 
     bool expired = true;
 
@@ -51,9 +44,18 @@ class _MyAppState extends State<MyApp> {
 
     if (token.length > 5) {
       bool hasExpired = JwtDecoder.isExpired(token);
+
       setState(() {
         expired = hasExpired;
       });
+    }
+
+    if (!expired) {
+      auth.getLoginUserData({
+        "username": username,
+      }, context);
+
+      auth.getAllUsers(context);
     }
 
     //Set the fit size (Find your UI design, look at the dimensions of the device screen and fill it in,unit in dp)
@@ -69,7 +71,7 @@ class _MyAppState extends State<MyApp> {
                 primaryColor: Colors.pink[50],
                 primarySwatch: Colors.pink,
                 unselectedWidgetColor: AppColor.mainColor),
-            home: expired ? const LoginScreen() : const OnBoardingScreen(),
+            home: expired ? const LandingPage() : const OnBoardingScreen(),
             routes: {LoginScreen.id: (context) => const LoginScreen()});
       },
     );

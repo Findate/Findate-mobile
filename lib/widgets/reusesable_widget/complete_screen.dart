@@ -4,6 +4,7 @@ import 'package:findate/constants/appColor.dart';
 import 'package:findate/widgets/reusesable_widget/normal_text.dart';
 import 'package:findate/widgets/reusesable_widget/reuseable_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CompleteScreen extends StatelessWidget {
@@ -71,5 +72,21 @@ class CompleteScreen extends StatelessWidget {
         ],
       ),
     ));
+  }
+}
+
+
+class Tests extends ConsumerStatefulWidget {
+  const Tests({super.key});
+
+  @override
+  ConsumerState<ConsumerStatefulWidget> createState() => _TestsState();
+}
+
+class _TestsState extends ConsumerState<Tests> {
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedContainer(duration: const Duration(seconds: 10),);
   }
 }
