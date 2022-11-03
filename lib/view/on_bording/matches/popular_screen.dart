@@ -204,7 +204,7 @@ class _PopularMatchesState extends ConsumerState<PopularMatches> {
     return SafeArea(
       child: Scaffold(
           body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 12.0),
+        padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 12),
         child: SingleChildScrollView(
           child: SizedBox(
             height: 900,
@@ -294,7 +294,7 @@ class _PopularMatchesState extends ConsumerState<PopularMatches> {
                   child: Padding(
                     padding: const EdgeInsets.only(left: 10.0),
                     child: GridView.builder(
-                      itemCount: 14,
+                      itemCount: authViewModel.userData.length,
                       gridDelegate:
                           const SliverGridDelegateWithFixedCrossAxisCount(
                               crossAxisCount: 2),

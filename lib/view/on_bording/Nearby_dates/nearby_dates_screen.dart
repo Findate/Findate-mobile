@@ -201,7 +201,7 @@ class _NearbyDatesState extends ConsumerState<NearbyDates> {
     return SafeArea(
       child: Scaffold(
         body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 12.0),
+          padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 12),
           child: SingleChildScrollView(
             child: SizedBox(
               height: 900,

@@ -21,52 +21,57 @@ class _HotOrNotScreenState extends ConsumerState<HotOrNotScreen> {
     final authViewModel = ref.watch(authViewModelProvider);
     return SafeArea(
         child: Scaffold(
-      body: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Column(
             children: [
-              ReusesableAppbarButton(
-                iconButton: IconButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  icon: const Icon(
-                    Icons.keyboard_arrow_left_outlined,
-                    color: AppColor.mainColor,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  ReusesableAppbarButton(
+                    iconButton: IconButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      icon: const Icon(
+                        Icons.keyboard_arrow_left_outlined,
+                        color: AppColor.mainColor,
+                      ),
+                    ),
                   ),
-                ),
-              ),
-              NormalText(
-                text: 'Hot or Not',
-                size: 22.sp,
-                fontWeight: FontWeight.w600,
-              ),
-              ReusesableAppbarButton(
-                iconButton: IconButton(
-                  onPressed: () {},
-                  icon: const Icon(
-                    Icons.tune,
-                    color: AppColor.mainColor,
+                  NormalText(
+                    text: 'Hot or Not',
+                    size: 22.sp,
+                    fontWeight: FontWeight.w600,
                   ),
-                ),
+                  ReusesableAppbarButton(
+                    iconButton: IconButton(
+                      onPressed: () {},
+                      icon: const Icon(
+                        Icons.tune,
+                        color: AppColor.mainColor,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 750.h,
+                width: 375.w,
+                child: ListView.builder(
+                    itemCount: authViewModel.userData.length,
+                    itemBuilder: (context, int index) {
+                      return  ExploreHorizontalImageCard(
+                                  imageUrl: authViewModel.userData[index].photo!,
+                                  name: authViewModel.userData[index].name!,
+                                  location: authViewModel.userData[index].location!,
+                                );
+                    }),
               ),
             ],
           ),
-          SizedBox(
-            height: 700.h,
-            width: 375.w,
-            child: ListView.builder(
-                itemCount: 10,
-                itemBuilder: (context, int index) {
-                  return  ExploreSquareImageCard(
-                              imageUrl: authViewModel.userData[index].photo!,
-                              name: authViewModel.userData[index].name!,
-                              location: authViewModel.userData[index].location!,
-                            );
-                }),
-          ),
-        ],
+        ),
       ),
     ));
   }
