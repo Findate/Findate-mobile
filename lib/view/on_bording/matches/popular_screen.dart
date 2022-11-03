@@ -1,20 +1,24 @@
 import 'package:findate/constants/appColor.dart';
+import 'package:findate/constants/app_state_constants.dart';
 import 'package:findate/view/on_bording/explore/explore_widgets.dart';
 import 'package:findate/view/on_bording/on_bording_screen.dart';
 import 'package:findate/widgets/reusesable_widget/normal_text.dart';
 import 'package:findate/widgets/reusesable_widget/reuseable_appbar_button.dart';
 import 'package:findate/widgets/reusesable_widget/reuseable_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class PopularMatches extends StatefulWidget {
+
+
+class PopularMatches extends ConsumerStatefulWidget {
   const PopularMatches({Key? key}) : super(key: key);
 
   @override
-  State<PopularMatches> createState() => _PopularMatchesState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _PopularMatchesState();
 }
 
-class _PopularMatchesState extends State<PopularMatches> {
+class _PopularMatchesState extends ConsumerState<PopularMatches> {
 
 //show location modal function
   void searchModalBottomSheetMenu() {
@@ -196,6 +200,7 @@ class _PopularMatchesState extends State<PopularMatches> {
 
   @override
   Widget build(BuildContext context) {
+    final authViewModel = ref.watch(authViewModelProvider);
     return SafeArea(
       child: Scaffold(
           body: Padding(
@@ -272,7 +277,7 @@ class _PopularMatchesState extends State<PopularMatches> {
                   Padding(
                     padding: const EdgeInsets.only(left: 50.0),
                     child: NormalText(
-                      text: 'london',
+                      text: authViewModel.userData[0].location!,
                       size: 12.sp,
                       fontWeight: FontWeight.w600,
                       color: AppColor.grey400,
@@ -294,10 +299,10 @@ class _PopularMatchesState extends State<PopularMatches> {
                           const SliverGridDelegateWithFixedCrossAxisCount(
                               crossAxisCount: 2),
                       itemBuilder: (BuildContext context, int index) {
-                        return const ExploreSquareImageCard(
-                          imageUrl: 'assets/homeImage3.png',
-                          name: 'Joel Tiana',
-                          location: 'Lagos',
+                        return  ExploreSquareImageCard(
+                      imageUrl: authViewModel.userData[index].photo!,
+                              name: authViewModel.userData[index].name!,
+                              location: authViewModel.userData[index].location!,
                         );
                       },
                     ),
