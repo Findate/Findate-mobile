@@ -582,7 +582,7 @@ class _SecondSetupScreenState extends State<SecondSetupScreen> {
                                 surname: widget.surname,
                                 gender: widget.gender,
                                 occupation: occupationController.text.trim(),
-                                location: occupationController.text.trim(),
+                                location: locationController.text.trim(),
                                 doB: dateOfBirth,
                               ),
                             ),
