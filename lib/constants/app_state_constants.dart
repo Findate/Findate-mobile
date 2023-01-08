@@ -1,9 +1,6 @@
 // ignore_for_file: non_constant_identifier_names
 
 
-
-
-
 import 'package:findate/models/userModel.dart';
 import 'package:findate/view/auth/auth_view_models/auth_view_model.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
